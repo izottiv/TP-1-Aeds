@@ -27,7 +27,7 @@ float getReatividade(Mineral* amostra){
     return amostra->reatividade;
 }
 Cores getCor(Mineral* amostra){
-    return amostra->Cor;
+    return(amostra->Cor);
 }
 
 //Definindo a inicialização
