@@ -1,4 +1,5 @@
 
+
     // // Lê o resto da linha (os nomes) como uma string
     // fgets(restante, sizeof(restante), stdin);
 
@@ -16,4 +17,5 @@
     //     printf("Nome 1: %s\n", nome1);
     //     printf("Nome 2: %s\n", nome2);
     // }
+
 
