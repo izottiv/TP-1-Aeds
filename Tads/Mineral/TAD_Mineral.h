@@ -16,7 +16,7 @@ typedef struct{
     float dureza;
     float reatividade;
     Cores Cor;
-}Mineral;
+} Mineral;
 
 //Sets
 void setNome(Mineral* amostra, char* nome);
