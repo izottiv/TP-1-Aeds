@@ -31,6 +31,7 @@ float getReatividade(Mineral* amostra);
 Cores getCor(Mineral* amostra);
 
 //inicialização
-void inicializacao(Mineral* amostra, char* nome, float dureza, float reatividade, Cores cor);
+void Inicializacao(Mineral* amostra, char* mineral);
+void imprimir(Mineral* amostra);
 
 #endif
