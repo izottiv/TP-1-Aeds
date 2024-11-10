@@ -15,7 +15,7 @@ typedef struct{
     char nome[10];
     float dureza;
     float reatividade;
-    Cores Cor;
+    Cores cor;
 } Mineral;
 
 //Sets
