@@ -13,7 +13,7 @@ void setReatividade(Mineral* amostra, float reatividade){
     amostra->reatividade = reatividade;
 }
 void setCor(Mineral* amostra, Cores cor){
-    amostra->Cor = cor;
+    amostra->cor = cor;
 }
 
 //Definindo os gets
@@ -27,7 +27,7 @@ float getReatividade(Mineral* amostra){
     return amostra->reatividade;
 }
 Cores getCor(Mineral* amostra){
-    return(amostra->Cor);
+    return(amostra->cor);
 }
 
 //Definindo a inicialização
@@ -66,7 +66,7 @@ void Inicializacao(Mineral* amostra, char* mineral){
 
 void imprimir(Mineral* amostra){
     char tipo[50];
-    switch (amostra->Cor)
+    switch (amostra->cor)
     {
     case Acinzentado:
         strcpy(tipo, "Acinzentado");
