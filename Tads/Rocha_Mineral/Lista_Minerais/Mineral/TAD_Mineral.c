@@ -31,7 +31,7 @@ void setCor(Mineral* amostra, Cores cor){
 }
 
 //Definindo a inicialização
-void Inicializacao(Mineral* amostra, char* mineral){
+void InicializaMineral(Mineral* amostra, char* mineral){
     if(strcmp(mineral, "Ferrolita") == 0){
         setNome(amostra, "Ferrolita");
         setDureza(amostra, 0.5);
@@ -65,7 +65,7 @@ void Inicializacao(Mineral* amostra, char* mineral){
 }
 
 //Definindo o imprimir
-void imprimir(Mineral* amostra){
+void ImprimeMineral(Mineral* amostra){
     char tipo[50];
     switch (amostra->_cor)
     {
