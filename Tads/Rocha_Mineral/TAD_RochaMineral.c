@@ -41,8 +41,13 @@ void SetDataColeta(RochaMineral* Rocha, DataColeta DATACOLETA){
 }
 
 //Seta os valores do struct
-void InicializaRochaMineral(){
-
+void InicializaRochaMineral(RochaMineral* Rocha, int ID , float PESO, ListaMineral LISTAMINERAL, Categorias CATEGORIA, Localizacao LOCALIZACAO, DataColeta DATACOLETA){
+    SetIdentificador(Rocha, ID);
+    SetPeso(Rocha, PESO);
+    SetListaMineral(Rocha, LISTAMINERAL);
+    SetCategorias(Rocha, CATEGORIA);
+    SetLocalizacao(Rocha, LOCALIZACAO);
+    SetDataColeta(Rocha, DATACOLETA);
 }
 
 //Obtem os valores da Rocha Mineral
