@@ -5,7 +5,6 @@
 void ClassificaCategoria(RochaMineral* Rocha){
     int Ferrolita = 0, Solarium = 0, Aquavitae = 0, Terranita = 0, Calaris = 0;
 
-    Rocha->_ListaMineral._Mineral[0].nome;
     for (int i = 0; i < sizeof(Rocha->_ListaMineral._Mineral); i++)
     {
         if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Ferrolita")){
