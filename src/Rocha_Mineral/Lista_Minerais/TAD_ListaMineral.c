@@ -2,18 +2,18 @@
 #include "TAD_ListaMineral.h"
 
 //Retira todos os itens
-void EsvaziaLM(ListaMineral* Lista){
+void EsvaziaListaMineral(ListaMineral* Lista){
     Lista->_Primeiro = InicioArranjo;
     Lista->_Ultimo = Lista->_Primeiro;
 }
 
 //Verifica se o primeiro e ultimo valor são os mesmos
-int LerLM(ListaMineral* Lista){
+int LerListaMineral(ListaMineral* Lista){
     return (Lista->_Ultimo == Lista->_Primeiro);
 }
 
 //Insere um novo valor na lista
-void InsereLM(ListaMineral* Lista, Mineral Mineral){
+void InsereListaMineral(ListaMineral* Lista, Mineral Mineral){
     if (Lista->_Ultimo == MaxTam)
     printf("A lista está cheia!");
 
@@ -22,7 +22,7 @@ void InsereLM(ListaMineral* Lista, Mineral Mineral){
 }
 
 //Retira um valor específico da lista
-int RetiraLM(ListaMineral* Lista, Mineral* Mineral, Apontador p){
+int RetiraListaMineral(ListaMineral* Lista, Mineral* Mineral, Apontador p){
 
     int cont;
     if (LerLM(Lista) || p >= Lista->_Ultimo || p < 0)
@@ -37,7 +37,7 @@ int RetiraLM(ListaMineral* Lista, Mineral* Mineral, Apontador p){
 }
 
 //Imprime todos os valores da lista
-void ImprimeLM(ListaMineral* Lista){
+void ImprimeListaMineral(ListaMineral* Lista){
     int i;
     for (i = Lista->_Primeiro; i < Lista->_Ultimo; i++)
         printf("%s\n", Lista->_Mineral[i].nome);

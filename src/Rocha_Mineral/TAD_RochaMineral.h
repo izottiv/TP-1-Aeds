@@ -32,17 +32,11 @@ void SetCategorias(RochaMineral* Rocha, Categorias CATEGORIA);
 void SetLocalizacao(RochaMineral* Rocha, Localizacao LOCALIZACAO);
 void SetDataColeta(RochaMineral* Rocha, DataColeta DATACOLETA);
 
-/*
-Assim, as operações do TAD são as de inicialização, obtenção e atribuição de valores, além da
-operação de classificação, que preenche o campo Categoria, conforme a lista de minerais
-presentes na rocha
-*/
-
 //Funções da Rocha Mineral
 void InicializaRochaMineral();  //Seta os valores do struct
-void ObtemRochaMineral();       //Obtem os valores da Rocha Mineral
-void AtribuiRochaMineral();     //Atribui novos valores para a Rocha Mineral
-void ClassificaCategoria();     //Classifica as CATEGORIAS de uma rocha
+// void ObtemRochaMineral();       //Obtem os valores da Rocha Mineral
+// void AtribuiRochaMineral();     //Atribui novos valores para a Rocha Mineral
+
 
 
 #endif

@@ -15,4 +15,6 @@ typedef enum  {
     Aquacalis,
 } Categorias;
 
+void ClassificaCategoria(RochaMineral* Rocha);     //Classifica as CATEGORIAS de uma rocha
+
 #endif

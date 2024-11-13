@@ -1,4 +1,5 @@
 #include "TAD_RochaMineral.h"
+#include <string.h>
 
 //Gets
 int GetIdentificador(RochaMineral* Rocha){
@@ -50,26 +51,15 @@ void InicializaRochaMineral(RochaMineral* Rocha, int ID , float PESO, ListaMiner
     SetDataColeta(Rocha, DATACOLETA);
 }
 
-//Obtem os valores da Rocha Mineral
-void ObtemRochaMineral(){
+// //Obtem os valores da Rocha Mineral
+// void ObtemRochaMineral(){
 
-}
+// }
 
-//Atribui novos valores para a Rocha Mineral
-void AtribuiRochaMineral(){
+// //Atribui novos valores para a Rocha Mineral
+// void AtribuiRochaMineral(){
 
-}
+// }
 
-//Classifica as CATEGORIAS de uma rocha
-void ClassificaCategoria(){
 
-}
-
-typedef struct {
-    int Identificador;
-    float Peso;
-    ListaMineral _ListaMineral;
-    Categorias _Categorias;
-    Localizacao _Localizacao;
-    DataColeta _DataColeta;
-} RochaMineral;
+    
