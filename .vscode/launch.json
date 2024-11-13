@@ -11,7 +11,7 @@
       "cwd": "c:/Users/Pedro Miranda/Documents/TP-1-Aeds",
       "program": "c:/Users/Pedro Miranda/Documents/TP-1-Aeds/build/Debug/outDebug",
       "MIMode": "gdb",
-      "miDebuggerPath": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb",
       "setupCommands": [
         {
           "description": "Enable pretty-printing for gdb",

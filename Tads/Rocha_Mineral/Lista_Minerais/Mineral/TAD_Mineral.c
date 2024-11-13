@@ -2,20 +2,6 @@
 #include <string.h>
 #include "TAD_Mineral.h"
 
-//Definindo os sets
-void setNome(Mineral* amostra, char* nome){
-    strcpy(amostra->nome, nome);
-}
-void setDureza(Mineral* amostra, float dureza){
-    amostra->dureza = dureza;
-}
-void setReatividade(Mineral* amostra, float reatividade){
-    amostra->reatividade = reatividade;
-}
-void setCor(Mineral* amostra, Cores cor){
-    amostra->Cor = cor;
-}
-
 //Definindo os gets
 char* getNome(Mineral* amostra){
     return (amostra->nome);
@@ -27,11 +13,25 @@ float getReatividade(Mineral* amostra){
     return amostra->reatividade;
 }
 Cores getCor(Mineral* amostra){
-    return(amostra->Cor);
+    return(amostra->_cor);
+}
+
+//Definindo os sets
+void setNome(Mineral* amostra, char* nome){
+    strcpy(amostra->nome, nome);
+}
+void setDureza(Mineral* amostra, float dureza){
+    amostra->dureza = dureza;
+}
+void setReatividade(Mineral* amostra, float reatividade){
+    amostra->reatividade = reatividade;
+}
+void setCor(Mineral* amostra, Cores cor){
+    amostra->_cor = cor;
 }
 
 //Definindo a inicialização
-void Inicializacao(Mineral* amostra, char* mineral){
+void InicializaMineral(Mineral* amostra, char* mineral){
     if(strcmp(mineral, "Ferrolita") == 0){
         setNome(amostra, "Ferrolita");
         setDureza(amostra, 0.5);
@@ -64,9 +64,10 @@ void Inicializacao(Mineral* amostra, char* mineral){
     }
 }
 
-void imprimir(Mineral* amostra){
+//Definindo o imprimir
+void ImprimeMineral(Mineral* amostra){
     char tipo[50];
-    switch (amostra->Cor)
+    switch (amostra->_cor)
     {
     case Acinzentado:
         strcpy(tipo, "Acinzentado");
