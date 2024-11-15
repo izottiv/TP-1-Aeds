@@ -1,15 +1,10 @@
 #include <stdio.h>
 #include "TAD_ListaMineral.h"
 
-//Retira todos os itens
-void EsvaziaListaMineral(ListaMineral* Lista){
+//Inicializa a lista vazia
+void InicializaListaMineral(ListaMineral* Lista){
     Lista->_Primeiro = InicioArranjo;
     Lista->_Ultimo = Lista->_Primeiro;
-}
-
-//Verifica se o primeiro e ultimo valor são os mesmos
-int LerListaMineral(ListaMineral* Lista){
-    return (Lista->_Ultimo == Lista->_Primeiro);
 }
 
 //Insere um novo valor na lista

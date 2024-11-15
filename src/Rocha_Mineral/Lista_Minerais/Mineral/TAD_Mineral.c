@@ -3,30 +3,30 @@
 #include "TAD_Mineral.h"
 
 //Definindo os gets
-char* getNome(Mineral* amostra){
+char* GetNome(Mineral* amostra){
     return (amostra->nome);
 }
-float getDureza(Mineral* amostra){
+float GetDureza(Mineral* amostra){
     return amostra->dureza;
 }
-float getReatividade(Mineral* amostra){
+float GetReatividade(Mineral* amostra){
     return amostra->reatividade;
 }
-Cores getCor(Mineral* amostra){
+Cores GetCor(Mineral* amostra){
     return(amostra->_cor);
 }
 
 //Definindo os sets
-void setNome(Mineral* amostra, char* nome){
+void SetNome(Mineral* amostra, char* nome){
     strcpy(amostra->nome, nome);
 }
-void setDureza(Mineral* amostra, float dureza){
+void SetDureza(Mineral* amostra, float dureza){
     amostra->dureza = dureza;
 }
-void setReatividade(Mineral* amostra, float reatividade){
+void SetReatividade(Mineral* amostra, float reatividade){
     amostra->reatividade = reatividade;
 }
-void setCor(Mineral* amostra, Cores cor){
+void SetCor(Mineral* amostra, Cores cor){
     amostra->_cor = cor;
 }
 
@@ -64,29 +64,3 @@ void InicializaMineral(Mineral* amostra, char* mineral){
     }
 }
 
-//Definindo o imprimir
-void ImprimeMineral(Mineral* amostra){
-    char tipo[50];
-    switch (amostra->_cor)
-    {
-    case Acinzentado:
-        strcpy(tipo, "Acinzentado");
-        break;
-    case Amarelo:
-        strcpy(tipo, "Amarelo");
-        break;
-    case Azulado:
-        strcpy(tipo, "Azulado");
-        break;
-    case Marrom:
-        strcpy(tipo, "Marrom");
-        break;
-    case Vermelho:
-        strcpy(tipo, "Vermelho");
-        break;
-    default:
-        break;
-    }
-    printf("Nome: %s\nDureza: %f\nReatividade: %f\nCor: %s", getNome(amostra), 
-    getDureza(amostra), getReatividade(amostra), tipo);
-}

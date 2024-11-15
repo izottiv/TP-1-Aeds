@@ -16,11 +16,14 @@ typedef struct
 } ListaMineral;
 
 //Funções da ListaMineral
-void    EsvaziaListaMineral(ListaMineral* Lista);                               //Retira todos os itens
-int     LerListaMineral(ListaMineral* Lista);                                   //Verifica se o primeiro e ultimo valor são os mesmos
-void    InsereListaMineral(ListaMineral* Lista, Mineral Mineral);               //Insere um novo valor na lista
-int     RetiraListaMineral(ListaMineral* Lista, Mineral* Mineral, Apontador p); //Retira um valor específico da lista
-void    ImprimeListaMineral(ListaMineral* Lista);                               //Imprime todos os valores da lista
 
+//Inicializa a lista vazia
+void InicializaListaMineral(ListaMineral* Lista);   
+//Insere um novo valor na lista                             
+void InsereListaMineral(ListaMineral* Lista, Mineral Mineral);               
+//Retira um valor específico da lista
+int RetiraListaMineral(ListaMineral* Lista, Mineral* Mineral, Apontador p); 
+//Imprime todos os valores da lista
+void ImprimeListaMineral(ListaMineral* Lista);                               
 
 #endif

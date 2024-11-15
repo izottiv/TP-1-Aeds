@@ -12,19 +12,18 @@ typedef struct{
 } Mineral;
 
 //Gets
-char* getNome(Mineral* amostra);
-float getDureza(Mineral* amostra);
-float getReatividade(Mineral* amostra);
-Cores getCor(Mineral* amostra);
+char* GetNome(Mineral* amostra);
+float GetDureza(Mineral* amostra);
+float GetReatividade(Mineral* amostra);
+Cores GetCor(Mineral* amostra);
 
 //Sets
-void setNome(Mineral* amostra, char* nome);
-void setDureza(Mineral* amostra, float dureza);
-void setReatividade(Mineral* amostra, float reatividade);
-void setCor(Mineral* amostra, Cores cor);
+void SetNome(Mineral* amostra, char* nome);
+void SetDureza(Mineral* amostra, float dureza);
+void SetReatividade(Mineral* amostra, float reatividade);
+void SetCor(Mineral* amostra, Cores cor);
 
 //Inicialização do Mineral
 void InicializaMineral(Mineral* amostra, char* mineral);
-void ImprimeMineral(Mineral* amostra);
 
 #endif
