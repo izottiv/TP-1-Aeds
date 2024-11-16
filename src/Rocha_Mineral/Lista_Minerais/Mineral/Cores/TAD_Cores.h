@@ -10,4 +10,6 @@ typedef enum{
     Vermelho
 }Cores;
 
+void RetornarCores(Cores* cor);
+
 #endif

@@ -9,11 +9,14 @@ void InicializaListaMineral(ListaMineral* Lista){
 
 //Insere um novo valor na lista
 void InsereListaMineral(ListaMineral* Lista, Mineral Mineral){
-    if (Lista->_Ultimo == MaxTam)
+    if (Lista->_Ultimo == MaxTam){
     printf("A lista está cheia!");
+    }
 
-    Lista->_Mineral[Lista->_Ultimo++] = Mineral;
-    printf("Adicionado com sucesso!");
+    else{
+        Lista->_Mineral[Lista->_Ultimo++] = Mineral;
+        printf("Adicionado com sucesso!");
+    }
 }
 
 //Retira um valor específico da lista
@@ -34,6 +37,11 @@ int RetiraListaMineral(ListaMineral* Lista, Mineral* Mineral, Apontador p){
 //Imprime todos os valores da lista
 void ImprimeListaMineral(ListaMineral* Lista){
     int i;
-    for (i = Lista->_Primeiro; i < Lista->_Ultimo; i++)
+    for (i = Lista->_Primeiro; i < Lista->_Ultimo; i++){
         printf("%s\n", Lista->_Mineral[i].nome);
+        printf("%s\n", Lista->_Mineral[i].dureza);
+        printf("%s\n", Lista->_Mineral[i].reatividade);
+        RetornarCores(&(Lista->_Mineral[i]._cor));
+        printf("\n");
+    }
 }
