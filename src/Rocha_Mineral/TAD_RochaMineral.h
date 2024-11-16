@@ -25,7 +25,7 @@ Localizacao GetLocalizacao(RochaMineral* Rocha);
 DataColeta GetDataColeta(RochaMineral* Rocha);
 
 //Sets
-void SetIdentificador(RochaMineral* Rocha, int ID);
+void SetIdentificador(RochaMineral* Rocha);
 void SetPeso(RochaMineral* Rocha, float PESO);
 void SetListaMineral(RochaMineral* Rocha, ListaMineral LISTAMINERAL);
 void SetCategorias(RochaMineral* Rocha, Categorias CATEGORIA);

@@ -13,5 +13,6 @@ typedef struct
     int segundo;
 } DataColeta;
 
+void DefineDataHora(DataColeta* data);
 
 #endif
