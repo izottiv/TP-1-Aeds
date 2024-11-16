@@ -1,11 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-#include "src/EntradaDeArquivo.c"
+#include "src/ListaSonda/TAD_ListaSonda.h"
 
 int main(){
 
-    EntradaDeArquivo("src/Entradas/Entrada.txt");
 
-    return 0;
 }

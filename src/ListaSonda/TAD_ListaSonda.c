@@ -3,13 +3,13 @@
 #include "TAD_ListaSonda.h"
 
 void InicializaListaSondas(ListaSondas* lista){
-    lista->Primeiro = (Apontador)malloc(sizeof(CelulaSonda));
+    lista->Primeiro = (CelulaSonda*)malloc(sizeof(CelulaSonda));
     lista->Ultimo = lista->Primeiro;
     lista->Primeiro->prox = NULL;
 }
 
 void InserirListaSondas(ListaSondas* lista, Sonda* sonda){
-    lista->Ultimo->prox = (Apontador)malloc(sizeof(CelulaSonda));
+    lista->Ultimo->prox = (CelulaSonda*)malloc(sizeof(CelulaSonda));
     lista->Ultimo = lista->Ultimo->prox;
     lista->Ultimo->sonda = *sonda;
     lista->Ultimo->prox = NULL;
@@ -19,7 +19,7 @@ void InserirListaSondas(ListaSondas* lista, Sonda* sonda){
 void RemoverListaSondas(ListaSondas* lista, int identificador, Sonda* Sondaremovida);
 
 void ImprimirListaSondas(ListaSondas* lista){
-    Apontador aux;
+    CelulaSonda* aux;
     aux = lista->Primeiro->prox;
     while(aux){
         printf("Identificador: %d\n", aux->sonda.IdentificadorSonda);
