@@ -1,5 +1,6 @@
 #include "TAD_RochaMineral.h"
 #include <string.h>
+#include <time.h>
 
 //Gets
 int GetIdentificador(RochaMineral* Rocha){
@@ -22,8 +23,8 @@ DataColeta GetDataColeta(RochaMineral* Rocha){
 }
 
 //Sets
-void SetIdentificador(RochaMineral* Rocha, int ID){
-    Rocha->Identificador = ID;
+void SetIdentificador(RochaMineral* Rocha){
+    Rocha->Identificador = 100 + rand() % 100000;
 }
 void SetPeso(RochaMineral* Rocha, float PESO){
     Rocha->Peso = PESO;
@@ -42,13 +43,13 @@ void SetDataColeta(RochaMineral* Rocha, DataColeta DATACOLETA){
 }
 
 //Seta os valores do struct
-void InicializaRochaMineral(RochaMineral* Rocha, int ID , float PESO, ListaMineral LISTAMINERAL, Categorias CATEGORIA, Localizacao LOCALIZACAO, DataColeta DATACOLETA){
-    SetIdentificador(Rocha, ID);
+void InicializaRochaMineral(RochaMineral* Rocha, float PESO, ListaMineral LISTAMINERAL, Categorias CATEGORIA, Localizacao LOCALIZACAO){
+    SetIdentificador(Rocha);
     SetPeso(Rocha, PESO);
     SetListaMineral(Rocha, LISTAMINERAL);
     SetCategorias(Rocha, CATEGORIA);
     SetLocalizacao(Rocha, LOCALIZACAO);
-    SetDataColeta(Rocha, DATACOLETA);
+    DefineDataHora(&(Rocha->_DataColeta));
 }
 
 // //Obtem os valores da Rocha Mineral
