@@ -2,12 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <ListaSonda/TAD_ListaSonda.h>
-#include <ListaSonda/SondaEspacial/TAD_Sonda.h>
-#include <ListaSonda/SondaEspacial/Compartimento/TAD_Compartimento.h>
-#include <ListaSonda/SondaEspacial/Compartimento/Rocha_Mineral/TAD_RochaMineral.h>
-#include <ListaSonda/SondaEspacial/Compartimento/Rocha_Mineral/Lista_Minerais/TAD_ListaMineral.h>
-#include <ListaSonda/SondaEspacial/Compartimento/Rocha_Mineral/Lista_Minerais/Mineral/TAD_Mineral.h>
+#include "ListaSonda/TAD_ListaSonda.h"
+#include "ListaSonda/SondaEspacial/TAD_Sonda.h"
+#include "ListaSonda/SondaEspacial/Compartimento/TAD_Compartimento.h"
+#include "ListaSonda/SondaEspacial/Compartimento/Rocha_Mineral/TAD_RochaMineral.h"
+#include "ListaSonda/SondaEspacial/Compartimento/Rocha_Mineral/Lista_Minerais/TAD_ListaMineral.h"
+#include "ListaSonda/SondaEspacial/Compartimento/Rocha_Mineral/Lista_Minerais/Mineral/TAD_Mineral.h"
+
 
 #define TamanhoMax 100
 
@@ -39,7 +40,7 @@ void EntradaDeArquivo(char* Link){
         Sonda _Sonda;
         InicializarSonda( &_Sonda);
         MoverSonda(&_Sonda, Latitude, Longitude);
-        InserirListaSondas(&_ListaSondas, &_Sonda);
+        InserirListaSondas(_ListaSondas, &_Sonda);
     }
 
     for (int i = 0; i < N_Sondas; i++)

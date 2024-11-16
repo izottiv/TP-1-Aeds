@@ -99,3 +99,13 @@ presentes na rocha.
  
  ● Imprime: mostra na saída todas as sondas presentes na lista, imprimindo todos os
     atributos de cada uma delas.
+
+
+atual comando para compilar:
+ gcc -o Programa main.c src/ListaSonda/TAD_ListaSonda.c src/Lis
+taSonda/SondaEspacial/TAD_Sonda.c src/ListaSonda/SondaEspacial/Compartimento/TAD_Compartimento.c src/ListaSonda/SondaEspacial/Com
+partimento/Rocha_Mineral/TAD_RochaMineral.c src/ListaSonda/SondaEspacial/Compartimento/Rocha_Mineral/Categorias/TAD_Categorias.c 
+src/ListaSonda/SondaEspacial/Compartimento/Rocha_Mineral/Data_Coleta/TAD_DataColeta.c src/ListaSonda/SondaEspacial/Compartimento/
+Rocha_Mineral/Localizacao/TAD_Localizacao.c src/ListaSonda/SondaEspacial/Compartimento/Rocha_Mineral/Lista_Minerais/TAD_ListaMine
+ral.c src/ListaSonda/SondaEspacial/Compartimento/Rocha_Mineral/Lista_Minerais/Mineral/TAD_Mineral.c src/ListaSonda/SondaEspacial/
+Compartimento/Rocha_Mineral/Lista_Minerais/Mineral/Cores/TAD_Cores.c

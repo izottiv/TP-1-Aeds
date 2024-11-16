@@ -8,7 +8,7 @@ void InicializarSonda(Sonda* NovaSonda){
     NovaSonda->IdentificadorSonda = 1 + rand() % 100;
     NovaSonda->LocalizacaoSonda.Latitude = 0.0;
     NovaSonda->LocalizacaoSonda.Longitude = 0.0;
-    InicaliazadorCompartimento(&(NovaSonda->CompartimentoSonda));
+    InicializadorCompartimento(&(NovaSonda->CompartimentoSonda));
 }
 void LigarSonda(Sonda* NovaSonda){
     NovaSonda->EstaLigada = 1;

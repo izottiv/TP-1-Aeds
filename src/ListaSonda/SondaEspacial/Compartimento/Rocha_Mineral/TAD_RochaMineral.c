@@ -1,6 +1,6 @@
 #include "TAD_RochaMineral.h"
 #include <string.h>
-#include <time.h>
+#include <stdlib.h>
 
 //Gets
 int GetIdentificador(RochaMineral* Rocha){

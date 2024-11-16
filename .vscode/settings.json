@@ -62,6 +62,7 @@
     "tad_listasonda.h": "c",
     "tad_mineral.h": "c",
     "tad_rochamineral.h": "c",
-    "tad_listamineral.h": "c"
+    "tad_listamineral.h": "c",
+    "tad_sonda.h": "c"
   }
 }

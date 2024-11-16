@@ -112,7 +112,7 @@ void TrocaRocha(GerenciadorCompartimento *comp, RochaMineral *Rocha){
     pos = 1;
     auxcomp = comp->PrimeiroRocha->Prox;
     while (auxcomp->Prox != NULL){ // Procura a possicao da mais pessada e é subistiutida pela rocha enserida
-        if (pos == auxcomp){
+        if (pos == posrocha){
             auxcomp->_RochaMineral.Identificador = Rocha->Identificador;
             auxcomp->_RochaMineral.Peso = Rocha->Peso;
             auxcomp->_RochaMineral._ListaMineral = Rocha->_ListaMineral;
