@@ -1,6 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include <ListaSonda/TAD_ListaSonda.h>
+#include <ListaSonda/SondaEspacial/TAD_Sonda.h>
+#include <ListaSonda/SondaEspacial/Compartimento/TAD_Compartimento.h>
+#include <ListaSonda/SondaEspacial/Compartimento/Rocha_Mineral/TAD_RochaMineral.h>
+#include <ListaSonda/SondaEspacial/Compartimento/Rocha_Mineral/Lista_Minerais/TAD_ListaMineral.h>
+#include <ListaSonda/SondaEspacial/Compartimento/Rocha_Mineral/Lista_Minerais/Mineral/TAD_Mineral.h>
+
 #define TamanhoMax 100
 
 //Esta função serve para além de ler o link, manter organizado o main.c e com uma quantidade menor de elementos, tornando a visualização mais fácil
@@ -9,32 +17,34 @@ void EntradaDeArquivo(char* Link){
     FILE *ArquivoDeEntrada = fopen(Link, "r");
 
     //Precisarei salvar as LINHAS dos arquivos, quantas SONDAS e QUAIS são
-    char Linha[TamanhoMax],*Sondas[TamanhoMax], *DadosDasSondas[TamanhoMax];
+    char Linha[TamanhoMax], *DadosDasSondas[TamanhoMax];
     int N_Sondas, Operacoes;
+
+    ListaSondas *_ListaSondas;
     
+    InicializaListaSondas(_ListaSondas);
 
     //Recebe a quantidade de SONDAS da primeira linha
     fgets(Linha, sizeof(Linha), ArquivoDeEntrada);
     N_Sondas = atoi(Linha);
     printf("%d\n",N_Sondas);    //      Vai Apagar Dps/////////////
 
-    //Como o vetor das sondas é um ponteiro, tenho de alocar dinamicamente a memória dele
-    for (int i = 0; i < N_Sondas; i++)
-    {
-        Sondas[i] = (char*)malloc(TamanhoMax * sizeof(char));
-    }
 
     //Salva todas as SONDAS em seu vetor
     for (int i = 0; i < N_Sondas; i++)
     {
         fgets(Linha, sizeof(Linha), ArquivoDeEntrada);  //Recebe as X sondas
-        strcpy(Sondas[i], Linha);
+        float Latitude = atof(strtok(Linha, " "));
+        float Longitude = atof(strtok(Linha, " "));
+        Sonda _Sonda;
+        InicializarSonda( &_Sonda);
+        MoverSonda(&_Sonda, Latitude, Longitude);
+        InserirListaSondas(&_ListaSondas, &_Sonda);
     }
-    
-    //          Vai Apagar dps/////////////
+
     for (int i = 0; i < N_Sondas; i++)
     {
-        printf("%s", Sondas[i]);
+        printf("%d", _ListaSondas->Primeiro->sonda.IdentificadorSonda);
     }
 
     fgets(Linha, sizeof(Linha), ArquivoDeEntrada);      //Recebe as M operações
@@ -79,11 +89,6 @@ void EntradaDeArquivo(char* Link){
         printf("%s\n", DadosDasSondas[i]);
     }
     
-    
-    
-    for (int i = 0; i < N_Sondas; i++) {
-        free(Sondas[i]);
-    }
     for (int i = 0; i < Operacoes; i++) {
         free(DadosDasSondas[i]);
     }
