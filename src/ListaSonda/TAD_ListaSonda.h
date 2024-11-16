@@ -1,5 +1,5 @@
-#ifndef LISTASONDA_H_
-#define LISTASONDA_H_
+#ifndef TAD_LISTASONDA_H_
+#define TAD_LISTASONDA_H_
 #include "SondaEspacial/TAD_Sonda.h"
 
 typedef struct cel* Apontador;
