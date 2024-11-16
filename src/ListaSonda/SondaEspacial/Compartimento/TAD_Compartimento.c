@@ -7,7 +7,6 @@ void InicializadorCompartimento(GerenciadorCompartimento *Comp){
     Comp->PrimeiroRocha = (Compartimento*) malloc(sizeof(Compartimento));
     Comp->UltimoRocha = Comp->PrimeiroRocha;
     Comp->PrimeiroRocha->Prox = NULL;
-    printf("Lista criada\n");
 }
 
 int RetornaTamanho(GerenciadorCompartimento *comp){

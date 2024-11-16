@@ -21,32 +21,36 @@ void EntradaDeArquivo(char* Link){
     char Linha[TamanhoMax], *DadosDasSondas[TamanhoMax];
     int N_Sondas, Operacoes;
 
-    ListaSondas *_ListaSondas;
     
-    InicializaListaSondas(_ListaSondas);
 
     //Recebe a quantidade de SONDAS da primeira linha
     fgets(Linha, sizeof(Linha), ArquivoDeEntrada);
     N_Sondas = atoi(Linha);
     printf("%d\n",N_Sondas);    //      Vai Apagar Dps/////////////
 
+    ListaSondas *_ListaSondas;
+    _ListaSondas = malloc(N_Sondas*sizeof(CelulaSonda));
+
+    InicializaListaSondas(_ListaSondas);
 
     //Salva todas as SONDAS em seu vetor
     for (int i = 0; i < N_Sondas; i++)
     {
         fgets(Linha, sizeof(Linha), ArquivoDeEntrada);  //Recebe as X sondas
         float Latitude = atof(strtok(Linha, " "));
-        float Longitude = atof(strtok(Linha, " "));
+        float Longitude = atof(strtok(NULL, " "));
+        float Capacidade = atof(strtok(NULL, " "));
+        float Velocidade = atof(strtok(NULL, " "));
+        float Combustivel = atof(strtok(NULL, " "));
+        
         Sonda _Sonda;
         InicializarSonda( &_Sonda);
         MoverSonda(&_Sonda, Latitude, Longitude);
+        EditarValores(&_Sonda, Capacidade, Velocidade, Combustivel);
         InserirListaSondas(_ListaSondas, &_Sonda);
     }
 
-    for (int i = 0; i < N_Sondas; i++)
-    {
-        printf("%d", _ListaSondas->Primeiro->sonda.IdentificadorSonda);
-    }
+    printf("\n");
 
     fgets(Linha, sizeof(Linha), ArquivoDeEntrada);      //Recebe as M operações
     Operacoes = atoi(Linha);
@@ -66,8 +70,28 @@ void EntradaDeArquivo(char* Link){
         //Condicionais para fazer as OPERAÇÕES
         if(!strcmp(Linha, "R")){
             fgets(Linha, sizeof(Linha), ArquivoDeEntrada);  //Recebe a linha
-            Linha[strcspn(Linha, "\n")] = '\0';             //Remove o \n
-            strcpy(DadosDasSondas[i], Linha);               //Copia aquela linha para o vetor de dados
+            Linha[strcspn(Linha, "\n")] = '\0';    
+            
+            Localizacao _Localizacao;
+            float v1 = atof((Linha, " "));
+            printf("%f", v1);
+            // int Peso = atoi(strtok(NULL, " "));
+            // printf("%d", Peso);
+
+            // ListaMineral lisM;
+            // Mineral m1, m2, m3;
+            // char Mineral1[50], Mineral2[50], Mineral3[50];
+            // strcpy(Mineral1, strtok(NULL, " "));
+            // strcpy(Mineral2, strtok(NULL, " "));
+            // strcpy(Mineral3, strtok(NULL, " "));
+            
+            // InicializaMineral(&m1, Mineral1);
+            // InicializaMineral(&m2, Mineral2);
+            // InicializaMineral(&m3, Mineral3);
+            // InsereListaMineral(&lisM, m1);
+            // InsereListaMineral(&lisM, m2);
+            // InsereListaMineral(&lisM, m3);
+
         }
         else if (!strcmp(Linha, "I"))
         {
