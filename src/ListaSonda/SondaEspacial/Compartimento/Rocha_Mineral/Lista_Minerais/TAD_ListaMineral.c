@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include "TAD_ListaMineral.h"
 
 //Inicializa a lista vazia
@@ -20,18 +21,28 @@ void InsereListaMineral(ListaMineral* Lista, Mineral Mineral){
 }
 
 //Retira um valor específico da lista
-int RetiraListaMineral(ListaMineral* Lista, Mineral* Mineral, Apontador p){
-
-    int cont;
-    if (Lista->_Primeiro == Lista->_Ultimo || p >= Lista->_Ultimo || p < 0)
+int RetiraListaMineral(ListaMineral* Lista, Mineral* Mineral, char* nome){
+    int cont = -1;
+    if (Lista->_Primeiro == Lista->_Ultimo){
         return 0;
-
-    *Mineral = Lista->_Mineral[p];
-    Lista->_Ultimo--;
-
-    for (cont = p+1; cont <= Lista->_Ultimo; cont++)
-        Lista->_Mineral[cont - 1] = Lista->_Mineral[cont];
-    return 1;
+    }
+    else{
+        for(int i=Lista->_Primeiro;i<Lista->_Ultimo;i++){
+            if(strcmp(Lista->_Mineral[i].nome, nome)){
+                *Mineral = Lista->_Mineral[i];
+                int cont = i;  
+                break;
+            }
+        }
+        if(cont == -1){
+            return 0;
+        }
+        for(int j=cont;j<Lista->_Ultimo;j++){
+            Lista->_Mineral[j] = Lista->_Mineral[j+1];
+            }
+        Lista->_Ultimo--;
+        return 1;
+    }
 }
 
 //Imprime todos os valores da lista

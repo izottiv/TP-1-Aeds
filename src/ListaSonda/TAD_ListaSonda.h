@@ -2,15 +2,14 @@
 #define TAD_LISTASONDA_H_
 #include "SondaEspacial/TAD_Sonda.h"
 
-typedef struct cel* Apontador;
-typedef struct cel{
+typedef struct celApontador{
     Sonda sonda;
-    Apontador prox;
+    struct celApontador *prox;
 }CelulaSonda;
 
 typedef struct{
-    Apontador Primeiro;
-    Apontador Ultimo;
+    CelulaSonda* Primeiro;
+    CelulaSonda* Ultimo;
 }ListaSondas;
 
 void InicializaListaSondas(ListaSondas* lista);
