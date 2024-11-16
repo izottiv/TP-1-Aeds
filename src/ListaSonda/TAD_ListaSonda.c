@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "ListaSonda.h"
+#include "TAD_ListaSonda.h"
 
 void InicializaListaSondas(ListaSondas* lista){
     lista->Primeiro = (Apontador)malloc(sizeof(CelulaSonda));
@@ -24,7 +24,7 @@ void ImprimirListaSondas(ListaSondas* lista){
     while(aux){
         printf("Identificador: %d\n", aux->sonda.IdentificadorSonda);
         ImprimeConteudoCompartimento(&(aux->sonda.CompartimentoSonda));
-        printf("Localização: Latitude = %.2f Longitude = %.2f", aux->sonda.LocalizacaoSonda.Latitude,aux->sonda.LocalizacaoSonda.Longitude);
+        printf("Localização: Latitude = %.2f Longitude = %.2f\n", aux->sonda.LocalizacaoSonda.Latitude,aux->sonda.LocalizacaoSonda.Longitude);
         printf("Esta Ligada: ");
         if(aux->sonda.EstaLigada == 0){
             printf("Sim\n");

@@ -33,34 +33,34 @@ void SetCor(Mineral* amostra, Cores cor){
 //Definindo a inicialização
 void InicializaMineral(Mineral* amostra, char* mineral){
     if(strcmp(mineral, "Ferrolita") == 0){
-        setNome(amostra, "Ferrolita");
-        setDureza(amostra, 0.5);
-        setReatividade(amostra, 0.7);
-        setCor(amostra, 0);
+        SetNome(amostra, "Ferrolita");
+        SetDureza(amostra, 0.5);
+        SetReatividade(amostra, 0.7);
+        SetCor(amostra, 0);
     }
     if(strcmp(mineral, "Solarium") == 0){
-        setNome(amostra, "Solarium");
-        setDureza(amostra, 0.9);
-        setReatividade(amostra, 0.2);
-        setCor(amostra, 1);
+        SetNome(amostra, "Solarium");
+        SetDureza(amostra, 0.9);
+        SetReatividade(amostra, 0.2);
+        SetCor(amostra, 1);
     }
     if(strcmp(mineral, "Aquavitae") == 0){
-        setNome(amostra, "Aquavitae");
-        setDureza(amostra, 0.5);
-        setReatividade(amostra, 0.8);
-        setCor(amostra, 2);
+        SetNome(amostra, "Aquavitae");
+        SetDureza(amostra, 0.5);
+        SetReatividade(amostra, 0.8);
+        SetCor(amostra, 2);
     }
     if(strcmp(mineral, "Terranita") == 0){
-        setNome(amostra, "Terranita");
-        setDureza(amostra, 0.7);
-        setReatividade(amostra, 0.6);
-        setCor(amostra, 3);
+        SetNome(amostra, "Terranita");
+        SetDureza(amostra, 0.7);
+        SetReatividade(amostra, 0.6);
+        SetCor(amostra, 3);
     }
     if(strcmp(mineral, "Calaris") == 0){
-        setNome(amostra, "Calaris");
-        setDureza(amostra, 0.6);
-        setReatividade(amostra, 0.5);
-        setCor(amostra, 4);
+        SetNome(amostra, "Calaris");
+        SetDureza(amostra, 0.6);
+        SetReatividade(amostra, 0.5);
+        SetCor(amostra, 4);
     }
 }
 

@@ -9,7 +9,7 @@ typedef struct{
     int EstaLigada; //0 = desligada, 1 = ligada
 }Sonda;
 
-void InicializarSonda(Sonda* NovaSonda, int Identificador);
+void InicializarSonda(Sonda* NovaSonda);
 void LigarSonda(Sonda* NovaSonda);
 void DesligarSonda(Sonda* NovaSonda);
 void MoverSonda(Sonda* NovaSonda, float latitude, float longitude);

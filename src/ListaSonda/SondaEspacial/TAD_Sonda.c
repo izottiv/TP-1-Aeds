@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "TAD_Sonda.h"
 
-void InicializarSonda(Sonda* NovaSonda, int Identificador){
+void InicializarSonda(Sonda* NovaSonda){
     NovaSonda->EstaLigada = 0;
-    NovaSonda->IdentificadorSonda = Identificador;
+    NovaSonda->IdentificadorSonda = 1 + rand() % 100;
     NovaSonda->LocalizacaoSonda.Latitude = 0.0;
     NovaSonda->LocalizacaoSonda.Longitude = 0.0;
     InicaliazadorCompartimento(&(NovaSonda->CompartimentoSonda));
