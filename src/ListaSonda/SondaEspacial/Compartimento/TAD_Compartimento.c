@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "TAD_Compartimento.h"
-#include "Rocha_Mineral/TAD_RochaMineral.h"
+
  // Inicializa um compartimento
 void InicializadorCompartimento(GerenciadorCompartimento *Comp){
     Comp->PrimeiroRocha = (Compartimento*) malloc(sizeof(Compartimento));
@@ -19,7 +19,7 @@ int RetornaTamanho(GerenciadorCompartimento *comp){
             aux = aux->Prox; 
             x++;
         }
-        return(x);
+        return x;
     }
     else{
         return 0;
@@ -130,15 +130,49 @@ void RemoverRochaPorCategoria(GerenciadorCompartimento*comp, RochaMineral *Rocha
     if (VerificaSeVazia(comp) == 0){
         return;
     }
+    int possicaosecundaria;
+    int pos = 1;
     AuxCont = comp->PrimeiroRocha->Prox;
     while (AuxCont->Prox != NULL){  // Procura a primeira rocha que tem a mesma categoria dada tira ela da lista e aloca ela em RochaRetirada
         if (AuxCont->_RochaMineral._Categorias == Categoria){
-            *RochaRetirada = AuxCont->_RochaMineral;
-            aux = comp->PrimeiroRocha;
-            comp->PrimeiroRocha = comp->PrimeiroRocha->Prox;
-            free(aux);
-            break;
-        }
+            *RochaRetirada = AuxCont->_RochaMineral;    
+            if(pos == 1){ // No caso do primeiro elemento da lista ser da mesma categoria
+                aux = comp->PrimeiroRocha;
+                comp->PrimeiroRocha = comp->PrimeiroRocha->Prox;
+                free(aux);
+                break;
+                }
+            }
+            else if(pos == RetornaTamanho(comp)){   // No caso do ultimo elemento da lista ser da mesma categoria
+                pos = 1;
+                AuxCont = comp->PrimeiroRocha->Prox;
+                while (AuxCont->Prox != NULL){
+                    if (pos == RetornaTamanho(comp)-1){
+                        aux = AuxCont->Prox;
+                        AuxCont->Prox == NULL;
+                        free(aux);
+                        break;
+                    }
+                    pos++;
+                }
+                break;
+            }
+            else{ // Se o elemento da lista ser da mesma categoria estja no meio
+                aux = AuxCont;
+                possicaosecundaria = pos;
+                pos = 0;
+                AuxCont = comp->PrimeiroRocha->Prox;
+                while (AuxCont->Prox != NULL){
+                    if(pos == possicaosecundaria-1){
+                        AuxCont->Prox = aux->Prox;
+                        free(aux);
+                        break;
+                    }
+                    pos++;
+                    AuxCont = AuxCont->Prox;
+                }
+            }
+        pos++;
         AuxCont = AuxCont->Prox;
     }
     
