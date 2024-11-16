@@ -20,7 +20,7 @@ void InsereListaMineral(ListaMineral* Lista, Mineral Mineral){
 int RetiraListaMineral(ListaMineral* Lista, Mineral* Mineral, Apontador p){
 
     int cont;
-    if (LerLM(Lista) || p >= Lista->_Ultimo || p < 0)
+    if (Lista->_Primeiro == Lista->_Ultimo || p >= Lista->_Ultimo || p < 0)
         return 0;
 
     *Mineral = Lista->_Mineral[p];
