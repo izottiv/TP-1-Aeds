@@ -16,7 +16,23 @@ void InserirListaSondas(ListaSondas* lista, Sonda* sonda){
 }
 
 //tem q fzr
-void RemoverListaSondas(ListaSondas* lista, int identificador, Sonda* Sondaremovida);
+void RemoverListaSondas(ListaSondas* lista, int identificador, Sonda* Sondaremovida){
+    CelulaSonda* aux = lista->Primeiro;
+    CelulaSonda* Remover = NULL;
+    while (aux && aux->prox && aux->prox->sonda.IdentificadorSonda != identificador)
+    {
+        aux = aux->prox; 
+    }
+    if(aux && aux->prox){
+        Remover = aux->prox;
+        aux->prox =Remover->prox;
+        *Sondaremovida = Remover->sonda;
+    }
+    if(Remover){
+        free(Remover);
+    }
+    
+}
 
 void ImprimirListaSondas(ListaSondas* lista){
     Apontador aux;
