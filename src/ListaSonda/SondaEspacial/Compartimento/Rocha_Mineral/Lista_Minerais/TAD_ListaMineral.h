@@ -22,7 +22,7 @@ void InicializaListaMineral(ListaMineral* Lista);
 //Insere um novo valor na lista                             
 void InsereListaMineral(ListaMineral* Lista, Mineral Mineral);               
 //Retira um valor específico da lista
-int RetiraListaMineral(ListaMineral* Lista, Mineral* Mineral, Apontador p); 
+int RetiraListaMineral(ListaMineral* Lista, Mineral* Mineral, char* nome); 
 //Imprime todos os valores da lista
 void ImprimeListaMineral(ListaMineral* Lista);                               
 

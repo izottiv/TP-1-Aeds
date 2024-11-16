@@ -5,10 +5,13 @@
 
 void InicializarSonda(Sonda* NovaSonda){
     NovaSonda->EstaLigada = 0;
+    NovaSonda->CapacidadeMaximaSonda = 0.0;
+    NovaSonda->VelocidadeSonda = 0.0;
+    NovaSonda->NivelIncialCombustivel = 0.0;
     NovaSonda->IdentificadorSonda = 1 + rand() % 100;
     NovaSonda->LocalizacaoSonda.Latitude = 0.0;
     NovaSonda->LocalizacaoSonda.Longitude = 0.0;
-    InicaliazadorCompartimento(&(NovaSonda->CompartimentoSonda));
+    InicializadorCompartimento(&(NovaSonda->CompartimentoSonda));
 }
 void LigarSonda(Sonda* NovaSonda){
     NovaSonda->EstaLigada = 1;
@@ -23,4 +26,9 @@ void MoverSonda(Sonda* NovaSonda, float latitude, float longitude){
     NovaSonda->LocalizacaoSonda.Longitude = longitude;
     printf("Sonda movida para:\n");
     printf("Latitude: %.2f\nLongitude: %.2f", NovaSonda->LocalizacaoSonda.Latitude, NovaSonda->LocalizacaoSonda.Longitude);
+}
+void EditarValores(Sonda* NovasSonda, float capacidade, float velocidade, float combustivel){
+    NovasSonda->CapacidadeMaximaSonda = capacidade;
+    NovasSonda->VelocidadeSonda = velocidade;
+    NovasSonda->NivelIncialCombustivel = combustivel;
 }  

@@ -1,5 +1,6 @@
 #include "TAD_RochaMineral.h"
 #include <string.h>
+#include <stdlib.h>
 #include <time.h>
 
 //Gets
@@ -24,7 +25,7 @@ DataColeta GetDataColeta(RochaMineral* Rocha){
 
 //Sets
 void SetIdentificador(RochaMineral* Rocha){
-    Rocha->Identificador = 100 + rand() % 100000;
+    Rocha->Identificador = 100 + rand() % 100;
 }
 void SetPeso(RochaMineral* Rocha, float PESO){
     Rocha->Peso = PESO;
