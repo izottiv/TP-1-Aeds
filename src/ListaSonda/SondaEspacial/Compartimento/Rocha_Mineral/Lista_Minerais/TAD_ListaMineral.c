@@ -11,12 +11,12 @@ void InicializaListaMineral(ListaMineral* Lista){
 //Insere um novo valor na lista
 void InsereListaMineral(ListaMineral* Lista, Mineral Mineral){
     if (Lista->_Ultimo == MaxTam){
-    printf("A lista está cheia!");
+    // printf("A lista está cheia!");
     }
 
     else{
         Lista->_Mineral[Lista->_Ultimo++] = Mineral;
-        printf("Adicionado com sucesso!");
+        // printf("Adicionado com sucesso!\n");
     }
 }
 

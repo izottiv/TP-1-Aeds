@@ -52,5 +52,6 @@ void ImprimirListaSondas(ListaSondas* lista){
             printf("Não\n");
         }
         aux = aux->prox;
+        printf("\n");
     }
 }
