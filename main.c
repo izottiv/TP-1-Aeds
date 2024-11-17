@@ -3,7 +3,6 @@
 #include "src/SistemadeControle.h"
 
 int main(){
-    ListaSondas batata;
-    ColetaDeNovaRocha(&batata);
+    Inicializacao();
     return 0;
 }
