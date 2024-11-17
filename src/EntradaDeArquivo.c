@@ -72,9 +72,30 @@ void EntradaDeArquivo(char* Link){
             fgets(Linha, sizeof(Linha), ArquivoDeEntrada);  //Recebe a linha
             Linha[strcspn(Linha, "\n")] = '\0';    
             
-            Localizacao _Localizacao;
+            //meu bglh
+            char* token = strtok(Linha, " ");
+            float latitude = atof(token);
+            float longitude = atof(strtok(NULL, " "));
+            float peso = atof(strtok(NULL, " "));
+            Localizacao _localizacao;
+            _localizacao.Latitude = latitude;
+            _localizacao.Longitude = longitude;
+
+            ListaMineral _listamineral;
+            InicializaListaMineral(&_listamineral);
+
+            for(int i =0;i < 3; i++){
+                char* mineral = strtok(NULL, " ");
+                Mineral _mineral;
+                InicializaMineral(&_mineral, mineral);
+                InsereListaMineral(&_listamineral, _mineral);
+                
+            }ImprimeListaMineral(&_listamineral);
+            printf("Localização: %.2f, %.2f | Peso: %d\n", latitude, longitude, peso);
+            printf("Minerais adicionados com sucesso à lista.\n");
+            /*Localizacao _Localizacao;
             float v1 = atof((Linha, " "));
-            printf("%f", v1);
+            printf("%f", v1);*/
             // int Peso = atoi(strtok(NULL, " "));
             // printf("%d", Peso);
 
