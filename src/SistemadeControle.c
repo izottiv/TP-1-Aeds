@@ -29,7 +29,7 @@ void ColetaDeNovaRocha(ListaSondas *FrotadeSondas){
     ListaMineral Pacotemineral;
     Localizacao Local;
     int BH;
-    Sonda *SondaMaisProxima;
+    CelulaSonda SondaMaisProxima;
     InicializaListaMineral(&Pacotemineral);
     printf("Coordenadas/Peso/minerais: ");
     scanf("%f %f %f ",&Local.Latitude,&Local.Longitude,&peso);
@@ -69,17 +69,20 @@ void ColetaDeNovaRocha(ListaSondas *FrotadeSondas){
     ClassificaCategoria(&NovaRocha, BH);
 
     SondaMaisProxima = Procurasondamaisproxima(FrotadeSondas, &NovaRocha);
-    MoverSonda(SondaMaisProxima,NovaRocha._Localizacao.Latitude,NovaRocha._Localizacao.Longitude);
-    InserirRocha(&SondaMaisProxima->CompartimentoSonda,&NovaRocha,SondaMaisProxima->CapacidadeMaximaSonda);
+    MoverSonda(&SondaMaisProxima.sonda,NovaRocha._Localizacao.Latitude,NovaRocha._Localizacao.Longitude);
+    InserirRocha(&SondaMaisProxima.sonda.CompartimentoSonda,&NovaRocha,SondaMaisProxima.sonda.CapacidadeMaximaSonda);
+    printf("SE pa deu bom\n");
 }
 
 double CalcularDistancia(Sonda venus,RochaMineral Rocha){
     double DeltaLat = venus.LocalizacaoSonda.Latitude - Rocha._Localizacao.Latitude;
     double DeltaLon = venus.LocalizacaoSonda.Latitude - Rocha._Localizacao.Latitude;
-    return(sqrt(DeltaLat*DeltaLat + DeltaLon*DeltaLon));
+    double x;
+    x = sqrt(DeltaLat*DeltaLat + DeltaLon*DeltaLon);
+    return x;
 }
 
-Sonda *Procurasondamaisproxima(ListaSondas *FrotadeSondas,RochaMineral *Rocha){
+CelulaSonda Procurasondamaisproxima(ListaSondas *FrotadeSondas,RochaMineral *Rocha){
     double MenorDistancia;
     int identificador;
     MenorDistancia = CalcularDistancia(FrotadeSondas->Primeiro->prox->sonda, *Rocha);
@@ -98,7 +101,7 @@ Sonda *Procurasondamaisproxima(ListaSondas *FrotadeSondas,RochaMineral *Rocha){
     while (Auxcont != NULL){// procura o indentificador da sonda mais proxima e returna o valor na memoria dela
         if(identificador == Auxcont->sonda.IdentificadorSonda){
             printf("Achou a sonda mais proxima\n");
-            return Auxcont; 
+            return *Auxcont; 
         }
         Auxcont= Auxcont->prox;
     }

@@ -4,7 +4,6 @@
 
 int main(){
     ListaSondas batata;
-    //Inicializacao();
     ColetaDeNovaRocha(&batata);
     return 0;
 }
