@@ -92,36 +92,11 @@ void EntradaDeArquivo(char* Link){
                 }
                 
             }
-<<<<<<< HEAD
-=======
-            ImprimeListaMineral(&_listamineral);
-            printf("Localização: %.2f, %.2f | Peso: %d\n", latitude, longitude, peso);
-            printf("Minerais adicionados com sucesso à lista.\n");
-            /*Localizacao _Localizacao;
-            float v1 = atof((Linha, " "));
-            printf("%f", v1);*/
-            // int Peso = atoi(strtok(NULL, " "));
-            // printf("%d", Peso);
-
-            // ListaMineral lisM;
-            // Mineral m1, m2, m3;
-            // char Mineral1[50], Mineral2[50], Mineral3[50];
-            // strcpy(Mineral1, strtok(NULL, " "));
-            // strcpy(Mineral2, strtok(NULL, " "));
-            // strcpy(Mineral3, strtok(NULL, " "));
-            
-            // InicializaMineral(&m1, Mineral1);
-            // InicializaMineral(&m2, Mineral2);
-            // InicializaMineral(&m3, Mineral3);
-            // InsereListaMineral(&lisM, m1);
-            // InsereListaMineral(&lisM, m2);
-            // InsereListaMineral(&lisM, m3);
-
->>>>>>> main
         }
         else if (!strcmp(Linha, "I"))
         {
-            ImprimirListaSondas(_ListaSondas);
+
+            ImprimeCategoriaPeso(&_ListaSondas->Primeiro->sonda.CompartimentoSonda);
             printf("--------------\n");
         }
         else {
