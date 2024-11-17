@@ -20,6 +20,8 @@ void Inicializacao(){
         LigarSonda(&Venus);
         InserirListaSondas(&Frotadesonda,&Venus);
     }
+    ImprimeStatusSondas(&Frotadesonda);
+
 }
 
 void ColetaDeNovaRocha(ListaSondas *FrotadeSondas){
@@ -68,10 +70,9 @@ void ColetaDeNovaRocha(ListaSondas *FrotadeSondas){
     InicializaRochaMineral(&NovaRocha,peso,Pacotemineral,Local);
     ClassificaCategoria(&NovaRocha, BH);
 
+
     SondaMaisProxima = Procurasondamaisproxima(FrotadeSondas, &NovaRocha);
-    MoverSonda(&SondaMaisProxima->sonda,NovaRocha._Localizacao.Latitude,NovaRocha._Localizacao.Longitude);
-    InserirRocha(&SondaMaisProxima->sonda.CompartimentoSonda,&NovaRocha,SondaMaisProxima->sonda.CapacidadeMaximaSonda);
-    printf("SE pa deu bom\n");
+
 }
 
 double CalcularDistancia(Sonda venus,RochaMineral Rocha){
@@ -82,7 +83,26 @@ double CalcularDistancia(Sonda venus,RochaMineral Rocha){
     return x;
 }
 
-CelulaSonda *Procurasondamaisproxima(ListaSondas *FrotadeSondas,RochaMineral *Rocha){
+int ProcurasIDSondaMaisproxima(ListaSondas *FrotadeSondas,RochaMineral *Rocha){
+    double MenorDistancia;
+    MenorDistancia  = CalcularDistancia(FrotadeSondas->Primeiro->prox->sonda,*Rocha) + 1;
+    CelulaSonda *AuxCont;
+    AuxCont = FrotadeSondas->Primeiro->prox;
+    while (AuxCont != NULL){//Procura quantas Sondas podeem receber a rocha
+        switch(VerificasePodeInserirRocha(&AuxCont->sonda.CompartimentoSonda,Rocha,AuxCont->sonda.CapacidadeMaximaSonda)){
+            case 0: // caso o compartimento esteja vazia retorna zero onde vc precisa enserir a rocha
+            InserirRocha(&AuxCont->sonda.CompartimentoSonda,&Rocha,AuxCont->sonda.CapacidadeMaximaSonda);
+            break;
+        }
+
+        AuxCont = AuxCont->prox;
+    }
+    
+}
+
+
+
+Procurasondamaisproxima(ListaSondas *FrotadeSondas,RochaMineral *Rocha){
     double MenorDistancia;
     int identificador;
     MenorDistancia = CalcularDistancia(FrotadeSondas->Primeiro->prox->sonda, *Rocha);
@@ -108,6 +128,28 @@ CelulaSonda *Procurasondamaisproxima(ListaSondas *FrotadeSondas,RochaMineral *Ro
     
 }
 
-void ImprimeStatusSondas();
+void ImprimeStatusSondas(ListaSondas *Frotadesondas){
+    CelulaSonda* aux;
+    aux = Frotadesondas->Primeiro->prox;
+    int nsonda = 1;
+    while(aux){
+        printf("============================================================\n");
+        printf("Numero da soda: %d\n",nsonda);
+        printf("Identificador: %d\n", aux->sonda.IdentificadorSonda);
+        printf("Peso atual do compartimento da sonda: %.2f\n", PesoAtualCompartimento(&aux->sonda.CompartimentoSonda));
+        printf("Velocidade da Sonda: %.2f\n", aux->sonda.VelocidadeSonda);
+        printf("Nivel de Combustivel: %.2f\n", aux->sonda.NivelIncialCombustivel);
+        printf("Localizacao: Latitude = %.6f Longitude = %.6f\n", aux->sonda.LocalizacaoSonda.Latitude,aux->sonda.LocalizacaoSonda.Longitude);
+        printf("Esta Ligada: ");
+        if(aux->sonda.EstaLigada == 1){
+            printf("Sim\n");
+        }
+        else{
+            printf("Nao\n");
+        }
+        aux = aux->prox;
+    }
+}
+
 void RedistribuicaoDeRochas();
 void SelecaoDeModos();
