@@ -29,7 +29,7 @@ void ColetaDeNovaRocha(ListaSondas *FrotadeSondas){
     ListaMineral Pacotemineral;
     Localizacao Local;
     int BH;
-    CelulaSonda SondaMaisProxima;
+    CelulaSonda *SondaMaisProxima;
     InicializaListaMineral(&Pacotemineral);
     printf("Coordenadas/Peso/minerais: ");
     scanf("%f %f %f ",&Local.Latitude,&Local.Longitude,&peso);
@@ -69,20 +69,20 @@ void ColetaDeNovaRocha(ListaSondas *FrotadeSondas){
     ClassificaCategoria(&NovaRocha, BH);
 
     SondaMaisProxima = Procurasondamaisproxima(FrotadeSondas, &NovaRocha);
-    MoverSonda(&SondaMaisProxima.sonda,NovaRocha._Localizacao.Latitude,NovaRocha._Localizacao.Longitude);
-    InserirRocha(&SondaMaisProxima.sonda.CompartimentoSonda,&NovaRocha,SondaMaisProxima.sonda.CapacidadeMaximaSonda);
+    MoverSonda(&SondaMaisProxima->sonda,NovaRocha._Localizacao.Latitude,NovaRocha._Localizacao.Longitude);
+    InserirRocha(&SondaMaisProxima->sonda.CompartimentoSonda,&NovaRocha,SondaMaisProxima->sonda.CapacidadeMaximaSonda);
     printf("SE pa deu bom\n");
 }
 
 double CalcularDistancia(Sonda venus,RochaMineral Rocha){
     double DeltaLat = venus.LocalizacaoSonda.Latitude - Rocha._Localizacao.Latitude;
-    double DeltaLon = venus.LocalizacaoSonda.Latitude - Rocha._Localizacao.Latitude;
+    double DeltaLon = venus.LocalizacaoSonda.Longitude - Rocha._Localizacao.Longitude;
     double x;
     x = sqrt(DeltaLat*DeltaLat + DeltaLon*DeltaLon);
     return x;
 }
 
-CelulaSonda Procurasondamaisproxima(ListaSondas *FrotadeSondas,RochaMineral *Rocha){
+CelulaSonda *Procurasondamaisproxima(ListaSondas *FrotadeSondas,RochaMineral *Rocha){
     double MenorDistancia;
     int identificador;
     MenorDistancia = CalcularDistancia(FrotadeSondas->Primeiro->prox->sonda, *Rocha);
@@ -90,7 +90,7 @@ CelulaSonda Procurasondamaisproxima(ListaSondas *FrotadeSondas,RochaMineral *Roc
     Auxcont = FrotadeSondas->Primeiro->prox;
     while (Auxcont != NULL){// pecorre a lista procurando a sonda perfeita
         if(VerificasePodeInserirRocha(&Auxcont->sonda.CompartimentoSonda,Rocha,Auxcont->sonda.CapacidadeMaximaSonda) == 0){ // Verifica se a sonda tem espaco sobrando se sim faz o negocio ai
-            if(CalcularDistancia(Auxcont->sonda,*Rocha) > MenorDistancia){// guarda o indentificador da mais proxima
+            if(CalcularDistancia(Auxcont->sonda,*Rocha) < MenorDistancia){// guarda o indentificador da mais proxima
                 MenorDistancia = CalcularDistancia(Auxcont->sonda,*Rocha);
                 identificador = Auxcont->sonda.IdentificadorSonda;
             }
@@ -101,12 +101,13 @@ CelulaSonda Procurasondamaisproxima(ListaSondas *FrotadeSondas,RochaMineral *Roc
     while (Auxcont != NULL){// procura o indentificador da sonda mais proxima e returna o valor na memoria dela
         if(identificador == Auxcont->sonda.IdentificadorSonda){
             printf("Achou a sonda mais proxima\n");
-            return *Auxcont; 
+            return Auxcont; 
         }
         Auxcont= Auxcont->prox;
     }
     
 }
+
 void ImprimeStatusSondas();
 void RedistribuicaoDeRochas();
 void SelecaoDeModos();
