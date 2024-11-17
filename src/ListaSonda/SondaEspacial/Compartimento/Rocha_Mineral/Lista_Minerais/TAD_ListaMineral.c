@@ -50,8 +50,8 @@ void ImprimeListaMineral(ListaMineral* Lista){
     int i;
     for (i = Lista->_Primeiro; i < Lista->_Ultimo; i++){
         printf("%s\n", Lista->_Mineral[i].nome);
-        printf("%s\n", Lista->_Mineral[i].dureza);
-        printf("%s\n", Lista->_Mineral[i].reatividade);
+        printf("%.2f\n", Lista->_Mineral[i].dureza);
+        printf("%.2f\n", Lista->_Mineral[i].reatividade);
         RetornarCores(&(Lista->_Mineral[i]._cor));
         printf("\n");
     }
