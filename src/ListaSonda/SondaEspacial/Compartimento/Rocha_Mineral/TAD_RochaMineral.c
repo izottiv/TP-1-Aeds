@@ -1,6 +1,7 @@
 #include "TAD_RochaMineral.h"
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <time.h>
 
 //Gets
@@ -52,16 +53,6 @@ void InicializaRochaMineral(RochaMineral* Rocha, float PESO, ListaMineral LISTAM
     SetLocalizacao(Rocha, LOCALIZACAO);
     DefineDataHora(&(Rocha->_DataColeta));
 }
-
-// //Obtem os valores da Rocha Mineral
-// void ObtemRochaMineral(){
-
-// }
-
-// //Atribui novos valores para a Rocha Mineral
-// void AtribuiRochaMineral(){
-
-// }
 
 void ClassificaCategoria(RochaMineral* Rocha){
     int Ferrolita = 0, Solarium = 0, Aquavitae = 0, Terranita = 0, Calaris = 0;
@@ -116,4 +107,41 @@ void ClassificaCategoria(RochaMineral* Rocha){
         Rocha->_Categorias = Aquacalis;
     }
 }
-    
+
+void TransformarCategoria(RochaMineral* Rocha){
+    switch (Rocha->_Categorias)
+    {
+    case Ferrom:
+        printf("Ferrom");
+        break;
+    case Solaris:
+        printf("Solaris");
+        break;
+    case Aquaferro:
+        printf("Aquaferro");
+        break;
+    case Terrolis:
+        printf("Terrolis");
+        break;
+    case Terrasol:
+        printf("Terrasol");
+        break;
+    case Aquaterra:
+        printf("Aquaterra");
+        break;
+    case Calquer:
+        printf("Calquer");
+        break;
+    case Solarisfer:
+        printf("Solarisfer");
+        break;
+    case Terralis:
+        printf("Terralis");
+        break;
+    case Aquacalis:
+        printf("Aquacalis");
+        break;
+    default:
+        break;
+    }
+}   
