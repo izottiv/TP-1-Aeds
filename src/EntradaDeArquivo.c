@@ -90,7 +90,8 @@ void EntradaDeArquivo(char* Link){
                 InicializaMineral(&_mineral, mineral);
                 InsereListaMineral(&_listamineral, _mineral);
                 
-            }ImprimeListaMineral(&_listamineral);
+            }
+            ImprimeListaMineral(&_listamineral);
             printf("Localização: %.2f, %.2f | Peso: %d\n", latitude, longitude, peso);
             printf("Minerais adicionados com sucesso à lista.\n");
             /*Localizacao _Localizacao;

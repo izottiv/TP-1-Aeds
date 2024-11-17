@@ -38,5 +38,4 @@ void InicializaRochaMineral(RochaMineral* Rocha, float PESO, ListaMineral LISTAM
 void ClassificaCategoria(RochaMineral* Rocha);
 void TransformarCategoria(RochaMineral* Rocha);
 
-
 #endif
