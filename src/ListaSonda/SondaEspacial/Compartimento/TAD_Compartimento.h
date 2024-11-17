@@ -10,7 +10,7 @@ typedef struct PreCelulaMineral{
 typedef struct {
     Compartimento *PrimeiroRocha;
     Compartimento *UltimoRocha;
-}GerenciadorCompartimento;
+} GerenciadorCompartimento;
 
 void InicializadorCompartimento(GerenciadorCompartimento *Comp);
 int RetornaTamanho(GerenciadorCompartimento *comp);

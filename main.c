@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "src/ListaSonda/TAD_ListaSonda.h"
+#include "src/EntradaDeArquivo.c"
 
 int main(){
+<<<<<<< HEAD
 
     Localizacao loc;
     loc.Latitude = 7777;
@@ -24,4 +25,7 @@ int main(){
 
     ImprimeConteudoCompartimento(&pedro);
     return 0;
+=======
+    EntradaDeArquivo("src/Entradas/Entrada.txt");
+>>>>>>> main
 }

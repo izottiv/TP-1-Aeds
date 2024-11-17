@@ -56,3 +56,11 @@ void ImprimeListaMineral(ListaMineral* Lista){
         printf("\n");
     }
 }
+
+//Imprime apenas os nomes dos minerais da lista
+void ImprimeNomesDosMineraisDaLista(ListaMineral* lista){
+    for(int i=lista->_Primeiro; i<lista->_Ultimo; i++){
+        printf("%s ", lista->_Mineral[i].nome);
+    }
+    printf("\n");
+} 
