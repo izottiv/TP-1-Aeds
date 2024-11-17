@@ -7,13 +7,12 @@ void InicializadorCompartimento(GerenciadorCompartimento *Comp){
     Comp->PrimeiroRocha = (Compartimento*) malloc(sizeof(Compartimento));
     Comp->UltimoRocha = Comp->PrimeiroRocha;
     Comp->PrimeiroRocha->Prox = NULL;
-    printf("Lista criada\n");
 }
 
 int RetornaTamanho(GerenciadorCompartimento *comp){
+    Compartimento *aux;
+    int x = 1;
     if (VerificaSeVazia(comp) == 0){ // Conta Quantas rochas tem no compartimento E retorna esse valor
-        Compartimento *aux;
-        int x = 1;
         aux = comp->PrimeiroRocha->Prox;
         while (aux->Prox != NULL){
             aux = aux->Prox; 
@@ -27,28 +26,23 @@ int RetornaTamanho(GerenciadorCompartimento *comp){
 }
 
 int VerificaSeVazia(GerenciadorCompartimento *comp){
-    if(comp->PrimeiroRocha == comp->UltimoRocha){
-        printf("Compartimento Vazio!\n");
-        return(comp->PrimeiroRocha == comp->UltimoRocha);
-    }
-    else{
-        return(comp->PrimeiroRocha == comp->UltimoRocha);
-    }
+    return(comp->PrimeiroRocha == comp->UltimoRocha);
+
 }
 
 void ImprimeConteudoCompartimento(GerenciadorCompartimento *comp){
-     if(VerificaSeVazia(comp) == 1){
-        Compartimento *aux;
+     if(VerificaSeVazia(comp )== 0){
+        Compartimento *aux;   
         aux = comp->PrimeiroRocha->Prox;
-        while (aux->Prox != NULL){
+        while(aux != NULL){
+            printf("=================================\n");
             printf("Indentificador: %d\n",aux->_RochaMineral.Identificador);
-            printf("Peso: %lf\n",aux->_RochaMineral.Peso);
+            printf("Peso: %.2f\n",aux->_RochaMineral.Peso);
             printf("Minerais: \n"); //TERMINAR DEPOIS
-            printf("Categoria: \n"); // TERMINAR DEPOIS
-            printf("Latitude %lf Longitude: %lf\n",aux->_RochaMineral._Localizacao.Latitude,aux->_RochaMineral._Localizacao.Longitude);
+            printf("Categoria: %d\n",aux->_RochaMineral._Categorias); // TERMINAR DEPOIS
+            printf("Latitude %.6f Longitude: %.6f\n",aux->_RochaMineral._Localizacao.Latitude,aux->_RochaMineral._Localizacao.Longitude);
             printf("Data De Coleta:\n");
-            printf("%d/%d/%d as %d:%d:%d",aux->_RochaMineral._DataColeta.dia, aux->_RochaMineral._DataColeta.mes, aux->_RochaMineral._DataColeta.ano, aux->_RochaMineral._DataColeta.hora, aux->_RochaMineral._DataColeta.minuto, aux->_RochaMineral._DataColeta.segundo);
-            printf("\n");
+            printf("%d/%d/%d as %d:%d:%d\n",aux->_RochaMineral._DataColeta.dia, aux->_RochaMineral._DataColeta.mes, aux->_RochaMineral._DataColeta.ano, aux->_RochaMineral._DataColeta.hora, aux->_RochaMineral._DataColeta.minuto, aux->_RochaMineral._DataColeta.segundo);
             aux = aux->Prox; 
         }
     }
@@ -73,22 +67,34 @@ float PesoAtualCompartimento(GerenciadorCompartimento *comp){
 
 
 void InserirRocha(GerenciadorCompartimento *comp, RochaMineral *Rocha, float PESOTOTAL){ //Informar o peso total que a sonda espacial suporta
-    if(PesoAtualCompartimento(comp) + Rocha->Peso <= PESOTOTAL){ // verificando se o peso da nova rocha é maior do que a sonda suporta
-        int aux = 0;
-        Compartimento *Compartimentoaux;
-        Compartimentoaux = comp->PrimeiroRocha->Prox;        
-        while (Compartimentoaux->Prox != NULL){// verificando se a rochas repetidas
-            if(Compartimentoaux->_RochaMineral._Categorias == Rocha->_Categorias){ // Mudar _categotias para outra coisa se nao for esse identificasao
-                aux++;
-            }
-            Compartimentoaux = Compartimentoaux->Prox;
-        }
-        if(aux > 0){ // adicionando a rocha no final da lista
+    if(PESOTOTAL >= (PesoAtualCompartimento(comp) + Rocha->Peso)){//Verifica se o peso maximo e ecedido
+        if (VerificaSeVazia(comp) == 1){// caso a lista esteja vazia coloca na ultima/primeira posicao da lista
             comp->UltimoRocha->Prox = (Compartimento*) malloc(sizeof(Compartimento));
             comp->UltimoRocha = comp->UltimoRocha->Prox;
             comp->UltimoRocha->_RochaMineral = *Rocha;
             comp->UltimoRocha->Prox = NULL;
-            }   
+        }
+        else{// Caso nao esteja vazia procura uma rocha da mesma categoria
+            Compartimento *ContadorLista;
+            ContadorLista = comp->PrimeiroRocha;
+            int repitidos = 0;
+            while (ContadorLista->Prox != NULL){    
+                    if(Rocha->_Categorias == ContadorLista->_RochaMineral._Categorias){ // caso tenha uma rocha da mesma categoria ela subistitui essa rocha pela recebida
+                        if (Rocha->Peso < ContadorLista->_RochaMineral.Peso){
+                            ContadorLista->_RochaMineral = *Rocha;
+                        }
+                        repitidos = 1;
+                    }
+                ContadorLista = ContadorLista->Prox;
+            }
+            if(repitidos == 0){// caso a lista nao tenha uma rocha de categoria iqual a recebida coloca a recebida na ultima possicao
+                comp->UltimoRocha->Prox = (Compartimento*) malloc(sizeof(Compartimento));
+                comp->UltimoRocha = comp->UltimoRocha->Prox;
+                comp->UltimoRocha->_RochaMineral = *Rocha;   
+                comp->UltimoRocha->Prox = NULL;
+            }
+        }
+
     }
 }
 
@@ -128,6 +134,7 @@ void TrocaRocha(GerenciadorCompartimento *comp, RochaMineral *Rocha){
 void RemoverRochaPorCategoria(GerenciadorCompartimento*comp, RochaMineral *RochaRetirada, Categorias Categoria){
     Compartimento *aux, *AuxCont;
     if (VerificaSeVazia(comp) == 0){
+        printf("lista nao ta vazia pai\n");
         return;
     }
     int possicaosecundaria;
