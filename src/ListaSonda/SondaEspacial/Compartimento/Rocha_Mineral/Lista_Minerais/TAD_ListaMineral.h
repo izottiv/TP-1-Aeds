@@ -24,6 +24,8 @@ void InsereListaMineral(ListaMineral* Lista, Mineral Mineral);
 //Retira um valor específico da lista
 int RetiraListaMineral(ListaMineral* Lista, Mineral* Mineral, char* nome); 
 //Imprime todos os valores da lista
-void ImprimeListaMineral(ListaMineral* Lista);                               
+void ImprimeListaMineral(ListaMineral* Lista);
+//Imprime os nomes dos minerais
+void ImprimeNomesDosMineraisDaLista(ListaMineral* lista);
 
 #endif
