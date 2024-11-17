@@ -20,8 +20,9 @@ void Inicializacao(){
         LigarSonda(&Venus);
         InserirListaSondas(&Frotadesonda,&Venus);
     }
-    ImprimeStatusSondas(&Frotadesonda);
 
+    RedistribuicaoDeRochas(&Frotadesonda);
+    ImprimeStatusSondas(&Frotadesonda);
 }
 
 void ColetaDeNovaRocha(ListaSondas *FrotadeSondas){
@@ -69,10 +70,7 @@ void ColetaDeNovaRocha(ListaSondas *FrotadeSondas){
     }
     InicializaRochaMineral(&NovaRocha,peso,Pacotemineral,Local);
     ClassificaCategoria(&NovaRocha, BH);
-
-
-    SondaMaisProxima = Procurasondamaisproxima(FrotadeSondas, &NovaRocha);
-
+    ProcurasIDSondaMaisproxima(FrotadeSondas,&NovaRocha);
 }
 
 double CalcularDistancia(Sonda venus,RochaMineral Rocha){
@@ -85,47 +83,87 @@ double CalcularDistancia(Sonda venus,RochaMineral Rocha){
 
 int ProcurasIDSondaMaisproxima(ListaSondas *FrotadeSondas,RochaMineral *Rocha){
     double MenorDistancia;
+    int tamanho = 0;
     MenorDistancia  = CalcularDistancia(FrotadeSondas->Primeiro->prox->sonda,*Rocha) + 1;
     CelulaSonda *AuxCont;
     AuxCont = FrotadeSondas->Primeiro->prox;
-    while (AuxCont != NULL){//Procura quantas Sondas podeem receber a rocha
-        switch(VerificasePodeInserirRocha(&AuxCont->sonda.CompartimentoSonda,Rocha,AuxCont->sonda.CapacidadeMaximaSonda)){
-            case 0: // caso o compartimento esteja vazia retorna zero onde vc precisa enserir a rocha
-            InserirRocha(&AuxCont->sonda.CompartimentoSonda,&Rocha,AuxCont->sonda.CapacidadeMaximaSonda);
+    while (AuxCont != NULL){//procura quantas sondas podem receber a rocha
+        switch (VerificasePodeInserirRocha(&AuxCont->sonda.CompartimentoSonda,Rocha,AuxCont->sonda.CapacidadeMaximaSonda)){
+        case 0:
+            tamanho ++;
+            break;
+        case 1:
+            tamanho++;
+            break;
+        case 2:
+            tamanho++;
+            break;
+        default:
             break;
         }
-
         AuxCont = AuxCont->prox;
     }
-    
-}
+    int listadeVetores[tamanho];
+    int numero = 0;
+    AuxCont = FrotadeSondas->Primeiro->prox;
+    while (AuxCont != NULL){ // guarda os ids das sondas e guarda  em um vetor
+        switch (VerificasePodeInserirRocha(&AuxCont->sonda.CompartimentoSonda,Rocha,AuxCont->sonda.CapacidadeMaximaSonda)){
+        case 0:
+            listadeVetores[numero] = AuxCont->sonda.IdentificadorSonda;
+            break;
+        case 1:
+            listadeVetores[numero] = AuxCont->sonda.IdentificadorSonda;
+            break;
+        case 2:
+            listadeVetores[numero] = AuxCont->sonda.IdentificadorSonda;
+            break;
+        default:
+            break;
+        }
+        numero ++; 
+        AuxCont = AuxCont->prox;        
+    }
 
-
-
-Procurasondamaisproxima(ListaSondas *FrotadeSondas,RochaMineral *Rocha){
-    double MenorDistancia;
-    int identificador;
-    MenorDistancia = CalcularDistancia(FrotadeSondas->Primeiro->prox->sonda, *Rocha);
-    CelulaSonda *Auxcont;
-    Auxcont = FrotadeSondas->Primeiro->prox;
-    while (Auxcont != NULL){// pecorre a lista procurando a sonda perfeita
-        if(VerificasePodeInserirRocha(&Auxcont->sonda.CompartimentoSonda,Rocha,Auxcont->sonda.CapacidadeMaximaSonda) == 0){ // Verifica se a sonda tem espaco sobrando se sim faz o negocio ai
-            if(CalcularDistancia(Auxcont->sonda,*Rocha) < MenorDistancia){// guarda o indentificador da mais proxima
-                MenorDistancia = CalcularDistancia(Auxcont->sonda,*Rocha);
-                identificador = Auxcont->sonda.IdentificadorSonda;
+    AuxCont = FrotadeSondas->Primeiro->prox;
+    int idprox;
+    while (AuxCont != NULL){//procura a sonda mais proxima da rocha
+        for(int x = 0;x < tamanho;x++){
+            if (AuxCont->sonda.IdentificadorSonda == listadeVetores[x]){
+                if(CalcularDistancia(AuxCont->sonda,*Rocha) < MenorDistancia){
+                    MenorDistancia = CalcularDistancia(AuxCont->sonda,*Rocha);
+                    idprox = AuxCont->sonda.IdentificadorSonda;
+                }
             }
-            Auxcont= Auxcont->prox;
         }
+        AuxCont = AuxCont->prox;
     }
-    Auxcont = FrotadeSondas->Primeiro->prox;
-    while (Auxcont != NULL){// procura o indentificador da sonda mais proxima e returna o valor na memoria dela
-        if(identificador == Auxcont->sonda.IdentificadorSonda){
-            printf("Achou a sonda mais proxima\n");
-            return Auxcont; 
+    AuxCont = FrotadeSondas->Primeiro->prox;
+    while (AuxCont != NULL){
+        if(AuxCont->sonda.IdentificadorSonda == idprox){
+            switch(VerificasePodeInserirRocha(&AuxCont->sonda.CompartimentoSonda,Rocha,AuxCont->sonda.CapacidadeMaximaSonda)){// olha qual caso a insercao vai acontecer
+                case 0: // caso o compartimento esteja vazia retorna zero onde vc precisa enserir a rocha
+                    MoverSonda(&AuxCont->sonda,Rocha->_Localizacao.Latitude,Rocha->_Localizacao.Longitude);
+                    InserirRocha(&AuxCont->sonda.CompartimentoSonda,Rocha,AuxCont->sonda.CapacidadeMaximaSonda);
+                    printf("Rocha enserida na sonda: %d ",AuxCont->sonda.IdentificadorSonda);
+                    printf("porque o comparimento estava vazio\n");
+                    break;
+                case 1:// caso retorn 1 a tem o mesmo tipo de rocha e esta no meio e troca rocha
+                    MoverSonda(&AuxCont->sonda,Rocha->_Localizacao.Latitude,Rocha->_Localizacao.Longitude);
+                    TrocaRocha(&AuxCont->sonda.CompartimentoSonda,Rocha);
+                    printf("Rocha enserida na sonda: %d ",AuxCont->sonda.IdentificadorSonda);
+                    printf("porque a rocha estava no meio da lista");
+                    break;
+                case 2:// caso a lista nao esteja vazia e nao tenha uma rocha de categoria iqual a recebida coloca a recebida na ultima possicao retorna 2
+                    MoverSonda(&AuxCont->sonda,Rocha->_Localizacao.Latitude,Rocha->_Localizacao.Longitude);
+                    InserirRocha(&AuxCont->sonda.CompartimentoSonda,Rocha,AuxCont->sonda.CapacidadeMaximaSonda);
+                    printf("Rocha enserida na sonda: %d ",AuxCont->sonda.IdentificadorSonda);
+                    printf("porque nao avia nenhuma rocha da mesma catgoria\n");
+                    break;
+            }
+            break;
         }
-        Auxcont= Auxcont->prox;
+        AuxCont = AuxCont->prox;
     }
-    
 }
 
 void ImprimeStatusSondas(ListaSondas *Frotadesondas){
@@ -136,7 +174,7 @@ void ImprimeStatusSondas(ListaSondas *Frotadesondas){
         printf("============================================================\n");
         printf("Numero da soda: %d\n",nsonda);
         printf("Identificador: %d\n", aux->sonda.IdentificadorSonda);
-        printf("Peso atual do compartimento da sonda: %.2f\n", PesoAtualCompartimento(&aux->sonda.CompartimentoSonda));
+        printf("Peso atual do compartimento da sonda: %.1f\n", PesoAtualCompartimento(&aux->sonda.CompartimentoSonda));
         printf("Velocidade da Sonda: %.2f\n", aux->sonda.VelocidadeSonda);
         printf("Nivel de Combustivel: %.2f\n", aux->sonda.NivelIncialCombustivel);
         printf("Localizacao: Latitude = %.6f Longitude = %.6f\n", aux->sonda.LocalizacaoSonda.Latitude,aux->sonda.LocalizacaoSonda.Longitude);
@@ -151,5 +189,31 @@ void ImprimeStatusSondas(ListaSondas *Frotadesondas){
     }
 }
 
-void RedistribuicaoDeRochas();
+void RedistribuicaoDeRochas(ListaSondas *Frotadesondas){
+    RetornaBase(Frotadesondas);
+    RetornaMediadePesoFrota(&Frotadesondas);
+
+}
+
+
+void RetornaBase(ListaSondas *Frotadesondas){
+    CelulaSonda *AuxCont;
+    AuxCont = Frotadesondas->Primeiro->prox;
+    while(AuxCont != NULL){
+        MoverSonda(&AuxCont->sonda,0,0);
+        AuxCont = AuxCont->prox;
+    }
+}
+double RetornaMediadePesoFrota(ListaSondas *Frotadesondas){
+    double media = 0;
+    CelulaSonda *AuxCont;
+    AuxCont = Frotadesondas->Primeiro->prox;
+    while (AuxCont != NULL){
+        media = media + PesoAtualCompartimento(&Frotadesondas);
+        AuxCont = AuxCont->prox;
+    }
+    printf("media da lista: %f\n",media);
+    return media;
+}
+
 void SelecaoDeModos();

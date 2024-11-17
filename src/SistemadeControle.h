@@ -5,10 +5,17 @@
 
 void Inicializacao();
 void ColetaDeNovaRocha(ListaSondas *FrotadeSondas);
+
 double CalcularDistancia(Sonda venus,RochaMineral Rocha);
-CelulaSonda *Procurasondamaisproxima(ListaSondas *FrotadeSondas,RochaMineral *RochaS);
-void ImprimeStatusSondas();
-void RedistribuicaoDeRochas();
+int ProcurasIDSondaMaisproxima(ListaSondas *FrotadeSondas,RochaMineral *RochaS);
+
+void ImprimeStatusSondas(ListaSondas *Frotasdesondas);
+
+void RedistribuicaoDeRochas(ListaSondas *Frotadesondas);
+void RetornaBase(ListaSondas *Frotadesondas);
+double RetornaMediadePesoFrota(ListaSondas *Frotadesondas);
+
+
 void SelecaoDeModos();
 
 
