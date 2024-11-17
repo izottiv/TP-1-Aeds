@@ -83,7 +83,7 @@ void InserirRocha(GerenciadorCompartimento *comp, RochaMineral *Rocha, float PES
             int repitidos = 0;
             while (ContadorLista->Prox != NULL){    
                     if(Rocha->_Categorias == ContadorLista->_RochaMineral._Categorias){ // caso tenha uma rocha da mesma categoria ela subistitui essa rocha pela recebida
-                        if (Rocha->Peso < ContadorLista->_RochaMineral.Peso){
+                        if (Rocha->Peso < ContadorLista->_RochaMineral.Peso){ // verifica se a rocha e mais leve doq ja esta no compartimento
                             ContadorLista->_RochaMineral = *Rocha;
                         }
                         repitidos = 1;
@@ -101,6 +101,34 @@ void InserirRocha(GerenciadorCompartimento *comp, RochaMineral *Rocha, float PES
     }
 }
 
+
+int VerificasePodeInserirRocha(GerenciadorCompartimento *comp, RochaMineral *Rocha, float PESOTOTAL){ //Informar o peso total que a sonda espacial suporta
+    if(PESOTOTAL >= (PesoAtualCompartimento(comp) + Rocha->Peso)){//Verifica se o peso maximo e ecedido
+        if (VerificaSeVazia(comp) == 1){// caso a lista esteja vazia coloca na ultima/primeira posicao da lista
+            return 0;
+        }
+        else{// Caso nao esteja vazia procura uma rocha da mesma categoria
+            Compartimento *ContadorLista;
+            ContadorLista = comp->PrimeiroRocha;
+            int repitidos = 0;
+            while (ContadorLista->Prox != NULL){    
+                    if(Rocha->_Categorias == ContadorLista->_RochaMineral._Categorias){ // caso tenha uma rocha da mesma categoria ela subistitui essa rocha pela recebida
+                        if (Rocha->Peso < ContadorLista->_RochaMineral.Peso){ // verifica se a rocha e mais leve doq ja esta no compartimento
+                            return 0;
+                        }
+                        repitidos = 1;
+                    }
+                ContadorLista = ContadorLista->Prox;
+            }
+            if(repitidos == 0){// caso a lista nao tenha uma rocha de categoria iqual a recebida coloca a recebida na ultima possicao
+                return 0;
+            }
+        }
+    }
+    else{
+        return 1;
+    }
+}
 
 
 void TrocaRocha(GerenciadorCompartimento *comp, RochaMineral *Rocha){

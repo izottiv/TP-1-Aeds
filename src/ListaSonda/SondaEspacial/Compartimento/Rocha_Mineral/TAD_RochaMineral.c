@@ -45,33 +45,36 @@ void SetDataColeta(RochaMineral* Rocha, DataColeta DATACOLETA){
 }
 
 //Seta os valores do struct
-void InicializaRochaMineral(RochaMineral* Rocha, float PESO, ListaMineral LISTAMINERAL, Categorias CATEGORIA, Localizacao LOCALIZACAO){
+void InicializaRochaMineral(RochaMineral* Rocha, float PESO, ListaMineral LISTAMINERAL, Localizacao LOCALIZACAO){
     SetIdentificador(Rocha);
     SetPeso(Rocha, PESO);
     SetListaMineral(Rocha, LISTAMINERAL);
-    SetCategorias(Rocha, CATEGORIA);
     SetLocalizacao(Rocha, LOCALIZACAO);
     DefineDataHora(&(Rocha->_DataColeta));
 }
 
-void ClassificaCategoria(RochaMineral* Rocha){
-    int Ferrolita = 0, Solarium = 0, Aquavitae = 0, Terranita = 0, Calaris = 0;
+void ClassificaCategoria(RochaMineral* Rocha, int numerodeminerais){
+    int Ferrolita = 0;
+    int Solarium = 0; 
+    int Aquavitae = 0;
+    int Terranita = 0;
+    int Calaris = 0;
 
-    for (int i = 0; i < sizeof(Rocha->_ListaMineral._Mineral); i++)
-    {
-        if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Ferrolita")){
+    for (int i = 0; i < numerodeminerais; i++){
+
+        if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Ferrolita")== 0){
             Ferrolita = 1;
         }
-        if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Solarium")){
+        if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Solarium") == 0){
             Solarium = 1;
         }
-        if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Aquavitae")){
+        if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Aquavitae") == 0){
             Aquavitae = 1;
         }
-        if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Terranita")){
+        if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Terranita") == 0){
             Terranita = 1;
         }
-        if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Calaris")){
+        if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Calaris") == 0){
             Calaris = 1;
         }
     }

@@ -43,7 +43,7 @@ void ImprimirListaSondas(ListaSondas* lista){
         printf("Velocidade da Sonda: %.2f\n", aux->sonda.VelocidadeSonda);
         printf("Nivel de Combustivel: %.2f\n", aux->sonda.NivelIncialCombustivel);
         ImprimeConteudoCompartimento(&(aux->sonda.CompartimentoSonda));
-        printf("Localização: Latitude = %.6f Longitude = %.6f\n", aux->sonda.LocalizacaoSonda.Latitude,aux->sonda.LocalizacaoSonda.Longitude);
+        printf("Localizacao: Latitude = %.6f Longitude = %.6f\n", aux->sonda.LocalizacaoSonda.Latitude,aux->sonda.LocalizacaoSonda.Longitude);
         printf("Esta Ligada: ");
         if(aux->sonda.EstaLigada == 1){
             printf("Sim\n");
