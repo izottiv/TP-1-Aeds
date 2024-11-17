@@ -25,7 +25,7 @@ void MoverSonda(Sonda* NovaSonda, float latitude, float longitude){
     NovaSonda->LocalizacaoSonda.Latitude = latitude;
     NovaSonda->LocalizacaoSonda.Longitude = longitude;
     printf("Sonda movida para:\n");
-    printf("Latitude: %.2f\nLongitude: %.2f", NovaSonda->LocalizacaoSonda.Latitude, NovaSonda->LocalizacaoSonda.Longitude);
+    printf("Latitude: %f\nLongitude: %f\n", NovaSonda->LocalizacaoSonda.Latitude, NovaSonda->LocalizacaoSonda.Longitude);
 }
 void EditarValores(Sonda* NovaSonda, float capacidade, float velocidade, float combustivel){
     NovaSonda->CapacidadeMaximaSonda = capacidade;
