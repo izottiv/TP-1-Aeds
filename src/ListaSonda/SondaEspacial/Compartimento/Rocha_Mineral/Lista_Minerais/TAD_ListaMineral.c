@@ -16,10 +16,6 @@ void InsereListaMineral(ListaMineral* Lista, Mineral Mineral){
 
     else{
         Lista->_Mineral[Lista->_Ultimo++] = Mineral;
-<<<<<<< HEAD
-        // printf("Adicionado com sucesso!\n");
-=======
->>>>>>> Pedro
     }
 }
 
