@@ -185,3 +185,16 @@ void RemoverRochaPorCategoria(GerenciadorCompartimento*comp, RochaMineral *Rocha
     
 }
 
+void ImprimeCategoriaPeso(GerenciadorCompartimento* comp){
+    Compartimento *aux;   
+        aux = comp->PrimeiroRocha->Prox;
+        while(aux != NULL){
+            printf("Categoria: ");
+            TransformarCategoria(&(aux->_RochaMineral._Categorias));
+            printf(" ");
+            printf("Peso: %.0f", aux->_RochaMineral.Peso);
+            printf("\n");
+            aux = aux->Prox; 
+        }
+}
+

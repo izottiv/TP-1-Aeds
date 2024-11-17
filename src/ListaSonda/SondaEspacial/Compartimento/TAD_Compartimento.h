@@ -20,5 +20,6 @@ float PesoAtualCompartimento(GerenciadorCompartimento *comp);
 void TrocaRocha(GerenciadorCompartimento *comp, RochaMineral *Rocha);
 void InserirRocha(GerenciadorCompartimento *comp, RochaMineral *Rocha, float PESOTOTAL);
 void RemoverRochaPorCategoria(GerenciadorCompartimento*comp, RochaMineral *RochaRetirada, Categorias Categoria);
+void ImprimeCategoriaPeso(GerenciadorCompartimento* comp);
 
 #endif
