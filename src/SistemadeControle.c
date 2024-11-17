@@ -5,7 +5,7 @@
 #include "SistemadeControle.h"
 
 
-void Inicializacao(){
+ListaSondas Inicializacao(){
     ListaSondas Frotadesonda;
     InicializaListaSondas(&Frotadesonda);
     Sonda Venus;
@@ -20,6 +20,7 @@ void Inicializacao(){
         LigarSonda(&Venus);
         InserirListaSondas(&Frotadesonda,&Venus);
     }
+    return Frotadesonda;
 }
 
 void ColetaDeNovaRocha(ListaSondas *FrotadeSondas){
@@ -110,4 +111,28 @@ CelulaSonda *Procurasondamaisproxima(ListaSondas *FrotadeSondas,RochaMineral *Ro
 
 void ImprimeStatusSondas();
 void RedistribuicaoDeRochas();
-void SelecaoDeModos();
+void SelecaoDeModos(ListaSondas *FrotadeSondas) {
+    int numerooperacoes;
+    char operacaoescolhida;
+
+    printf("Número de operacoes: ");
+    scanf("%d", &numerooperacoes);
+    while (getchar() != '\n'); 
+
+    for (int i = 0; i < numerooperacoes; i++) {
+        printf("Escolha a operacao: ");
+        scanf(" %c", &operacaoescolhida);
+
+        if (operacaoescolhida == 'R') {
+
+            ColetaDeNovaRocha(FrotadeSondas);
+            printf("Entrou na função ColetaDeNovaRocha\n");
+
+        } else if (operacaoescolhida == 'I') {
+            printf("Função ImprimeStatusSondas chamada\n");
+            
+        } else if (operacaoescolhida == 'E') {
+            printf("Função RedistribuicaoDeRochas chamada\n");
+        }
+    }
+}

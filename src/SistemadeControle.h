@@ -3,13 +3,13 @@
 #include "ListaSonda/TAD_ListaSonda.h"
 
 
-void Inicializacao();
+ListaSondas Inicializacao();
 void ColetaDeNovaRocha(ListaSondas *FrotadeSondas);
 double CalcularDistancia(Sonda venus,RochaMineral Rocha);
 CelulaSonda *Procurasondamaisproxima(ListaSondas *FrotadeSondas,RochaMineral *RochaS);
 void ImprimeStatusSondas();
 void RedistribuicaoDeRochas();
-void SelecaoDeModos();
+void SelecaoDeModos(ListaSondas *FrotadeSondas);
 
 
 #endif 
