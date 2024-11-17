@@ -177,10 +177,9 @@ void ImprimeCategoriaPeso(GerenciadorCompartimento* comp){
     Compartimento *aux;   
         aux = comp->PrimeiroRocha->Prox;
         while(aux != NULL){
-            TransformarCategoria(&(aux->_RochaMineral._Categorias));
+            TransformarCategoria(&(aux->_RochaMineral));
             printf(" ");
             printf("%.0f\n", aux->_RochaMineral.Peso);
             aux = aux->Prox; 
         }
 }
-

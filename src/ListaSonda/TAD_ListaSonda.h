@@ -16,5 +16,6 @@ void InicializaListaSondas(ListaSondas* lista);
 void InserirListaSondas(ListaSondas* lista, Sonda* sonda);
 void RemoverListaSondas(ListaSondas* lista, int identificador, Sonda* Sondaremovida);
 void ImprimirListaSondas(ListaSondas* lista);
+void ImprimeCatPes(ListaSondas* lista);
 
 #endif

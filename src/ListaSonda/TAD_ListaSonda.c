@@ -45,12 +45,22 @@ void ImprimirListaSondas(ListaSondas* lista){
         ImprimeConteudoCompartimento(&(aux->sonda.CompartimentoSonda));
         printf("Localização: Latitude = %.6f Longitude = %.6f\n", aux->sonda.LocalizacaoSonda.Latitude,aux->sonda.LocalizacaoSonda.Longitude);
         printf("Esta Ligada: ");
-        if(aux->sonda.EstaLigada == 0){
+        if(aux->sonda.EstaLigada == 1){
             printf("Sim\n");
         }
         else{
-            printf("Não\n");
+            printf("Nao\n");
         }
         aux = aux->prox;
+        printf("\n");
     }
+}
+
+void ImprimeCatPes(ListaSondas* lista){
+    CelulaSonda *aux;
+        aux = lista->Primeiro->prox;
+        while(aux){
+            ImprimeCategoriaPeso(&(aux->sonda.CompartimentoSonda));
+            aux = aux->prox; 
+        }
 }

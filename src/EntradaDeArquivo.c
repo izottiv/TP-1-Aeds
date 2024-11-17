@@ -18,7 +18,7 @@ void EntradaDeArquivo(char* Link){
     FILE *ArquivoDeEntrada = fopen(Link, "r");
 
     //Precisarei salvar as LINHAS dos arquivos, quantas SONDAS e QUAIS são
-    char Linha[TamanhoMax], *DadosDasSondas[TamanhoMax];
+    char Linha[TamanhoMax];
     int N_Sondas, Operacoes;
 
     
@@ -55,72 +55,49 @@ void EntradaDeArquivo(char* Link){
     fgets(Linha, sizeof(Linha), ArquivoDeEntrada);      //Recebe as M operações
     Operacoes = atoi(Linha);
     
-    //Aloca agora, também para as operacoes, criando um vetor único que vai salvar as novas rochar e seu índice para organizarmos depois
-    for (int i = 0; i < Operacoes; i++)
-    {
-        DadosDasSondas[i] = (char*)malloc(TamanhoMax * sizeof(char));
-    }
 
     for (int i = 0; i < Operacoes; i++)
     {
         fgets(Linha, sizeof(Linha), ArquivoDeEntrada);  //Recebe primeira operacao
         Linha[strcspn(Linha, "\n")] = '\0';             /*Sempre que eu tento manipular uma linha com o \n ele da erro, então com esta função eu sou capaz de trocar a sua ocorrencia por um nulo, eliminando as quebras de linha daquela linha salva */
-        printf("ESTA LINHA >> %s\n", Linha);
+        printf("OPERACAO: %s\n", Linha);
 
         //Condicionais para fazer as OPERAÇÕES
         if(!strcmp(Linha, "R")){
             fgets(Linha, sizeof(Linha), ArquivoDeEntrada);  //Recebe a linha
-            Linha[strcspn(Linha, "\n")] = '\0';    
-            
-            //meu bglh
-            char* token = strtok(Linha, " ");
-            float latitude = atof(token);
+            printf("%s", Linha);
+
+            float latitude = atof(strtok(Linha, " "));
             float longitude = atof(strtok(NULL, " "));
+
             float peso = atof(strtok(NULL, " "));
+
             Localizacao _localizacao;
             _localizacao.Latitude = latitude;
             _localizacao.Longitude = longitude;
 
             ListaMineral _listamineral;
-            InicializaListaMineral(&_listamineral);
+            InicializaListaMineral(&_listamineral);          
 
             for(int i =0;i < 3; i++){
                 char* mineral = strtok(NULL, " ");
                 Mineral _mineral;
-                InicializaMineral(&_mineral, mineral);
-                InsereListaMineral(&_listamineral, _mineral);
+                if (mineral == NULL)
+                {
+                    InsereListaMineral(&_listamineral, _mineral);
+                }
+                else {
+                    InicializaMineral(&_mineral, mineral);
+                    InsereListaMineral(&_listamineral, _mineral);
+                }
                 
             }
-            ImprimeListaMineral(&_listamineral);
-            printf("Localização: %.2f, %.2f | Peso: %d\n", latitude, longitude, peso);
-            printf("Minerais adicionados com sucesso à lista.\n");
-            /*Localizacao _Localizacao;
-            float v1 = atof((Linha, " "));
-            printf("%f", v1);*/
-            // int Peso = atoi(strtok(NULL, " "));
-            // printf("%d", Peso);
-
-            // ListaMineral lisM;
-            // Mineral m1, m2, m3;
-            // char Mineral1[50], Mineral2[50], Mineral3[50];
-            // strcpy(Mineral1, strtok(NULL, " "));
-            // strcpy(Mineral2, strtok(NULL, " "));
-            // strcpy(Mineral3, strtok(NULL, " "));
-            
-            // InicializaMineral(&m1, Mineral1);
-            // InicializaMineral(&m2, Mineral2);
-            // InicializaMineral(&m3, Mineral3);
-            // InsereListaMineral(&lisM, m1);
-            // InsereListaMineral(&lisM, m2);
-            // InsereListaMineral(&lisM, m3);
-
         }
         else if (!strcmp(Linha, "I"))
         {
-            for (int j = 0; j < i; j++)
-            {
-                printf("%s\n", DadosDasSondas[j]);          //Aqui ele imprime os status
-            }
+
+            ImprimeCategoriaPeso(&_ListaSondas->Primeiro->sonda.CompartimentoSonda);
+            printf("--------------\n");
         }
         else {
             /*
@@ -133,11 +110,7 @@ void EntradaDeArquivo(char* Link){
             */
         }
         
-        printf("%s\n", DadosDasSondas[i]);
     }
-    
-    for (int i = 0; i < Operacoes; i++) {
-        free(DadosDasSondas[i]);
-    }
+   
     fclose(ArquivoDeEntrada);
 }
