@@ -38,8 +38,11 @@ void ImprimeConteudoCompartimento(GerenciadorCompartimento *comp){
             printf("=================================\n");
             printf("Indentificador: %d\n",aux->_RochaMineral.Identificador);
             printf("Peso: %.2f\n",aux->_RochaMineral.Peso);
-            printf("Minerais: \n"); //TERMINAR DEPOIS
-            printf("Categoria: %d\n",aux->_RochaMineral._Categorias); // TERMINAR DEPOIS
+            printf("Minerais: ");
+            ImprimeNomesDosMineraisDaLista(&aux->_RochaMineral._ListaMineral);
+            printf("Categoria: ");
+            TransformarCategoria(&aux->_RochaMineral);
+            printf("\n");
             printf("Latitude %.6f Longitude: %.6f\n",aux->_RochaMineral._Localizacao.Latitude,aux->_RochaMineral._Localizacao.Longitude);
             printf("Data De Coleta:\n");
             printf("%d/%d/%d as %d:%d:%d\n",aux->_RochaMineral._DataColeta.dia, aux->_RochaMineral._DataColeta.mes, aux->_RochaMineral._DataColeta.ano, aux->_RochaMineral._DataColeta.hora, aux->_RochaMineral._DataColeta.minuto, aux->_RochaMineral._DataColeta.segundo);
@@ -132,15 +135,17 @@ void TrocaRocha(GerenciadorCompartimento *comp, RochaMineral *Rocha){
 
 
 void RemoverRochaPorCategoria(GerenciadorCompartimento*comp, RochaMineral *RochaRetirada, Categorias Categoria){
-    Compartimento *aux, *AuxCont;
-    if (VerificaSeVazia(comp) == 0){
-        printf("lista nao ta vazia pai\n");
+    Compartimento *aux, *AuxCont,*AuxContAnterior;
+    if (VerificaSeVazia(comp) == 1){
+        printf("LISTA VAZIA\n");
         return;
     }
     int possicaosecundaria;
     int pos = 1;
+    int cancel = 0;
+    AuxContAnterior = comp->PrimeiroRocha;
     AuxCont = comp->PrimeiroRocha->Prox;
-    while (AuxCont->Prox != NULL){  // Procura a primeira rocha que tem a mesma categoria dada tira ela da lista e aloca ela em RochaRetirada
+    while (AuxCont != NULL){  // Procura a primeira rocha que tem a mesma categoria dada tira ela da lista e aloca ela em RochaRetirada
         if (AuxCont->_RochaMineral._Categorias == Categoria){
             *RochaRetirada = AuxCont->_RochaMineral;    
             if(pos == 1){ // No caso do primeiro elemento da lista ser da mesma categoria
@@ -148,41 +153,24 @@ void RemoverRochaPorCategoria(GerenciadorCompartimento*comp, RochaMineral *Rocha
                 comp->PrimeiroRocha = comp->PrimeiroRocha->Prox;
                 free(aux);
                 break;
-                }
             }
-            else if(pos == RetornaTamanho(comp)){   // No caso do ultimo elemento da lista ser da mesma categoria
-                pos = 1;
-                AuxCont = comp->PrimeiroRocha->Prox;
-                while (AuxCont->Prox != NULL){
-                    if (pos == RetornaTamanho(comp)-1){
-                        aux = AuxCont->Prox;
-                        AuxCont->Prox == NULL;
-                        free(aux);
-                        break;
-                    }
-                    pos++;
-                }
+            if(pos == RetornaTamanho(comp)){   // No caso do ultimo elemento da lista ser da mesma categoria
+                    aux = AuxContAnterior->Prox;
+                    AuxContAnterior->Prox = NULL;
+                    free(aux);
                 break;
             }
-            else{ // Se o elemento da lista ser da mesma categoria estja no meio
+            if(pos < RetornaTamanho(comp) && pos > 1){ // Se o elemento da lista ser da mesma categoria estja no meio
                 aux = AuxCont;
-                possicaosecundaria = pos;
-                pos = 0;
-                AuxCont = comp->PrimeiroRocha->Prox;
-                while (AuxCont->Prox != NULL){
-                    if(pos == possicaosecundaria-1){
-                        AuxCont->Prox = aux->Prox;
-                        free(aux);
-                        break;
-                    }
-                    pos++;
-                    AuxCont = AuxCont->Prox;
-                }
+                AuxContAnterior->Prox = AuxCont->Prox;
+                free(aux); 
+                break;
             }
-        pos++;
-        AuxCont = AuxCont->Prox;
+        }
+    pos++;
+    AuxContAnterior = AuxContAnterior->Prox;
+    AuxCont = AuxCont->Prox;
     }
-    
 }
 
 void ImprimeCategoriaPeso(GerenciadorCompartimento* comp){
