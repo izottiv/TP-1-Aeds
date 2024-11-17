@@ -38,7 +38,8 @@ void ImprimeConteudoCompartimento(GerenciadorCompartimento *comp){
             printf("=================================\n");
             printf("Indentificador: %d\n",aux->_RochaMineral.Identificador);
             printf("Peso: %.2f\n",aux->_RochaMineral.Peso);
-            printf("Minerais:\n");
+            printf("Minerais: ");
+            ImprimeNomesDosMineraisDaLista(&aux->_RochaMineral._ListaMineral);
             printf("Categoria: ");
             TransformarCategoria(&aux->_RochaMineral);
             printf("\n");
@@ -134,28 +135,41 @@ void TrocaRocha(GerenciadorCompartimento *comp, RochaMineral *Rocha){
 
 
 void RemoverRochaPorCategoria(GerenciadorCompartimento*comp, RochaMineral *RochaRetirada, Categorias Categoria){
-    Compartimento *aux, *AuxCont;
+    Compartimento *aux, *AuxCont,*AuxContAnterior;
     if (VerificaSeVazia(comp) == 1){
         printf("LISTA VAZIA\n");
         return;
     }
     int possicaosecundaria;
     int pos = 1;
+    int cancel = 0;
+    AuxContAnterior = comp->PrimeiroRocha;
     AuxCont = comp->PrimeiroRocha->Prox;
-    while (AuxCont->Prox != NULL){  // Procura a primeira rocha que tem a mesma categoria dada tira ela da lista e aloca ela em RochaRetirada
+    while (AuxCont != NULL){  // Procura a primeira rocha que tem a mesma categoria dada tira ela da lista e aloca ela em RochaRetirada
         if (AuxCont->_RochaMineral._Categorias == Categoria){
             *RochaRetirada = AuxCont->_RochaMineral;    
             if(pos == 1){ // No caso do primeiro elemento da lista ser da mesma categoria
                 aux = comp->PrimeiroRocha;
                 comp->PrimeiroRocha = comp->PrimeiroRocha->Prox;
                 free(aux);
-                printf("teste inicio\n");
+                break;
+            }
+            if(pos == RetornaTamanho(comp)){   // No caso do ultimo elemento da lista ser da mesma categoria
+                    aux = AuxContAnterior->Prox;
+                    AuxContAnterior->Prox = NULL;
+                    free(aux);
+                break;
+            }
+            if(pos < RetornaTamanho(comp) && pos > 1){ // Se o elemento da lista ser da mesma categoria estja no meio
+                aux = AuxCont;
+                AuxContAnterior->Prox = AuxCont->Prox;
+                free(aux); 
                 break;
             }
         }
-        pos++;
-        AuxCont = AuxCont->Prox;
+    pos++;
+    AuxContAnterior = AuxContAnterior->Prox;
+    AuxCont = AuxCont->Prox;
     }
-    
 }
 
