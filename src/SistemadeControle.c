@@ -191,32 +191,12 @@ void ImprimeStatusSondas(ListaSondas *Frotadesondas){
         else{
             printf("Nao\n");
         }
-        printf("---------------------------------------------\n");
-        ImprimeConteudoCompartimento(&aux->sonda.CompartimentoSonda);
         nsonda++;
         aux = aux->prox;
     }
 }
 
 void RedistribuicaoDeRochas(ListaSondas *Frotadesondas){
-    RetornaBase(Frotadesondas);
-    RochaMineral ListaDeRochaDaFrota[RetornaQuantidadeDeRochasFrota(Frotadesondas)];
-    CelulaSonda *AuxCont;
-    Compartimento *AuxComp;
-    int pos = 0;
-    AuxCont = Frotadesondas->Primeiro->prox;
-    while (pos < RetornaQuantidadeDeRochasFrota(Frotadesondas)){
-        AuxComp = AuxCont->sonda.CompartimentoSonda.PrimeiroRocha->Prox;    
-        ListaDeRochaDaFrota[pos] = AuxCont->sonda.CompartimentoSonda.PrimeiroRocha->_RochaMineral;    
-        while (AuxComp != NULL){
-            pos++;
-        }
-        
-        pos++;
-        AuxCont = AuxCont->prox;
-    }
-    
-    printf("Ta dando bom\n");
 }
 void RetornaBase(ListaSondas *Frotadesondas){// Faz todas as sonda retornar para coordenadas 0,0
     CelulaSonda *AuxCont;

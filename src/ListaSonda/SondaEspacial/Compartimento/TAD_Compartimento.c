@@ -27,11 +27,10 @@ int RetornaTamanho(GerenciadorCompartimento *comp){
 
 int VerificaSeVazia(GerenciadorCompartimento *comp){
     return(comp->PrimeiroRocha == comp->UltimoRocha);
-
 }
 
 void ImprimeConteudoCompartimento(GerenciadorCompartimento *comp){
-     if(VerificaSeVazia(comp )== 0){
+     if(VerificaSeVazia(comp)== 0){
         Compartimento *aux;   
         aux = comp->PrimeiroRocha->Prox;
         while(aux != NULL){
@@ -53,12 +52,13 @@ void ImprimeConteudoCompartimento(GerenciadorCompartimento *comp){
 
 float PesoAtualCompartimento(GerenciadorCompartimento *comp){
     if(VerificaSeVazia(comp) == 0){ // Verifica se o comparitmento é vazio
+        printf("TESTE\n");
         float peso = 0; // Soma o peso de todas as rochas no compartimento
         Compartimento *aux;
         aux = comp->PrimeiroRocha->Prox;
-            while (aux != NULL){
-                peso = peso + aux->_RochaMineral.Peso;
-                aux = aux->Prox; 
+        while (aux != NULL){
+            peso = peso + aux->_RochaMineral.Peso;
+            aux = aux->Prox; 
         }
         return peso;
     }
@@ -100,7 +100,6 @@ void InserirRocha(GerenciadorCompartimento *comp, RochaMineral *Rocha, float PES
                 printf("teste 3\n");
             }
         }
-
     }
 }
 
