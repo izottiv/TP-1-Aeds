@@ -5,7 +5,7 @@
 #include "SistemadeControle.h"
 
 
-ListaSondas Inicializacao(){
+void Inicializacao(){
     ListaSondas Frotadesonda;
     InicializaListaSondas(&Frotadesonda);
     Localizacao local;
@@ -23,8 +23,9 @@ ListaSondas Inicializacao(){
         LigarSonda(&Venus);
         InserirListaSondas(&Frotadesonda,&Venus);
     }
-
-    RedistribuicaoDeRochas(&Frotadesonda);
+    ColetaDeNovaRocha(&Frotadesonda);
+    ColetaDeNovaRocha(&Frotadesonda);
+    ColetaDeNovaRocha(&Frotadesonda);
     ImprimeStatusSondas(&Frotadesonda);
 }
 
@@ -126,7 +127,9 @@ int ProcurasIDSondaMaisproxima(ListaSondas *FrotadeSondas,RochaMineral *Rocha){
         numero ++; 
         AuxCont = AuxCont->prox;        
     }
-
+    for (int i = 0; i < tamanho; i++){
+        printf("Ids disponieveis para aceitar rocha %d\n",listadeVetores[i]);
+    }
     AuxCont = FrotadeSondas->Primeiro->prox;
     int idprox;
     while (AuxCont != NULL){//procura a sonda mais proxima da rocha
@@ -148,7 +151,7 @@ int ProcurasIDSondaMaisproxima(ListaSondas *FrotadeSondas,RochaMineral *Rocha){
                     MoverSonda(&AuxCont->sonda,Rocha->_Localizacao.Latitude,Rocha->_Localizacao.Longitude);
                     InserirRocha(&AuxCont->sonda.CompartimentoSonda,Rocha,AuxCont->sonda.CapacidadeMaximaSonda);
                     printf("Rocha enserida na sonda: %d ",AuxCont->sonda.IdentificadorSonda);
-                    printf("porque o comparimento estava vazio\n");
+                    printf("porque o compartimento estava vazio\n");
                     break;
                 case 1:// caso retorn 1 a tem o mesmo tipo de rocha e esta no meio e troca rocha
                     MoverSonda(&AuxCont->sonda,Rocha->_Localizacao.Latitude,Rocha->_Localizacao.Longitude);
@@ -160,7 +163,7 @@ int ProcurasIDSondaMaisproxima(ListaSondas *FrotadeSondas,RochaMineral *Rocha){
                     MoverSonda(&AuxCont->sonda,Rocha->_Localizacao.Latitude,Rocha->_Localizacao.Longitude);
                     InserirRocha(&AuxCont->sonda.CompartimentoSonda,Rocha,AuxCont->sonda.CapacidadeMaximaSonda);
                     printf("Rocha enserida na sonda: %d ",AuxCont->sonda.IdentificadorSonda);
-                    printf("porque nao avia nenhuma rocha da mesma catgoria\n");
+                    printf("porque nao havia nenhuma rocha da mesma catgoria\n");
                     break;
             }
             break;
@@ -188,18 +191,34 @@ void ImprimeStatusSondas(ListaSondas *Frotadesondas){
         else{
             printf("Nao\n");
         }
+        printf("---------------------------------------------\n");
+        ImprimeConteudoCompartimento(&aux->sonda.CompartimentoSonda);
+        nsonda++;
         aux = aux->prox;
     }
 }
 
 void RedistribuicaoDeRochas(ListaSondas *Frotadesondas){
     RetornaBase(Frotadesondas);
-    RetornaMediadePesoFrota(Frotadesondas);
-
+    RochaMineral ListaDeRochaDaFrota[RetornaQuantidadeDeRochasFrota(Frotadesondas)];
+    CelulaSonda *AuxCont;
+    Compartimento *AuxComp;
+    int pos = 0;
+    AuxCont = Frotadesondas->Primeiro->prox;
+    while (pos < RetornaQuantidadeDeRochasFrota(Frotadesondas)){
+        AuxComp = AuxCont->sonda.CompartimentoSonda.PrimeiroRocha->Prox;    
+        ListaDeRochaDaFrota[pos] = AuxCont->sonda.CompartimentoSonda.PrimeiroRocha->_RochaMineral;    
+        while (AuxComp != NULL){
+            pos++;
+        }
+        
+        pos++;
+        AuxCont = AuxCont->prox;
+    }
+    
+    printf("Ta dando bom\n");
 }
-
-
-void RetornaBase(ListaSondas *Frotadesondas){
+void RetornaBase(ListaSondas *Frotadesondas){// Faz todas as sonda retornar para coordenadas 0,0
     CelulaSonda *AuxCont;
     AuxCont = Frotadesondas->Primeiro->prox;
     while(AuxCont != NULL){
@@ -207,7 +226,7 @@ void RetornaBase(ListaSondas *Frotadesondas){
         AuxCont = AuxCont->prox;
     }
 }
-double RetornaMediadePesoFrota(ListaSondas *Frotadesondas){
+double RetornaMediadePesoFrota(ListaSondas *Frotadesondas){// Retorna a media de peso de todas as sondas em uma lista
     double media = 0;
     CelulaSonda *AuxCont;
     AuxCont = Frotadesondas->Primeiro->prox;
@@ -215,9 +234,30 @@ double RetornaMediadePesoFrota(ListaSondas *Frotadesondas){
         media = media + PesoAtualCompartimento(&AuxCont->sonda.CompartimentoSonda);
         AuxCont = AuxCont->prox;
     }
-    printf("media da lista: %f\n",media);
+    media = media/RetornaQuantasSonda(Frotadesondas);
     return media;
 }
+int RetornaQuantasSonda(ListaSondas *Frotadesondas){// quantas sondas tem na frita
+    int quantidade = 0;
+    CelulaSonda *AuxCont;
+    AuxCont = Frotadesondas->Primeiro->prox;
+    while (AuxCont != NULL){
+        quantidade++;
+        AuxCont = AuxCont->prox;
+    }
+    return quantidade;
+}
+int RetornaQuantidadeDeRochasFrota(ListaSondas *Frotadesondas){//Retorna a quantidade de rochas da frota inteira
+    int quantidaderocha = 0;
+    CelulaSonda *AuxCont;
+    AuxCont = Frotadesondas->Primeiro->prox;
+    while (AuxCont != NULL){
+        quantidaderocha = quantidaderocha + QuantasRochasEmCompartimento(&AuxCont->sonda.CompartimentoSonda);
+        AuxCont = AuxCont->prox;
+    }
+    return quantidaderocha;
+}
+
 
 void SelecaoDeModos(ListaSondas *FrotadeSondas) {
     int numerooperacoes;
