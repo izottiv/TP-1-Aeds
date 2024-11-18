@@ -76,18 +76,20 @@ void InserirRocha(GerenciadorCompartimento *comp, RochaMineral *Rocha, float PES
             comp->UltimoRocha = comp->UltimoRocha->Prox;
             comp->UltimoRocha->_RochaMineral = *Rocha;
             comp->UltimoRocha->Prox = NULL;
+            printf("teste 1\n");
         }
         else{// Caso nao esteja vazia procura uma rocha da mesma categoria
             Compartimento *ContadorLista;
             ContadorLista = comp->PrimeiroRocha;
             int repitidos = 0;
             while (ContadorLista->Prox != NULL){    
-                    if(Rocha->_Categorias == ContadorLista->_RochaMineral._Categorias){ // caso tenha uma rocha da mesma categoria ela subistitui essa rocha pela recebida
-                        if (Rocha->Peso < ContadorLista->_RochaMineral.Peso){ // verifica se a rocha e mais leve doq ja esta no compartimento
-                            ContadorLista->_RochaMineral = *Rocha;
-                        }
-                        repitidos = 1;
+                if(Rocha->_Categorias == ContadorLista->_RochaMineral._Categorias){ // caso tenha uma rocha da mesma categoria ela subistitui essa rocha pela recebida
+                    if (Rocha->Peso < ContadorLista->_RochaMineral.Peso){ // verifica se a rocha e mais leve doq ja esta no compartimento
+                        ContadorLista->_RochaMineral = *Rocha;
+                        printf("teste 2\n");
                     }
+                    repitidos = 1;
+                }
                 ContadorLista = ContadorLista->Prox;
             }
             if(repitidos == 0){// caso a lista nao tenha uma rocha de categoria iqual a recebida coloca a recebida na ultima possicao
@@ -95,6 +97,7 @@ void InserirRocha(GerenciadorCompartimento *comp, RochaMineral *Rocha, float PES
                 comp->UltimoRocha = comp->UltimoRocha->Prox;
                 comp->UltimoRocha->_RochaMineral = *Rocha;   
                 comp->UltimoRocha->Prox = NULL;
+                printf("teste 3\n");
             }
         }
 
@@ -104,7 +107,7 @@ void InserirRocha(GerenciadorCompartimento *comp, RochaMineral *Rocha, float PES
 
 int VerificasePodeInserirRocha(GerenciadorCompartimento *comp, RochaMineral *Rocha, float PESOTOTAL){ 
     if(PESOTOTAL >= (PesoAtualCompartimento(comp) + Rocha->Peso)){//Verifica se o peso maximo e ecedido caso eceda retorna 5
-        if (VerificaSeVazia(comp) == 1){// caso a lista esteja vazia retorna zero onde vc precisa enserir a rocha
+        if (VerificaSeVazia(comp) == 0){// caso a lista esteja vazia retorna zero onde vc precisa enserir a rocha
             return 0;
         }
         else{// Caso nao esteja vazia procura uma rocha da mesma categoria
@@ -203,3 +206,13 @@ void RemoverRochaPorCategoria(GerenciadorCompartimento*comp, RochaMineral *Rocha
     }
 }
 
+int QuantasRochasEmCompartimento(GerenciadorCompartimento *comp){
+    Compartimento *AuxCont;
+    int QuantidadeRocha = 0;
+    AuxCont = comp->PrimeiroRocha->Prox;
+    while (AuxCont != NULL){
+        QuantidadeRocha++;
+        AuxCont = AuxCont->Prox;
+    }
+    return QuantidadeRocha;
+}
