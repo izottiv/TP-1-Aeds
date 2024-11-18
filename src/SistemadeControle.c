@@ -8,14 +8,17 @@
 ListaSondas Inicializacao(){
     ListaSondas Frotadesonda;
     InicializaListaSondas(&Frotadesonda);
+    Localizacao local;
     Sonda Venus;
     InicializarSonda(&Venus);
     int numerosondas;
+    float capacidade, velocidade, combustivel;
     printf("Numero de sondas da lista: ");//apagar depois
     scanf("%d",&numerosondas);
     for (int i = 0; i < numerosondas; i++){
         printf("Coordenadas/Armazenamento/velocidade/combustivel: ");//APAGARDEPOIS
-        scanf("%f %f %f %f %f",&Venus.LocalizacaoSonda.Latitude,&Venus.LocalizacaoSonda.Longitude,&Venus.CapacidadeMaximaSonda,&Venus.VelocidadeSonda,&Venus.NivelIncialCombustivel);
+        scanf("%f %f %f %f %f",&local.Latitude, &local.Longitude, &capacidade, &velocidade, &combustivel);
+        ModificarValoresSonda(&Venus, local, capacidade, velocidade, combustivel);
         Venus.IdentificadorSonda++;
         LigarSonda(&Venus);
         InserirListaSondas(&Frotadesonda,&Venus);
@@ -191,7 +194,7 @@ void ImprimeStatusSondas(ListaSondas *Frotadesondas){
 
 void RedistribuicaoDeRochas(ListaSondas *Frotadesondas){
     RetornaBase(Frotadesondas);
-    RetornaMediadePesoFrota(&Frotadesondas);
+    RetornaMediadePesoFrota(Frotadesondas);
 
 }
 
@@ -209,7 +212,7 @@ double RetornaMediadePesoFrota(ListaSondas *Frotadesondas){
     CelulaSonda *AuxCont;
     AuxCont = Frotadesondas->Primeiro->prox;
     while (AuxCont != NULL){
-        media = media + PesoAtualCompartimento(&Frotadesondas);
+        media = media + PesoAtualCompartimento(&AuxCont->sonda.CompartimentoSonda);
         AuxCont = AuxCont->prox;
     }
     printf("media da lista: %f\n",media);
