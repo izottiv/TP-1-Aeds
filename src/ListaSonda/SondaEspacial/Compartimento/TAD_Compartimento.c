@@ -56,8 +56,8 @@ float PesoAtualCompartimento(GerenciadorCompartimento *comp){
         float peso = 0; // Soma o peso de todas as rochas no compartimento
         Compartimento *aux;
         aux = comp->PrimeiroRocha->Prox;
-            while (aux->Prox != NULL){
-                peso = peso + aux->_RochaMineral.Peso;
+            while (aux != NULL){
+                peso += aux->_RochaMineral.Peso;
                 aux = aux->Prox; 
         }
         return peso;
@@ -83,7 +83,7 @@ void InserirRocha(GerenciadorCompartimento *comp, RochaMineral *Rocha, float PES
             int repitidos = 0;
             while (ContadorLista->Prox != NULL){    
                     if(Rocha->_Categorias == ContadorLista->_RochaMineral._Categorias){ // caso tenha uma rocha da mesma categoria ela subistitui essa rocha pela recebida
-                        if (Rocha->Peso < ContadorLista->_RochaMineral.Peso){
+                        if (Rocha->Peso < ContadorLista->_RochaMineral.Peso){ // verifica se a rocha e mais leve doq ja esta no compartimento
                             ContadorLista->_RochaMineral = *Rocha;
                         }
                         repitidos = 1;
@@ -101,6 +101,36 @@ void InserirRocha(GerenciadorCompartimento *comp, RochaMineral *Rocha, float PES
     }
 }
 
+
+int VerificasePodeInserirRocha(GerenciadorCompartimento *comp, RochaMineral *Rocha, float PESOTOTAL){ 
+    if(PESOTOTAL >= (PesoAtualCompartimento(comp) + Rocha->Peso)){//Verifica se o peso maximo e ecedido caso eceda retorna 5
+        if (VerificaSeVazia(comp) == 1){// caso a lista esteja vazia retorna zero onde vc precisa enserir a rocha
+            return 0;
+        }
+        else{// Caso nao esteja vazia procura uma rocha da mesma categoria
+            Compartimento *ContadorLista;
+            ContadorLista = comp->PrimeiroRocha;
+            int repitidos = 0;
+            while (ContadorLista->Prox != NULL){    // verifica se tem uma mesma categoria
+                    if(Rocha->_Categorias == ContadorLista->_RochaMineral._Categorias){ 
+                        if (Rocha->Peso < ContadorLista->_RochaMineral.Peso){ // verifica se a rocha e mais leve doq ja esta no compartimento se sim retorna 1 e troca rocha
+                            return 1;
+                        }
+                    else{
+                        repitidos = 1;
+                    }
+                    }
+                ContadorLista = ContadorLista->Prox;
+            }
+            if(repitidos == 1){// caso a lista nao esteja vazia e nao tenha uma rocha de categoria iqual a recebida coloca a recebida na ultima possicao retorna 2
+                return 2;
+            }
+        }
+    }
+    else{// caso O peso e execido retorna 5 e a sonda é ignorada
+        return 5;
+    }
+}
 
 
 void TrocaRocha(GerenciadorCompartimento *comp, RochaMineral *Rocha){
