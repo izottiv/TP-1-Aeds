@@ -21,7 +21,6 @@ void InsereListaMineral(ListaMineral* Lista, Mineral Mineral){
 
     }
 }
-
 //Retira um valor específico da lista
 int RetiraListaMineral(ListaMineral* Lista, Mineral* Mineral, char* nome){
     int cont = -1;
