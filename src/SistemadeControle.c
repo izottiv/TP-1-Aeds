@@ -97,7 +97,6 @@ void ColetaDeNovaRocha(ListaSondas *FrotadeSondas){
         }
         ContSonda = ContSonda->prox;
     }
-    
 }
 
 double CalcularDistancia(Sonda venus,RochaMineral Rocha){

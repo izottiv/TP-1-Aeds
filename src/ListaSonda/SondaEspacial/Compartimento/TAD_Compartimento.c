@@ -105,10 +105,11 @@ int VerificasePodeInserirRocha(GerenciadorCompartimento *comp, RochaMineral *Roc
     int contador;
     switch(Categoria){
         case 0: // caso vc queira ver se um o compartimento aceita a rocha
-            if(VerificaSeVazia(comp) == 1){// Caso o compartimento esteja vazio pode inserir Caso 1
-                return 1;
-            }
+
             if(PesoAtualCompartimento(comp) + Rocha->Peso <= PESO){// Pecore o vetor em busca da mesma categoria
+                if(VerificaSeVazia(comp) == 1){// Caso o compartimento esteja vazio pode inserir Caso 1
+                    return 1;
+                }
                 contadorlista = comp->PrimeiroRocha->Prox;
                 int aux = 0;
                 while (contadorlista != NULL){
@@ -132,10 +133,10 @@ int VerificasePodeInserirRocha(GerenciadorCompartimento *comp, RochaMineral *Roc
             }
             break;
         case 1:// caso vc queira quantos compari
-            if(VerificaSeVazia(comp) == 1){// Caso o compartimento esteja vazio pode inserir Caso 1
-                return 1;
-            }
             if(PesoAtualCompartimento(comp) + Rocha->Peso <= PESO){// Pecore o vetor em busca da mesma categoria
+                    if(VerificaSeVazia(comp) == 1){// Caso o compartimento esteja vazio pode inserir Caso 1
+                    return 1;
+                }
                 contadorlista = comp->PrimeiroRocha->Prox;
                 int aux = 0;
                 while (contadorlista != NULL){
