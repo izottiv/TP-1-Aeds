@@ -60,7 +60,7 @@ void ClassificaCategoria(RochaMineral* Rocha, int numerodeminerais){
     int Terranita = 0;
     int Calaris = 0;
 
-    for (int i = 0; i < numerodeminerais; i++){
+for (int i = 0; i < numerodeminerais; i++){
 
         if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Ferrolita")== 0){
             Ferrolita = 1;
@@ -71,11 +71,13 @@ void ClassificaCategoria(RochaMineral* Rocha, int numerodeminerais){
         if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Aquavitae") == 0){
             Aquavitae = 1;
         }
-        if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Terranita") == 0){
+        if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Terranita") == 0 || strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Terranita\n") == 0){
             Terranita = 1;
+            printf("\nEntrou na Terranita\n");
         }
-        if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Calaris") == 0){
+        if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Calaris") == 0 || strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Calaris\n") == 0){
             Calaris = 1;
+            printf("\nEntrou na Calaris\n");
         }
     }
 
@@ -90,6 +92,7 @@ void ClassificaCategoria(RochaMineral* Rocha, int numerodeminerais){
     }
     if( Ferrolita == 0 && Solarium == 0 && Aquavitae == 0 && Terranita == 1 && Calaris == 1 ){
         Rocha->_Categorias = Terrolis;
+        printf("\nEntrou na categoria certa\n");
     }
     if( Ferrolita == 0 && Solarium == 1 && Aquavitae == 0 && Terranita == 1 && Calaris == 0 ){
         Rocha->_Categorias = Terrasol;
@@ -110,7 +113,6 @@ void ClassificaCategoria(RochaMineral* Rocha, int numerodeminerais){
         Rocha->_Categorias = Aquacalis;
     }
 }
-
 void TransformarCategoria(RochaMineral* Rocha){
     switch (Rocha->_Categorias)
     {
