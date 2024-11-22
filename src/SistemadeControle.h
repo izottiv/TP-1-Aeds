@@ -9,7 +9,7 @@ void ColetaDeNovaRocha(ListaSondas *FrotadeSondas);
 double CalcularDistancia(Sonda venus,RochaMineral Rocha);
 int ProcurasIDSondaMaisproxima(ListaSondas *FrotadeSondas,RochaMineral *RochaS);
 
-void ImprimeStatusSondas(ListaSondas *Frotasdesondas);
+void ImprimeStatusSondasADMIN(ListaSondas *Frotasdesondas);
 
 void RedistribuicaoDeRochas(ListaSondas *Frotadesondas);
 void RetornaBase(ListaSondas *Frotadesondas);
