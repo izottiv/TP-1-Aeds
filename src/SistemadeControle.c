@@ -197,69 +197,6 @@ void ImprimeStatusSondas(ListaSondas *Frotadesondas){
     }
 }
 
-void RedistribuicaoDeRochas(ListaSondas *Frotadesondas){
-    RetornaBase(Frotadesondas);
-    float MediaDasSondas = RetornaMediadePesoFrota(Frotadesondas);
-    RochaMineral *VetorDeRochas = malloc(MAX_SIZE * sizeof(RochaMineral));
-    EncontrarMenores(Frotadesondas, VetorDeRochas);
-
-    CelulaSonda *AuxCelSonda =  Frotadesondas->Primeiro->prox;
-    Sonda AuxSonda; 
-    float Peso = PesoAtualCompartimento(&AuxCelSonda->sonda.CompartimentoSonda);
-    while (AuxCelSonda)
-    {
-        if (PesoAtualCompartimento(&AuxCelSonda->sonda.CompartimentoSonda) < Peso)
-        {
-            Peso = PesoAtualCompartimento(&AuxCelSonda->sonda.CompartimentoSonda);
-            AuxSonda = AuxCelSonda->sonda;
-        }
-        AuxCelSonda = AuxCelSonda->prox;
-    }
-    int i = 0; 
-    while (VetorDeRochas[i].Peso > 0)
-    {
-        VerificasePodeInserirRocha(&AuxSonda.CompartimentoSonda, &VetorDeRochas[i] , VetorDeRochas[i].Peso);
-        i++;
-    }
-    
-    
-    
-    
-    
-    free(VetorDeRochas);
-}
-
-void EncontrarMenores(ListaSondas *Frotadesondas, RochaMineral *VetorDeRochas)
-{
-    CelulaSonda *AuxSonda = Frotadesondas->Primeiro->prox;
-    float MediaDasSondas = RetornaMediadePesoFrota(Frotadesondas);
-    int i = 0;
-    //Jogando valores para dentro do VetorDeRochas
-    while (AuxSonda)
-    {
-        float PesoCompartimento = PesoAtualCompartimento(&AuxSonda->sonda.CompartimentoSonda);
-        if (PesoCompartimento > MediaDasSondas && QuantasRochasEmCompartimento(&AuxSonda->sonda.CompartimentoSonda) > 1)
-        {
-            // While para analisar enquanto o compartimento tiver peso maior
-            Compartimento *AuxCompartimento = &AuxSonda->sonda.CompartimentoSonda;
-            // While para pegar a menor rocha
-            RochaMineral Menor = AuxCompartimento->_RochaMineral;
-            while (AuxCompartimento)
-            {   
-                if (AuxCompartimento->_RochaMineral.Peso < Menor.Peso)
-                {
-                    Menor = AuxCompartimento->_RochaMineral;
-                }
-                AuxCompartimento = AuxCompartimento->Prox;
-            }
-            VetorDeRochas[i] = Menor;
-            RochaMineral RochaRemovida;
-            RemoverRochaPorCategoria(AuxCompartimento, &RochaRemovida, Menor._Categorias);
-            i++;
-        }
-        AuxSonda = AuxSonda->prox;
-    }
-}
 void RetornaBase(ListaSondas *Frotadesondas){// Faz todas as sonda retornar para coordenadas 0,0
     CelulaSonda *AuxCont;
     AuxCont = Frotadesondas->Primeiro->prox;
