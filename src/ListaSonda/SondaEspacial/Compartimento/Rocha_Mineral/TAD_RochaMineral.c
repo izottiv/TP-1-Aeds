@@ -59,19 +59,19 @@ void ClassificaCategoria(RochaMineral* Rocha){
 
     for (int i = 0; i < sizeof(Rocha->_ListaMineral._Mineral); i++)
     {
-        if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Ferrolita")){
+        if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Ferrolita") == 0){
             Ferrolita = 1;
         }
-        if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Solarium")){
+        if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Solarium") == 0){
             Solarium = 1;
         }
-        if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Aquavitae")){
+        if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Aquavitae") == 0){
             Aquavitae = 1;
         }
-        if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Terranita")){
+        if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Terranita") == 0){
             Terranita = 1;
         }
-        if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Calaris")){
+        if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Calaris") == 0){
             Calaris = 1;
         }
     }
