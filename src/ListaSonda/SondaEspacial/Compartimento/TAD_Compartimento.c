@@ -115,7 +115,7 @@ int VerificasePodeInserirRocha(GerenciadorCompartimento *comp, RochaMineral *Roc
             int repetidos = 0;
             while (ContadorLista->Prox != NULL){    // verifica se tem a mesma categoria
                     if(Rocha->_Categorias == ContadorLista->_RochaMineral._Categorias){ 
-                        if (Rocha->Peso < ContadorLista->_RochaMineral.Peso){ // verifica se a rocha é mais leve do que a que jé esté no compartimento, se sim retorna 1 e troca rocha
+                        if (Rocha->Peso < ContadorLista->_RochaMineral.Peso){ // verifica se a rocha é mais leve do que a que ja esta no compartimento, se sim retorna 1 e troca rocha
                             return 1;
                         }
                     else{
