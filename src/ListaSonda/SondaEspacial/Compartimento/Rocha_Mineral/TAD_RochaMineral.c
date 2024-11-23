@@ -111,8 +111,8 @@ void ClassificaCategoria(RochaMineral* Rocha, int numerodeminerais){
     }
 }
 
-void TransformarCategoria(RochaMineral* Rocha){
-    switch (Rocha->_Categorias)
+void TransformarCategoria(Categorias Cat){
+    switch (Cat)
     {
     case Ferrom:
         printf("Ferrom");

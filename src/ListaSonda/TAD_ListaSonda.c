@@ -39,28 +39,17 @@ void ImprimirListaSondas(ListaSondas* lista){
     aux = lista->Primeiro->prox;
     while(aux){
         printf("Identificador: %d\n", aux->sonda.IdentificadorSonda);
-        printf("Capacidade Maxima: %.2f\n", aux->sonda.CapacidadeMaximaSonda);
-        printf("Velocidade da Sonda: %.2f\n", aux->sonda.VelocidadeSonda);
-        printf("Nivel de Combustivel: %.2f\n", aux->sonda.NivelIncialCombustivel);
         ImprimeConteudoCompartimento(&(aux->sonda.CompartimentoSonda));
         printf("Localizacao: Latitude = %.6f Longitude = %.6f\n", aux->sonda.LocalizacaoSonda.Latitude,aux->sonda.LocalizacaoSonda.Longitude);
-        printf("Esta Ligada: ");
-        if(aux->sonda.EstaLigada == 1){
-            printf("Sim\n");
-        }
-        else{
-            printf("Nao\n");
-        }
         aux = aux->prox;
-        printf("\n");
     }
 }
 
 void ImprimeCatPes(ListaSondas* lista){
     CelulaSonda *aux;
-        aux = lista->Primeiro->prox;
-        while(aux){
-            ImprimeCategoriaPeso(&(aux->sonda.CompartimentoSonda));
-            aux = aux->prox; 
-        }
+    aux = lista->Primeiro->prox;
+    while(aux != NULL){
+        ImprimeCategoriaPeso(&aux->sonda.CompartimentoSonda);
+        aux = aux->prox; 
+    }
 }

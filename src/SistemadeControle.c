@@ -10,14 +10,14 @@ void Inicializacao(){
     ListaSondas Frotadesonda;
     InicializaListaSondas(&Frotadesonda);
     Localizacao local;
-    Sonda Venus;
-    InicializarSonda(&Venus);
     int numerosondas;
     float capacidade, velocidade, combustivel;
     printf("===========================================================================\n");
     printf("Numero de sondas da lista: ");
     scanf("%d",&numerosondas);
     for (int i = 0; i < numerosondas; i++){
+        Sonda Venus;
+        InicializarSonda(&Venus);
         //printf("Coordenadas/Armazenamento/velocidade/combustivel:");//APAGARDEPOIS
         printf("Digite as coordenadas da sonda (Latitude/Longitude):\n");
         scanf("%f %f",&local.Latitude, &local.Longitude);
@@ -33,7 +33,7 @@ void Inicializacao(){
         InserirListaSondas(&Frotadesonda,&Venus);
         printf("indentificador da sonda: %d\n",Venus.IdentificadorSonda);
         printf("---------------------------------------------------------------------------\n");
-        
+    
     }
     SelecaoDeModos(&Frotadesonda);
 }
@@ -47,6 +47,7 @@ void ColetaDeNovaRocha(ListaSondas *FrotadeSondas){
     int BH,ID;
     CelulaSonda *SondaMaisProxima;
     InicializaListaMineral(&Pacotemineral);
+    printf("---------------------------------------------------------------------------\n");
     printf("Coordenadas/Peso/minerais: ");
     scanf("%f %f %f ",&Local.Latitude,&Local.Longitude,&peso);
     char restante[100]; // Buffer para ler os nomes
@@ -98,7 +99,6 @@ void ColetaDeNovaRocha(ListaSondas *FrotadeSondas){
         ContSonda = ContSonda->prox;
     }
 }
-
 double CalcularDistancia(Sonda venus,RochaMineral Rocha){
     double DeltaLat = venus.LocalizacaoSonda.Latitude - Rocha._Localizacao.Latitude;
     double DeltaLon = venus.LocalizacaoSonda.Longitude - Rocha._Localizacao.Longitude;
@@ -106,7 +106,6 @@ double CalcularDistancia(Sonda venus,RochaMineral Rocha){
     x = sqrt(DeltaLat*DeltaLat + DeltaLon*DeltaLon);
     return x;
 }
-
 int ProcurasIDSondaMaisproxima(ListaSondas *FrotadeSondas,RochaMineral *Rocha){// Retorna o Identificador da sonda que é possivel inserir a rocha e é a mais proxima
     int tamanholista = 0, ID;
     CelulaSonda *ContSonda;
@@ -141,45 +140,31 @@ int ProcurasIDSondaMaisproxima(ListaSondas *FrotadeSondas,RochaMineral *Rocha){/
         for(int i = 0; i < tamanholista; i++){// compara o id de uma sonda com todos os ids do vetor
             if (ContSonda->sonda.IdentificadorSonda == ListaIDSSonda[i]){
                 if (CalcularDistancia(ContSonda->sonda,*Rocha) < Menordistancia){// caso achae uma distancia menor que anterior quando esse valor e o id dessa sonda
-                    printf("%d\n",ContSonda->sonda.IdentificadorSonda);
                     Menordistancia = CalcularDistancia(ContSonda->sonda,*Rocha);
                     ID = ContSonda->sonda.IdentificadorSonda;    
                 }
-        }            
-    }
+            break;
+            }            
+        }
         ContSonda = ContSonda->prox;
     }
-
     return ID;
 }
 
-void ImprimeStatusSondasADMIN(ListaSondas *Frotadesondas){
-    CelulaSonda* aux;
-    aux = Frotadesondas->Primeiro->prox;
-    int nsonda = 1;
-    printf("===========================================================================\n");
-    while(aux){
+void ImpressaoSondas(ListaSondas *FrotaSonda){
+    printf("Quantas rochas na sonda %d\n",RetornaQuantidadeDeRochasFrota(FrotaSonda));
+    int numero = 1;
+    CelulaSonda *Venus;
+    Venus = FrotaSonda->Primeiro->prox;
+    for(int i = 1;i <= RetornaQuantasSonda(FrotaSonda);i++){
         printf("---------------------------------------------------------------------------\n");
-        printf("Numero da soda: %d\n",nsonda);
-        if(VerificaSeVazia(&aux->sonda.CompartimentoSonda) == 0){
-            printf("Identificador: %d\n", aux->sonda.IdentificadorSonda);
-            printf("Peso atual do compartimento da sonda: %.1f\n", PesoAtualCompartimento(&aux->sonda.CompartimentoSonda));
-            ImprimeCategoriaPeso(&aux->sonda.CompartimentoSonda);
-            printf("Localizacao: Latitude = %.6f Longitude = %.6f\n", aux->sonda.LocalizacaoSonda.Latitude,aux->sonda.LocalizacaoSonda.Longitude);
-            printf("Esta Ligada: ");
-            if(aux->sonda.EstaLigada == 1){
-                printf("Sim\n");
-            }
-            else{
-                printf("Nao\n");
-            }
-            nsonda++;
-        }
-        else{
-            printf("Compartimento Vazio\n");
-        }
-        aux = aux->prox;
+        printf("%d\n",numero);
+        printf("Indentificador: %d\n",Venus->sonda.IdentificadorSonda);
+        ImprimeConteudoCompartimento(&Venus->sonda.CompartimentoSonda);
+        numero ++;
+        Venus = Venus->prox;
     }
+    printf("---------------------------------------------------------------------------\n");  
 }
 
 void RetornaBase(ListaSondas *Frotadesondas){// Faz todas as sonda retornar para coordenadas 0,0
@@ -240,7 +225,7 @@ void SelecaoDeModos(ListaSondas *FrotadeSondas) {
             ColetaDeNovaRocha(FrotadeSondas);
         } else if (operacaoescolhida == 'I') {
             printf("Funcao Imprime Status Sondas chamada\n");
-            ImprimeStatusSondasADMIN(FrotadeSondas);// trocar para outra funcao de imprimir
+            ImpressaoSondas(FrotadeSondas);// trocar para outra funcao de imprimir
         } else if (operacaoescolhida == 'E') {
             printf("Função Redistribuicao De Rochas chamada\n");
         }

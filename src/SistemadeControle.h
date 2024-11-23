@@ -4,12 +4,12 @@
 
 
 void Inicializacao();
-void ColetaDeNovaRocha(ListaSondas *FrotadeSondas);
 
+void ColetaDeNovaRocha(ListaSondas *FrotadeSondas);
 double CalcularDistancia(Sonda venus,RochaMineral Rocha);
 int ProcurasIDSondaMaisproxima(ListaSondas *FrotadeSondas,RochaMineral *RochaS);
 
-void ImprimeStatusSondasADMIN(ListaSondas *Frotasdesondas);
+void ImpressaoSondas(ListaSondas *FrotaSonda);
 
 void RedistribuicaoDeRochas(ListaSondas *Frotadesondas);
 void RetornaBase(ListaSondas *Frotadesondas);
@@ -17,7 +17,7 @@ void RetornaBase(ListaSondas *Frotadesondas);
 double RetornaMediadePesoFrota(ListaSondas *Frotadesondas);
 int RetornaQuantasSonda(ListaSondas *Frotadesondas);
 int RetornaQuantidadeDeRochasFrota(ListaSondas *Frotadesondas);
-void AlocaOrganizaRochaSonda(ListaSondas *Frotadesondas,RochaMineral *Lista[]);
+void AlocaOrganizaRochaSonda(ListaSondas *Frotadesondas,RochaMineral *Lista);
 
 
 void SelecaoDeModos(ListaSondas *FrotadeSondas);

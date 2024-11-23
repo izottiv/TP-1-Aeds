@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "TAD_Compartimento.h"
-
+    
  // Inicializa um compartimento
 void InicializadorCompartimento(GerenciadorCompartimento *Comp){
     Comp->PrimeiroRocha = (Compartimento*) malloc(sizeof(Compartimento));
@@ -34,36 +34,31 @@ void ImprimeConteudoCompartimento(GerenciadorCompartimento *comp){
         Compartimento *aux;   
         aux = comp->PrimeiroRocha->Prox;
         while(aux != NULL){
-            printf("=================================\n");
-            printf("Indentificador: %d\n",aux->_RochaMineral.Identificador);
-            printf("Peso: %.2f\n",aux->_RochaMineral.Peso);
-            printf("Minerais: ");
-            ImprimeNomesDosMineraisDaLista(&aux->_RochaMineral._ListaMineral);
-            printf("Categoria: ");
-            TransformarCategoria(&aux->_RochaMineral);
-            printf("\n");
-            printf("Latitude %.6f Longitude: %.6f\n",aux->_RochaMineral._Localizacao.Latitude,aux->_RochaMineral._Localizacao.Longitude);
-            printf("Data De Coleta:\n");
-            printf("%d/%d/%d as %d:%d:%d\n",aux->_RochaMineral._DataColeta.dia, aux->_RochaMineral._DataColeta.mes, aux->_RochaMineral._DataColeta.ano, aux->_RochaMineral._DataColeta.hora, aux->_RochaMineral._DataColeta.minuto, aux->_RochaMineral._DataColeta.segundo);
+            TransformarCategoria(aux->_RochaMineral._Categorias);
+            printf(" - %.1f\n",aux->_RochaMineral.Peso);
             aux = aux->Prox; 
         }
+     }
+    else{
+        printf("Compartimento vazio\n");
     }
 }
 
 float PesoAtualCompartimento(GerenciadorCompartimento *comp){
-    float Peso = 0;
+    float Peso = 0,pesoreturn;
     Compartimento *aux;
-    aux = comp->PrimeiroRocha->Prox;
     if (VerificaSeVazia(comp) == 1){
-        return 0;
+        pesoreturn = Peso;
     }
     else{ 
+        aux = comp->PrimeiroRocha->Prox;
         while (aux != NULL){
-            Peso += aux->_RochaMineral.Peso;
+            Peso = Peso + aux->_RochaMineral.Peso;
             aux = aux->Prox;
         }
-        return Peso;
+        pesoreturn = Peso;
     }
+    return pesoreturn;
 }
 
 
@@ -71,9 +66,9 @@ float PesoAtualCompartimento(GerenciadorCompartimento *comp){
 void InserirRocha(GerenciadorCompartimento *comp, RochaMineral *Rocha, float PESOTOTAL){ //Informar o peso total que a sonda espacial suporta
     if(PESOTOTAL >= PesoAtualCompartimento(comp) + Rocha->Peso){//Verifica se o peso máximo está excedido
         if (VerificaSeVazia(comp) == 1){// caso a lista esteja vazia coloca na ultima/primeira posicao da lista
-            comp->UltimoRocha->Prox = (Compartimento*) malloc(sizeof(Compartimento));
-            comp->UltimoRocha = comp->UltimoRocha->Prox;
-            comp->UltimoRocha->_RochaMineral = *Rocha;
+            comp->PrimeiroRocha->Prox = (struct PreCelulaMineral*) malloc(sizeof(struct PreCelulaMineral));
+            comp->PrimeiroRocha->Prox->_RochaMineral = *Rocha;
+            comp->UltimoRocha = comp->PrimeiroRocha->Prox;
             comp->UltimoRocha->Prox = NULL;
         }
         else{// Caso nao esteja vazia procura uma rocha da mesma categoria
@@ -90,9 +85,9 @@ void InserirRocha(GerenciadorCompartimento *comp, RochaMineral *Rocha, float PES
                 ContadorLista = ContadorLista->Prox;
             }
             if(repetidos == 0){// caso a lista nao tenha uma rocha de categoria iqual a recebida coloca a recebida na ultima possicao
-                comp->UltimoRocha->Prox = (Compartimento*) malloc(sizeof(Compartimento));
-                comp->UltimoRocha = comp->UltimoRocha->Prox;
-                comp->UltimoRocha->_RochaMineral = *Rocha;   
+                comp->PrimeiroRocha->Prox = (struct PreCelulaMineral*) malloc(sizeof(struct PreCelulaMineral));
+                comp->PrimeiroRocha->Prox->_RochaMineral = *Rocha;
+                comp->UltimoRocha = comp->PrimeiroRocha->Prox;
                 comp->UltimoRocha->Prox = NULL;
             }
         }
@@ -132,7 +127,7 @@ int VerificasePodeInserirRocha(GerenciadorCompartimento *comp, RochaMineral *Roc
                 return 0;
             }
             break;
-        case 1:// caso vc queira quantos compari
+        case 1:// caso vc queira quantos compari    
             if(PesoAtualCompartimento(comp) + Rocha->Peso <= PESO){// Pecore o vetor em busca da mesma categoria
                     if(VerificaSeVazia(comp) == 1){// Caso o compartimento esteja vazio pode inserir Caso 1
                     return 1;
@@ -243,12 +238,11 @@ int QuantasRochasEmCompartimento(GerenciadorCompartimento *comp){
     return QuantidadeRocha;
 }
 
-void ImprimeCategoriaPeso(GerenciadorCompartimento* comp){
+void ImprimeCategoriaPeso(GerenciadorCompartimento *comp){
     Compartimento *aux;   
     aux = comp->PrimeiroRocha->Prox;
     while(aux != NULL){
-        TransformarCategoria(&aux->_RochaMineral);
-        printf(" %.1f\n", aux->_RochaMineral.Peso);
+        TransformarCategoria(aux->_RochaMineral._Categorias);
         aux = aux->Prox; 
     }
 }

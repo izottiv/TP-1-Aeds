@@ -36,6 +36,6 @@ void SetDataColeta(RochaMineral* Rocha, DataColeta DATACOLETA);
 //Seta os valores do struct
 void InicializaRochaMineral(RochaMineral* Rocha, float PESO, ListaMineral LISTAMINERAL, Localizacao LOCALIZACAO);  
 void ClassificaCategoria(RochaMineral* Rocha, int numerodeminerais);
-void TransformarCategoria(RochaMineral* Rocha);
+void TransformarCategoria(Categorias Cat);
 
 #endif
