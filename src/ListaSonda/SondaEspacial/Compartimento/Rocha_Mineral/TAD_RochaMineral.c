@@ -62,20 +62,20 @@ void ClassificaCategoria(RochaMineral* Rocha, int numerodeminerais){
 
 for (int i = 0; i < numerodeminerais; i++){
 
-        if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Ferrolita")== 0){
+        if(strcmp(Rocha->_ListaMineral._Mineral[i].nome, "Ferrolita")== 0 || strcmp(Rocha->_ListaMineral._Mineral[i].nome, "Ferrolita\n")== 0){
             Ferrolita = 1;
         }
-        if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Solarium") == 0){
+        if(strcmp(Rocha->_ListaMineral._Mineral[i].nome, "Solarium") == 0 || strcmp(Rocha->_ListaMineral._Mineral[i].nome, "Solarium\n") == 0){
             Solarium = 1;
         }
-        if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Aquavitae") == 0){
+        if(strcmp(Rocha->_ListaMineral._Mineral[i].nome, "Aquavitae") == 0 || strcmp(Rocha->_ListaMineral._Mineral[i].nome, "Aquavitae\n") == 0){
             Aquavitae = 1;
         }
-        if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Terranita") == 0 || strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Terranita\n") == 0){
+        if(strcmp(Rocha->_ListaMineral._Mineral[i].nome, "Terranita") == 0 || strcmp(Rocha->_ListaMineral._Mineral[i].nome, "Terranita\n") == 0){
             Terranita = 1;
             printf("\nEntrou na Terranita\n");
         }
-        if(strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Calaris") == 0 || strcmp(Rocha->_ListaMineral._Mineral[0].nome, "Calaris\n") == 0){
+        if(strcmp(Rocha->_ListaMineral._Mineral[i].nome, "Calaris") == 0 || strcmp(Rocha->_ListaMineral._Mineral[i].nome, "Calaris\n") == 0){
             Calaris = 1;
             printf("\nEntrou na Calaris\n");
         }
