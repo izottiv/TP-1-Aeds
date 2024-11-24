@@ -13,10 +13,14 @@ void ImprimeStatusSondas(ListaSondas *Frotasdesondas);
 
 void RedistribuicaoDeRochas(ListaSondas *Frotadesondas);
 void RetornaBase(ListaSondas *Frotadesondas);
+
 double RetornaMediadePesoFrota(ListaSondas *Frotadesondas);
+int RetornaQuantasSonda(ListaSondas *Frotadesondas);
+int RetornaQuantidadeDeRochasFrota(ListaSondas *Frotadesondas);
+void AlocaOrganizaRochaSonda(ListaSondas *Frotadesondas,RochaMineral *Lista[]);
 
 
-void SelecaoDeModos();
+void SelecaoDeModos(ListaSondas *FrotadeSondas);
 
 
 #endif 

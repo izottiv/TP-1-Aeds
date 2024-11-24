@@ -66,6 +66,10 @@
     "tad_sonda.h": "c",
     "CentralDeComando.C": "cpp",
     "tad_datacoleta.h": "c",
+<<<<<<< HEAD
+=======
+    "sistemadecontrole.h": "c",
+>>>>>>> vitor
     "tad_compartimento.h": "c"
   }
 }

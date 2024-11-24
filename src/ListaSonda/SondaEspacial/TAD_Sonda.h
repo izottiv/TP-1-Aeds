@@ -13,6 +13,7 @@ typedef struct{
 } Sonda;
 
 void InicializarSonda(Sonda* NovaSonda);
+void ModificarValoresSonda(Sonda* NovaSonda, Localizacao local, float Capacidade, float velocidade, float compustivel);
 void LigarSonda(Sonda* NovaSonda);
 void DesligarSonda(Sonda* NovaSonda);
 void MoverSonda(Sonda* NovaSonda, float latitude, float longitude);
