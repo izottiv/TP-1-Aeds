@@ -73,11 +73,9 @@ for (int i = 0; i < numerodeminerais; i++){
         }
         if(strcmp(Rocha->_ListaMineral._Mineral[i].nome, "Terranita") == 0 || strcmp(Rocha->_ListaMineral._Mineral[i].nome, "Terranita\n") == 0){
             Terranita = 1;
-            printf("\nEntrou na Terranita\n");
         }
         if(strcmp(Rocha->_ListaMineral._Mineral[i].nome, "Calaris") == 0 || strcmp(Rocha->_ListaMineral._Mineral[i].nome, "Calaris\n") == 0){
             Calaris = 1;
-            printf("\nEntrou na Calaris\n");
         }
     }
 
@@ -92,7 +90,6 @@ for (int i = 0; i < numerodeminerais; i++){
     }
     if( Ferrolita == 0 && Solarium == 0 && Aquavitae == 0 && Terranita == 1 && Calaris == 1 ){
         Rocha->_Categorias = Terrolis;
-        printf("\nEntrou na categoria certa\n");
     }
     if( Ferrolita == 0 && Solarium == 1 && Aquavitae == 0 && Terranita == 1 && Calaris == 0 ){
         Rocha->_Categorias = Terrasol;

@@ -21,9 +21,9 @@ void Inicializacao(){
         InicializarSonda(&Venus);
         //printf("Coordenadas/Armazenamento/velocidade/combustivel:");//APAGARDEPOIS
         printf("Digite as coordenadas da sonda (Latitude/Longitude):\n");
-        scanf("%f %f",&local.Latitude, &local.Longitude);
-        printf("Digite a capacidade maxima da sonda:\n");
-        scanf("%f",&capacidade);
+        scanf("%f %f %f",&local.Latitude, &local.Longitude,&capacidade);
+        //printf("Digite a capacidade maxima da sonda:\n");
+        //scanf("%f",&capacidade);
         //printf("Digite a velocidade e quantidade de combustivel");
         //scanf("%f %f",&velocidade, &combustivel);
         velocidade = 66;
@@ -86,18 +86,23 @@ void ColetaDeNovaRocha(ListaSondas *FrotadeSondas){
     InicializaRochaMineral(&NovaRocha,peso,Pacotemineral,Local);
     ClassificaCategoria(&NovaRocha, BH);
     ID = ProcurasIDSondaMaisproxima(FrotadeSondas,&NovaRocha);
-    printf("ID da sonda onde a rocha foi inserida: %d\n",ID);//Tal vez Tirar
-    
-    CelulaSonda *ContSonda;
-    ContSonda = FrotadeSondas->Primeiro->prox;
-    while (ContSonda != NULL){
-        if (ContSonda->sonda.IdentificadorSonda == ID){
-            MoverSonda(&ContSonda->sonda,NovaRocha._Localizacao.Latitude,NovaRocha._Localizacao.Longitude);
-            InserirRocha(&ContSonda->sonda.CompartimentoSonda,&NovaRocha,ContSonda->sonda.CapacidadeMaximaSonda);
-            break;
+    if(ID > 0){
+        CelulaSonda *ContSonda;
+        ContSonda = FrotadeSondas->Primeiro->prox;
+        while (ContSonda != NULL){
+            if (ContSonda->sonda.IdentificadorSonda == ID){
+                MoverSonda(&ContSonda->sonda,NovaRocha._Localizacao.Latitude,NovaRocha._Localizacao.Longitude);
+                InserirRocha(&ContSonda->sonda.CompartimentoSonda,&NovaRocha,ContSonda->sonda.CapacidadeMaximaSonda);
+                printf("ID da sonda onde a rocha foi inserida: %d\n",ID);//Tal vez Tirar
+                break;
+            }
+            ContSonda = ContSonda->prox;
         }
-        ContSonda = ContSonda->prox;
     }
+    else{
+        printf("Nenhum lugar disponnivel para guarda a rocha\n");
+    }
+
     
 }
 
@@ -110,48 +115,51 @@ double CalcularDistancia(Sonda venus,RochaMineral Rocha){
 }
 
 int ProcurasIDSondaMaisproxima(ListaSondas *FrotadeSondas,RochaMineral *Rocha){// Retorna o Identificador da sonda que é possivel inserir a rocha e é a mais proxima
-    int tamanholista = 0, ID;
+    int tamanholista = 0, ID = 0;
     CelulaSonda *ContSonda;
     ContSonda = FrotadeSondas->Primeiro->prox;
-    double Menordistancia = CalcularDistancia(ContSonda->sonda,*Rocha);
-    ID = ContSonda->sonda.IdentificadorSonda; 
+    double Menordistancia = INFINITY; 
     while (ContSonda != NULL){//Verifica o quantas sondas podem recerber a rocha
         tamanholista += VerificasePodeInserirRocha(&ContSonda->sonda.CompartimentoSonda,Rocha,ContSonda->sonda.CapacidadeMaximaSonda,1);
         ContSonda = ContSonda->prox;
     }
-    int ListaIDSSonda[tamanholista], pos = 0;
-    ////////////
-    ContSonda = FrotadeSondas->Primeiro->prox;
-    while (pos < tamanholista){//Pecorre a lista de sondas Guardando os ids que podem receber a rocha emm um vetor 
-        switch (VerificasePodeInserirRocha(&ContSonda->sonda.CompartimentoSonda,Rocha,ContSonda->sonda.CapacidadeMaximaSonda,0)){
-        case 0:// caso o peso nao permita a insercao 
-            break;
-        case 1:
-            ListaIDSSonda[pos] = ContSonda->sonda.IdentificadorSonda;// caso o compartimento esteja vazio ou nao tenha nehuma rocha da mesma categoria da inserida
-            pos++;
-            break;
-        case 2:
-            ListaIDSSonda[pos] = ContSonda->sonda.IdentificadorSonda;// caso o peso da rocha enserida é menor que a da rocha ja dentro do compartimento
-            pos++;
-            break;
+    if (tamanholista > 0){
+        int ListaIDSSonda[tamanholista], pos = 0;
+        ////////
+        ContSonda = FrotadeSondas->Primeiro->prox;
+        while (pos < tamanholista){//Pecorre a lista de sondas Guardando os ids que podem receber a rocha emm um vetor 
+            switch (VerificasePodeInserirRocha(&ContSonda->sonda.CompartimentoSonda,Rocha,ContSonda->sonda.CapacidadeMaximaSonda,0)){
+            case 0:// caso o peso nao permita a insercao 
+                break;
+            case 1:
+                ListaIDSSonda[pos] = ContSonda->sonda.IdentificadorSonda;// caso o compartimento esteja vazio ou nao tenha nehuma rocha da mesma categoria da inserida
+                pos++;
+                break;
+            case 2:
+                ListaIDSSonda[pos] = ContSonda->sonda.IdentificadorSonda;// caso o peso da rocha enserida é menor que a da rocha ja dentro do compartimento
+                pos++;
+                break;
+            }
+            ContSonda = ContSonda->prox;
         }
-        ContSonda = ContSonda->prox;
+        /////////////////
+        ContSonda = FrotadeSondas->Primeiro->prox;
+        while (ContSonda != NULL){//pecorre a lista comparando com os ids salvos e verificando qual deles tem a menor distancia
+            for(int i = 0; i < tamanholista; i++){// compara o id de uma sonda com todos os ids do vetor
+                if (ContSonda->sonda.IdentificadorSonda == ListaIDSSonda[i]){
+                    if (CalcularDistancia(ContSonda->sonda,*Rocha) < Menordistancia){// caso achae uma distancia menor que anterior quando esse valor e o id dessa sonda
+                        Menordistancia = CalcularDistancia(ContSonda->sonda,*Rocha);
+                        ID = ContSonda->sonda.IdentificadorSonda;    
+                    }
+                    break;
+                }            
+            }
+            ContSonda = ContSonda->prox;
+        }
     }
-    /////////////////
-    ContSonda = FrotadeSondas->Primeiro->prox;
-    while (ContSonda != NULL){//pecorre a lista comparando com os ids salvos e verificando qual deles tem a menor distancia
-        for(int i = 0; i < tamanholista; i++){// compara o id de uma sonda com todos os ids do vetor
-            if (ContSonda->sonda.IdentificadorSonda == ListaIDSSonda[i]){
-                if (CalcularDistancia(ContSonda->sonda,*Rocha) < Menordistancia){// caso achae uma distancia menor que anterior quando esse valor e o id dessa sonda
-                    printf("%d\n",ContSonda->sonda.IdentificadorSonda);
-                    Menordistancia = CalcularDistancia(ContSonda->sonda,*Rocha);
-                    ID = ContSonda->sonda.IdentificadorSonda;    
-                }
-        }            
+    else{
+        ID = 0;
     }
-        ContSonda = ContSonda->prox;
-    }
-
     return ID;
 }
 
@@ -163,23 +171,14 @@ void ImprimeStatusSondasADMIN(ListaSondas *Frotadesondas){
     while(aux){
         printf("---------------------------------------------------------------------------\n");
         printf("Numero da soda: %d\n",nsonda);
+        printf("Identificador: %d\n", aux->sonda.IdentificadorSonda);
         if(VerificaSeVazia(&aux->sonda.CompartimentoSonda) == 0){
-            printf("Identificador: %d\n", aux->sonda.IdentificadorSonda);
-            printf("Peso atual do compartimento da sonda: %.1f\n", PesoAtualCompartimento(&aux->sonda.CompartimentoSonda));
             ImprimeCategoriaPeso(&aux->sonda.CompartimentoSonda);
-            printf("Localizacao: Latitude = %.6f Longitude = %.6f\n", aux->sonda.LocalizacaoSonda.Latitude,aux->sonda.LocalizacaoSonda.Longitude);
-            printf("Esta Ligada: ");
-            if(aux->sonda.EstaLigada == 1){
-                printf("Sim\n");
-            }
-            else{
-                printf("Nao\n");
-            }
-            nsonda++;
         }
         else{
             printf("Compartimento Vazio\n");
         }
+        nsonda++;
         aux = aux->prox;
     }
 }
@@ -236,7 +235,7 @@ void SelecaoDeModos(ListaSondas *FrotadeSondas) {
     for (int i = 0; i < numerooperacoes; i++) {
         printf("Escolha a operacao: ");
         scanf(" %c", &operacaoescolhida);
-
+        printf("---------------------------------------------------------------------------\n");
         if (operacaoescolhida == 'R') {
             printf("Entrou na funcao Coleta De Nova Rocha\n");
             ColetaDeNovaRocha(FrotadeSondas);

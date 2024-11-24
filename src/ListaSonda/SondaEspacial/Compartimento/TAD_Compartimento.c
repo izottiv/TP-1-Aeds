@@ -106,6 +106,7 @@ int VerificasePodeInserirRocha(GerenciadorCompartimento *comp, RochaMineral *Roc
     switch(Categoria){
         case 0: // caso vc queira ver se um o compartimento aceita a rocha
             if(VerificaSeVazia(comp) == 1){// Caso o compartimento esteja vazio pode inserir Caso 1
+                //printf("Compartimento Vazio\n");
                 return 1;
             }
             if(PesoAtualCompartimento(comp) + Rocha->Peso <= PESO){// Pecore o vetor em busca da mesma categoria
@@ -114,8 +115,14 @@ int VerificasePodeInserirRocha(GerenciadorCompartimento *comp, RochaMineral *Roc
                 while (contadorlista != NULL){
                     if (Rocha->_Categorias == contadorlista->_RochaMineral._Categorias){// caso tenha a mesma categoria da rocha inserida verifica outras coisas
                         if (Rocha->Peso < contadorlista->_RochaMineral.Peso){// caso o peso da rocha que esta fora da sonda seja menor que a que ja esta na sonda ela sera substituida Caso 2
+                            //printf("Pedra da mesma categoria mas leve\n");
                             return 2;
                         }
+                        else{
+                            //printf("Rocha da mesma categoria mas é mais pesada\n");
+                            return 0;
+                        }
+                        
                     }
                     else{// caso a rocha nao seja da mesma categoria aux = 1 e continua a pecorer o vetor ate acabar ou achar uma rocha do mesmo tipo
                         aux = 1;
@@ -123,11 +130,12 @@ int VerificasePodeInserirRocha(GerenciadorCompartimento *comp, RochaMineral *Roc
                     contadorlista = contadorlista->Prox;
                 }
                 if (aux == 1){// caso nao tenha nenhuma categoria repitida Caso 1 pode ser inseirda na ultima possicao da lista
+                    //printf("Nao vazio mas inserida no final\n");
                     return 1;
                 }
             }
             else{// caso o peso execeda o limete informado Caso 0 Nao pode inserir
-                printf("Peso exedido\n");
+                //printf("Peso exedido\n");
                 return 0;
             }
             break;
