@@ -53,6 +53,7 @@ void InicializaRochaMineral(RochaMineral* Rocha, float PESO, ListaMineral LISTAM
     DefineDataHora(&(Rocha->_DataColeta));
 }
 
+// Classifica A Categoria da rocha
 void ClassificaCategoria(RochaMineral* Rocha, int numerodeminerais){
     int Ferrolita = 0;
     int Solarium = 0; 
@@ -110,6 +111,8 @@ for (int i = 0; i < numerodeminerais; i++){
         Rocha->_Categorias = Aquacalis;
     }
 }
+
+// Imprime a Categoria da Rocha
 void TransformarCategoria(RochaMineral* Rocha){
     switch (Rocha->_Categorias)
     {

@@ -197,22 +197,6 @@ int VerificasePodeInserirRocha(GerenciadorCompartimento *comp, RochaMineral *Roc
     }
 }
 
-
-int RetornaIDRochaMaisLeve(GerenciadorCompartimento *comp){
-    Compartimento *RochaAux;
-    double MenorPeso = INFINITY;
-    int IDRocha = 0;
-    RochaAux = comp->PrimeiroRocha->Prox;
-    while (RochaAux != NULL){
-        if (RochaAux->_RochaMineral.Peso < MenorPeso){
-            MenorPeso = RochaAux->_RochaMineral.Peso;
-            IDRocha = RochaAux->_RochaMineral.Identificador;
-        }
-        RochaAux = RochaAux->Prox;
-    }
-    return IDRocha;
-}
-
 void TrocaRocha(GerenciadorCompartimento *comp, RochaMineral *Rocha){
     RochaMineral RochaAux;
     RochaAux.Peso = 0;
