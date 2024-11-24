@@ -64,6 +64,9 @@
     "tad_rochamineral.h": "c",
     "tad_listamineral.h": "c",
     "tad_sonda.h": "c",
-    "CentralDeComando.C": "cpp"
+    "CentralDeComando.C": "cpp",
+    "tad_datacoleta.h": "c",
+    "sistemadecontrole.h": "c",
+    "tad_compartimento.h": "c"
   }
 }

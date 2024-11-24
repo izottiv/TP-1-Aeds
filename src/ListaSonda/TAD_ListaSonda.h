@@ -12,10 +12,16 @@ typedef struct{
     CelulaSonda* Ultimo;
 }ListaSondas;
 
+//Inicializa a lista de Sondas
 void InicializaListaSondas(ListaSondas* lista);
+
+//Insere uma sonda na lista
 void InserirListaSondas(ListaSondas* lista, Sonda* sonda);
+
+//Remove uma sonda da lista com base no identificador
 void RemoverListaSondas(ListaSondas* lista, int identificador, Sonda* Sondaremovida);
+
+//Imprime a lista de Sondas
 void ImprimirListaSondas(ListaSondas* lista);
-void ImprimeCatPes(ListaSondas* lista);
 
 #endif

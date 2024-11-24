@@ -1,14 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-<<<<<<< HEAD
-#include "src/ListaSonda/TAD_ListaSonda.h"
-=======
-
-#include "src/EntradaDeArquivo.c"
->>>>>>> Gabriel
+#include "src/SistemadeControle.h"
 
 int main(){
-
-
+    Inicializacao();
     return 0;
 }
