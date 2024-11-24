@@ -81,16 +81,14 @@ void ColetaDeNovaRocha(ListaSondas *FrotadeSondas){
     
     InicializaRochaMineral(&NovaRocha,peso,Pacotemineral,Local); // cria a rocha com as informaçoes recebidas
     ClassificaCategoria(&NovaRocha, BH); // classifca a categoira da rocha 
-    ID = ProcurasIDSondaMaisproxima(FrotadeSondas,&NovaRocha); // Procura a indetificacao da sonda mais proxima a rocha
-    if(ID > 0){// Insere a rocha na sonda de acordo com a indetificacao recebida
+    ID = ProcurasIDSondaMaisproxima(FrotadeSondas,&NovaRocha); // Procura o identificador da sonda mais proxima a rocha
+    if(ID > 0){// Insere a rocha na sonda de acordo com o identificador recebido
         CelulaSonda *ContSonda;
         ContSonda = FrotadeSondas->Primeiro->prox;
         while (ContSonda != NULL){
             if (ContSonda->sonda.IdentificadorSonda == ID){
                 MoverSonda(&ContSonda->sonda,NovaRocha._Localizacao.Latitude,NovaRocha._Localizacao.Longitude);
                 InserirRocha(&ContSonda->sonda.CompartimentoSonda,&NovaRocha,ContSonda->sonda.CapacidadeMaximaSonda);
-                printf("ID da sonda onde a rocha foi inserida: %d\n",ID);//Tal vez Tirar
-                break;
             }
             ContSonda = ContSonda->prox;
         }
@@ -112,7 +110,7 @@ int ProcurasIDSondaMaisproxima(ListaSondas *FrotadeSondas,RochaMineral *Rocha){/
     CelulaSonda *ContSonda;
     ContSonda = FrotadeSondas->Primeiro->prox;
     double Menordistancia = INFINITY; 
-    while (ContSonda != NULL){//Verifica o quantas sondas podem recerber a rocha
+    while (ContSonda != NULL){//Verifica quantas sondas podem recerber a rocha
         tamanholista += VerificasePodeInserirRocha(&ContSonda->sonda.CompartimentoSonda,Rocha,ContSonda->sonda.CapacidadeMaximaSonda,1);
         ContSonda = ContSonda->prox;
     }
@@ -120,16 +118,16 @@ int ProcurasIDSondaMaisproxima(ListaSondas *FrotadeSondas,RochaMineral *Rocha){/
         int ListaIDSSonda[tamanholista], pos = 0;
         ////////
         ContSonda = FrotadeSondas->Primeiro->prox;
-        while (pos < tamanholista){//Pecorre a lista de sondas Guardando os ids que podem receber a rocha emm um vetor 
+        while (pos < tamanholista){//Pecorre a lista de sondas guardando os ids que podem receber a rocha em um vetor 
             switch (VerificasePodeInserirRocha(&ContSonda->sonda.CompartimentoSonda,Rocha,ContSonda->sonda.CapacidadeMaximaSonda,0)){    
-                case 0:// caso o peso nao permita a insercao 
+                case 0:// caso o peso nao permita a inserção 
                     break;
                 case 1:
                     ListaIDSSonda[pos] = ContSonda->sonda.IdentificadorSonda;// caso o compartimento esteja vazio ou nao tenha nehuma rocha da mesma categoria da inserida
                     pos++;
                     break;
                 case 2:
-                    ListaIDSSonda[pos] = ContSonda->sonda.IdentificadorSonda;// caso o peso da rocha enserida é menor que a da rocha ja dentro do compartimento
+                    ListaIDSSonda[pos] = ContSonda->sonda.IdentificadorSonda;// caso o peso da rocha inserida seja menor que a da rocha que ja esta dentro do compartimento
                     pos++;
                     break;
                 }   
@@ -140,7 +138,7 @@ int ProcurasIDSondaMaisproxima(ListaSondas *FrotadeSondas,RochaMineral *Rocha){/
         while (ContSonda != NULL){//pecorre a lista comparando com os ids salvos e verificando qual deles tem a menor distancia
             for(int i = 0; i < tamanholista; i++){// compara o id de uma sonda com todos os ids do vetor
                 if (ContSonda->sonda.IdentificadorSonda == ListaIDSSonda[i]){
-                    if (CalcularDistancia(ContSonda->sonda,*Rocha) < Menordistancia){// caso achae uma distancia menor que anterior quando esse valor e o id dessa sonda
+                    if (CalcularDistancia(ContSonda->sonda,*Rocha) < Menordistancia){// caso ache uma distancia menor que anterior quando esse valor e o id dessa sonda
                         Menordistancia = CalcularDistancia(ContSonda->sonda,*Rocha);
                         ID = ContSonda->sonda.IdentificadorSonda;    
                     }
@@ -186,7 +184,6 @@ void RedistribuicaoDeRochas(ListaSondas *Frotadesondas){
     Compartimento *CompartimentoAux;        
     ////////////////// CALCULA A MEDIA
     media = RetornaMediadePesoFrota(Frotadesondas);
-    printf("Media das rochas: %.2f\n",media);/// TAL VEZ TIRAR 
     int SondaAcima = 0,possicao = 0;
     Auxsonda = Frotadesondas->Primeiro->prox;
     while (Auxsonda != NULL){// Procura Quantas sonda estao acima da media
@@ -319,12 +316,9 @@ void SelecaoDeModos(ListaSondas *FrotadeSondas) {
         if (operacaoescolhida == 'R') {
             ColetaDeNovaRocha(FrotadeSondas);
         } else if (operacaoescolhida == 'I') {
-            ImprimeStatusSondasADMIN(FrotadeSondas);// trocar para outra funcao de imprimir
+            ImprimeStatusSondasADMIN(FrotadeSondas);
         } else if (operacaoescolhida == 'E') {
             RedistribuicaoDeRochas(FrotadeSondas);
-        } else if (operacaoescolhida == 'X'){ // TIRAR DEPOIS
-            printf("Cabou\n");
-            break;
         }
     }
 }

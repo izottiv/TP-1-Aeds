@@ -2,12 +2,14 @@
 #include <stdlib.h>
 #include "TAD_ListaSonda.h"
 
+//Inicializa a lista de Sondas
 void InicializaListaSondas(ListaSondas* lista){
     lista->Primeiro = (CelulaSonda*)malloc(sizeof(CelulaSonda));
     lista->Ultimo = lista->Primeiro;
     lista->Primeiro->prox = NULL;
 }
 
+//Insere uma sonda na lista
 void InserirListaSondas(ListaSondas* lista, Sonda* sonda){
     lista->Ultimo->prox = (CelulaSonda*)malloc(sizeof(CelulaSonda));
     lista->Ultimo = lista->Ultimo->prox;
@@ -15,8 +17,9 @@ void InserirListaSondas(ListaSondas* lista, Sonda* sonda){
     lista->Ultimo->prox = NULL;
 }
 
-//tem q fzr
+//Remove uma sonda da lista com base no identificador
 void RemoverListaSondas(ListaSondas* lista, int identificador, Sonda* Sondaremovida){
+    if(lista->Primeiro != lista->Ultimo){//verifica se é vazia
     CelulaSonda* aux = lista->Primeiro;
     CelulaSonda* Remover = NULL;
     while (aux && aux->prox && aux->prox->sonda.IdentificadorSonda != identificador)
@@ -31,9 +34,11 @@ void RemoverListaSondas(ListaSondas* lista, int identificador, Sonda* Sondaremov
     if(Remover){
         free(Remover);
     }
+    }
     
 }
 
+//Imprime a lista de Sondas
 void ImprimirListaSondas(ListaSondas* lista){
     CelulaSonda* aux;
     aux = lista->Primeiro->prox;
@@ -54,13 +59,4 @@ void ImprimirListaSondas(ListaSondas* lista){
         aux = aux->prox;
         printf("\n");
     }
-}
-
-void ImprimeCatPes(ListaSondas* lista){
-    CelulaSonda *aux;
-        aux = lista->Primeiro->prox;
-        while(aux){
-            ImprimeCategoriaPeso(&(aux->sonda.CompartimentoSonda));
-            aux = aux->prox; 
-        }
 }

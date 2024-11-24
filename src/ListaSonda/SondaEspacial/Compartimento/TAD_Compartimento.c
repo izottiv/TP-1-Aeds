@@ -10,6 +10,7 @@ void InicializadorCompartimento(GerenciadorCompartimento *Comp){
     Comp->PrimeiroRocha->Prox = NULL;
 }
 
+// Retorna A quantidade de rocha que estao no compartimento
 int RetornaTamanho(GerenciadorCompartimento *comp){
     Compartimento *aux;
     int x = 0;
@@ -26,10 +27,12 @@ int RetornaTamanho(GerenciadorCompartimento *comp){
     }   
 }
 
+// Verifica se o compartimento esta vazio
 int VerificaSeVazia(GerenciadorCompartimento *comp){
     return(comp->PrimeiroRocha == comp->UltimoRocha);
 }
 
+// Imprime as informaçoes do Compartimento
 void ImprimeConteudoCompartimento(GerenciadorCompartimento *comp){
      if(VerificaSeVazia(comp) == 0){
         Compartimento *aux;   
@@ -49,6 +52,7 @@ void ImprimeConteudoCompartimento(GerenciadorCompartimento *comp){
     }
 }
 
+// Retorna o peso atual do compartimento
 float PesoAtualCompartimento(GerenciadorCompartimento *comp){
     float Peso = 0;
     Compartimento *aux;
@@ -65,6 +69,7 @@ float PesoAtualCompartimento(GerenciadorCompartimento *comp){
     }
 }
 
+// Insere uma rocha em um compartimento
 void InserirRocha(GerenciadorCompartimento *comp, RochaMineral *Rocha, float PESOTOTAL){ //Informar o peso total que a sonda espacial suporta
     if(PESOTOTAL >= PesoAtualCompartimento(comp) + Rocha->Peso){//Verifica se o peso máximo está excedido
         if (VerificaSeVazia(comp) == 1){// caso a lista esteja vazia coloca na ultima/primeira posicao da lista
@@ -96,6 +101,7 @@ void InserirRocha(GerenciadorCompartimento *comp, RochaMineral *Rocha, float PES
     }
 }
 
+// Insere uma rocha sem nenhuma limitacao
 void InserirRochaMedia(GerenciadorCompartimento *comp, RochaMineral *Rocha){
     if (VerificaSeVazia(comp) == 1){// caso a lista esteja vazia coloca na ultima/primeira posicao da lista
         comp->UltimoRocha->Prox = (Compartimento*) malloc(sizeof(Compartimento));
@@ -125,6 +131,7 @@ void InserirRochaMedia(GerenciadorCompartimento *comp, RochaMineral *Rocha){
     }
 }
 
+// Retorna valores que simbolizam alguns caso de entrada
 int VerificasePodeInserirRocha(GerenciadorCompartimento *comp, RochaMineral *Rocha, float PESO, int Categoria){ // Esse Peso pode ser o peso maximo da sonda ou uma media 
     Compartimento *contadorlista;
     int contador;
@@ -197,6 +204,7 @@ int VerificasePodeInserirRocha(GerenciadorCompartimento *comp, RochaMineral *Roc
     }
 }
 
+// Troca uma rocha por outra no compartimento 
 void TrocaRocha(GerenciadorCompartimento *comp, RochaMineral *Rocha){
     RochaMineral RochaAux;
     RochaAux.Peso = 0;
@@ -227,6 +235,7 @@ void TrocaRocha(GerenciadorCompartimento *comp, RochaMineral *Rocha){
     }
 }
 
+// Remove uma rocha de uma categoria e retorna a mesma para ser usada
 void RemoverRochaPorCategoria(GerenciadorCompartimento*comp, RochaMineral *RochaRetirada, Categorias Categoria){
     Compartimento *aux, *AuxCont,*AuxContAnterior;
     if (VerificaSeVazia(comp) == 1){
@@ -266,6 +275,7 @@ void RemoverRochaPorCategoria(GerenciadorCompartimento*comp, RochaMineral *Rocha
     }
 }
 
+// Retorna quantas rocha tem em um compartimento 
 int QuantasRochasEmCompartimento(GerenciadorCompartimento *comp){
     Compartimento *AuxCont;
     int QuantidadeRocha = 0;
@@ -277,6 +287,7 @@ int QuantasRochasEmCompartimento(GerenciadorCompartimento *comp){
     return QuantidadeRocha;
 }
 
+// Imprime as categorias e pesos de um compartimento
 void ImprimeCategoriaPeso(GerenciadorCompartimento* comp){
     Compartimento *aux;   
     aux = comp->PrimeiroRocha->Prox;
