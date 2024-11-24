@@ -11,7 +11,7 @@ void InicializarSonda(Sonda* NovaSonda){
     NovaSonda->IdentificadorSonda = 1 + rand() % 100;
     NovaSonda->LocalizacaoSonda.Latitude = 0.0;
     NovaSonda->LocalizacaoSonda.Longitude = 0.0;
-    InicializadorCompartimento(&(NovaSonda->CompartimentoSonda));
+    InicializadorCompartimento(&NovaSonda->CompartimentoSonda);
 }
 void ModificarValoresSonda(Sonda* NovaSonda, Localizacao local, float Capacidade, float velocidade, float compustivel){
     NovaSonda->LocalizacaoSonda = local;
@@ -21,7 +21,6 @@ void ModificarValoresSonda(Sonda* NovaSonda, Localizacao local, float Capacidade
 }
 void LigarSonda(Sonda* NovaSonda){
     NovaSonda->EstaLigada = 1;
-    printf("Sonda Ligada\n");
 }
 void DesligarSonda(Sonda* NovaSonda){
     NovaSonda->EstaLigada = 0;

@@ -21,8 +21,12 @@ float PesoAtualCompartimento(GerenciadorCompartimento *comp);
 void TrocaRocha(GerenciadorCompartimento *comp, RochaMineral *Rocha);
 void InserirRocha(GerenciadorCompartimento *comp, RochaMineral *Rocha, float PESOTOTAL);
 int VerificasePodeInserirRocha(GerenciadorCompartimento *comp, RochaMineral *Rocha, float PESOTOTAL,int Categoria);
-void RemoverRochaPorCategoria(GerenciadorCompartimento*comp, RochaMineral *RochaRetirada, Categorias Categoria);
+void RemoverRochaPorCategoria(GerenciadorCompartimento *comp, RochaMineral *RochaRetirada, Categorias Categoria);
 void ImprimeCategoriaPeso(GerenciadorCompartimento* comp);
+void InserirRochaMedia(GerenciadorCompartimento *comp, RochaMineral *Rocha);
+
+
+int RetornaIDRochaMaisLeve(GerenciadorCompartimento *comp);
 
 int QuantasRochasEmCompartimento(GerenciadorCompartimento *comp);
 
