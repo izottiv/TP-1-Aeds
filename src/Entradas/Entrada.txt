@@ -15,7 +15,7 @@ R
 R
 -15.677243 -44.787665 19 Calaris Aquavitae
 R
-9.344208 172.900976 3 Terranita Calaris
+9.344208 172.900976 3 Calaris Terranita 
 I
 R
 76.926237 147.437399 12 Ferrolita
