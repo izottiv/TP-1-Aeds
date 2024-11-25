@@ -69,7 +69,12 @@
 <<<<<<< HEAD
 =======
     "sistemadecontrole.h": "c",
+<<<<<<< HEAD
 >>>>>>> vitor
     "tad_compartimento.h": "c"
+=======
+    "tad_compartimento.h": "c",
+    "stdlib.h": "c"
+>>>>>>> main
   }
 }

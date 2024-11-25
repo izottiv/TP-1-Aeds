@@ -24,6 +24,8 @@ void LigarSonda(Sonda* NovaSonda);
 //Desliga a sonda
 void DesligarSonda(Sonda* NovaSonda);
 
+void EditarValores(Sonda* NovaSonda, float capacidade, float velocidade, float combustivel);
+
 //Move a sonda de posição
 void MoverSonda(Sonda* NovaSonda, float latitude, float longitude);
 

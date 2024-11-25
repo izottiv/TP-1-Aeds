@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "SistemadeControle.h"
 #include "ListaSonda/TAD_ListaSonda.h"
 #include "ListaSonda/SondaEspacial/TAD_Sonda.h"
 #include "ListaSonda/SondaEspacial/Compartimento/TAD_Compartimento.h"
@@ -12,27 +13,24 @@
 
 #define TamanhoMax 100
 
+
 //Esta função serve para além de ler o link, manter organizado o main.c e com uma quantidade menor de elementos, tornando a visualização mais fácil
 void EntradaDeArquivo(char* Link){
-
+    
     FILE *ArquivoDeEntrada = fopen(Link, "r");
 
     //Precisarei salvar as LINHAS dos arquivos, quantas SONDAS e QUAIS são
     char Linha[TamanhoMax];
     int N_Sondas, Operacoes;
 
-    
-
     //Recebe a quantidade de SONDAS da primeira linha
     fgets(Linha, sizeof(Linha), ArquivoDeEntrada);
-    N_Sondas = atoi(Linha);
-    printf("%d\n",N_Sondas);    //      Vai Apagar Dps/////////////
-
+    printf("%s", Linha);
+    N_Sondas = atoi(Linha);  
     ListaSondas *_ListaSondas;
     _ListaSondas = malloc(N_Sondas*sizeof(CelulaSonda));
 
     InicializaListaSondas(_ListaSondas);
-
     //Salva todas as SONDAS em seu vetor
     for (int i = 0; i < N_Sondas; i++)
     {
@@ -77,36 +75,84 @@ void EntradaDeArquivo(char* Link){
             _localizacao.Longitude = longitude;
 
             ListaMineral _listamineral;
-            InicializaListaMineral(&_listamineral);          
+            InicializaListaMineral(&_listamineral);  
 
-            for(int i =0;i < 3; i++){
-                char* mineral = strtok(NULL, " ");
-                Mineral _mineral;
-                if (mineral == NULL)
-                {
-                    InsereListaMineral(&_listamineral, _mineral);
+            Mineral mine;    
+            int BH = 0;
+
+            char *nome1  = strtok(NULL, " ");
+            char *nome2 = strtok(NULL, " \n");
+            char *nome3 = strtok(NULL, " \n");
+
+            // Verifica se todos os três nomes foram encontrados
+            if (nome1 && nome2 && nome3 != NULL) {
+                InicializaMineral(&mine,nome1);
+                InsereListaMineral(&_listamineral,mine);
+                InicializaMineral(&mine,nome2);
+                InsereListaMineral(&_listamineral,mine);
+                InicializaMineral(&mine,nome3);
+                InsereListaMineral(&_listamineral,mine);
+                BH = 3;
+            }
+            // Verifica se apenas dois nomes foram encontrados
+            else if (nome1 && nome2 != NULL) {
+                InicializaMineral(&mine,nome1);
+                InsereListaMineral(&_listamineral,mine);
+                InicializaMineral(&mine,nome2);
+                InsereListaMineral(&_listamineral,mine);
+                BH = 2;
+            }
+            // verifica se apenas um nome foi dado
+            else if (nome1 != NULL){
+                InicializaMineral(&mine,nome1);
+                InsereListaMineral(&_listamineral,mine);
+                BH = 1;           
+            }
+            
+            
+
+            RochaMineral Rocha;
+            InicializaRochaMineral(&Rocha, peso, _listamineral, _localizacao);
+            ClassificaCategoria(&Rocha, BH);
+            
+            TransformarCategoria(&Rocha);
+
+            int ID = ProcurasIDSondaMaisproxima(_ListaSondas, &Rocha);
+
+            if(ID > 0){// Insere a rocha na sonda de acordo com o identificador recebido
+            CelulaSonda *ContSonda;
+            ContSonda = _ListaSondas->Primeiro->prox;
+            while (ContSonda != NULL){
+                if (ContSonda->sonda.IdentificadorSonda == ID){
+                    MoverSonda(&ContSonda->sonda,Rocha._Localizacao.Latitude,Rocha._Localizacao.Longitude);
+                    InserirRocha(&ContSonda->sonda.CompartimentoSonda,&Rocha,ContSonda->sonda.CapacidadeMaximaSonda);
                 }
-                else {
-                    InicializaMineral(&_mineral, mineral);
-                    InsereListaMineral(&_listamineral, _mineral);
-                }
-                
+                ContSonda = ContSonda->prox;
+            }
+            }
+            else{
+                printf("Nenhum sonda disponivel para receber a rocha\n");
             }
         }
         else if (!strcmp(Linha, "I"))
         {
-
-            
+            CelulaSonda* aux;
+            aux = _ListaSondas->Primeiro->prox;
+            int nsonda = 1;
+            while(aux){ // Pecorre a lista de sonda 
+                printf("%d\n",nsonda); // imprime o numero da sonda
+                if(VerificaSeVazia(&aux->sonda.CompartimentoSonda) == 0){              
+                    ImprimeCategoriaPeso(&aux->sonda.CompartimentoSonda); // imprime a categora da rocha e o peso
+                }
+                else{
+                    printf("Compartimento Vazio!\n"); // Caso o compatimento estja vazio
+                }
+                nsonda++;
+                aux = aux->prox;
+            }
         }
         else {
-            /*
-            Operação E: primeiramente, todas as sondas devem ser movidas para o ponto comum
-            de coordenadas (0,0). Em seguida, realiza-se uma redistribuição das rochas entre as
-            sondas, para equilibrar o peso total de amostras em cada uma, tentando deixar a
-            distribuição de peso entre as sondas o mais igual possível. Isso garante uma divisão
-            uniforme das amostras e facilitará o transporte das sondas. Esta operação só será
-            executada uma única vez ao fim do arquivo e será seguida de uma operação I
-            */
+            RedistribuicaoDeRochas(_ListaSondas);
         }
         
     }
