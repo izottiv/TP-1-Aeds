@@ -49,26 +49,6 @@ void ImprimeConteudoCompartimento(GerenciadorCompartimento *comp){
     }
 }
 
-// Retorna o peso atual do compartimento
-float PesoAtualCompartimento(GerenciadorCompartimento *comp){
-    if(VerificaSeVazia(comp) == 0){ // Verifica se o compartimento é vazio
-        printf("TESTE\n");
-        float peso = 0; // Soma o peso de todas as rochas no compartimento
-        Compartimento *aux;
-        aux = comp->PrimeiroRocha->Prox;
-            while (aux != NULL){
-                peso += aux->_RochaMineral.Peso;
-                aux = aux->Prox; 
-        while (aux != NULL){
-            peso = peso + aux->_RochaMineral.Peso;
-            aux = aux->Prox; 
-        }
-        return peso;
-    }
-    else{
-        printf("Compartimento Vazio\n");
-    }
-}
 
 // Retorna o peso atual do compartimento
 float PesoAtualCompartimento(GerenciadorCompartimento *comp){
