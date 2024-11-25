@@ -51,7 +51,6 @@ void ImprimeListaMineral(ListaMineral* Lista){
         printf("%s\n", Lista->_Mineral[i].nome);
         printf("%.2f\n", Lista->_Mineral[i].dureza);
         printf("%.2f\n", Lista->_Mineral[i].reatividade);
-        RetornarCores(&(Lista->_Mineral[i]._cor));
         printf("\n");
     }
 }
