@@ -16,9 +16,11 @@ void InsereListaMineral(ListaMineral* Lista, Mineral Mineral){
 
     else{
         Lista->_Mineral[Lista->_Ultimo++] = Mineral;
+
+        // printf("Adicionado com sucesso!\n");
+
     }
 }
-
 //Retira um valor específico da lista
 int RetiraListaMineral(ListaMineral* Lista, Mineral* Mineral, char* nome){
     int cont = -1;
