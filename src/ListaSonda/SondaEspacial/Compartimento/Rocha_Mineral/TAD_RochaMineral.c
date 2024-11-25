@@ -61,9 +61,8 @@ void ClassificaCategoria(RochaMineral* Rocha, int numerodeminerais){
     int Terranita = 0;
     int Calaris = 0;
 
-for (int i = 0; i < numerodeminerais; i++){
-
-        if(strcmp(Rocha->_ListaMineral._Mineral[i].nome, "Ferrolita")== 0 || strcmp(Rocha->_ListaMineral._Mineral[i].nome, "Ferrolita\n")== 0){
+    for (int i = 0; i < numerodeminerais; i++){
+        if(strcmp(Rocha->_ListaMineral._Mineral[i].nome, "Ferrolita") == 0 || strcmp(Rocha->_ListaMineral._Mineral[i].nome, "Ferrolita\n")== 0){
             Ferrolita = 1;
         }
         if(strcmp(Rocha->_ListaMineral._Mineral[i].nome, "Solarium") == 0 || strcmp(Rocha->_ListaMineral._Mineral[i].nome, "Solarium\n") == 0){

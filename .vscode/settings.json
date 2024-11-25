@@ -67,6 +67,7 @@
     "CentralDeComando.C": "cpp",
     "tad_datacoleta.h": "c",
     "sistemadecontrole.h": "c",
-    "tad_compartimento.h": "c"
+    "tad_compartimento.h": "c",
+    "stdlib.h": "c"
   }
 }

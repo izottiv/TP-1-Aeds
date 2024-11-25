@@ -39,3 +39,9 @@ void MoverSonda(Sonda* NovaSonda, float latitude, float longitude){
     NovaSonda->LocalizacaoSonda.Latitude = latitude;
     NovaSonda->LocalizacaoSonda.Longitude = longitude;
 }  
+
+void EditarValores(Sonda* NovaSonda, float capacidade, float velocidade, float combustivel){
+    NovaSonda->CapacidadeMaximaSonda = capacidade;
+    NovaSonda->VelocidadeSonda = velocidade;
+    NovaSonda->NivelIncialCombustivel = combustivel;
+}

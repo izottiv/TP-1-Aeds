@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "src/SistemadeControle.h"
+#include "src/EntradaDeArquivo.h"
 
 int main(){
-    Inicializacao();
+    EntradaDeArquivo("src/Entradas/Entrada.txt");
+
     return 0;
 }
