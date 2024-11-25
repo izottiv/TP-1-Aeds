@@ -96,8 +96,7 @@ void EntradaDeArquivo(char* Link){
         else if (!strcmp(Linha, "I"))
         {
 
-            ImprimeCategoriaPeso(&_ListaSondas->Primeiro->sonda.CompartimentoSonda);
-            printf("--------------\n");
+            
         }
         else {
             /*
