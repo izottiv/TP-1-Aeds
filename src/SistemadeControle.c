@@ -175,7 +175,6 @@ void ImprimeStatusSondasADMIN(ListaSondas *Frotadesondas){
 }
 /*----------------------------------------------------------------------------------------------------*/
 void RedistribuicaoDeRochas(ListaSondas *Frotadesondas){
-    printf("Funcao Redistribuicao De Rochas chamada\n");
     RetornaBase(Frotadesondas); // Faz que todas as sondas serem movidas a coodernada (0,0)
     double media;
     int RochasRetiradas = 0,aux = 0;
@@ -258,7 +257,6 @@ void RedistribuicaoDeRochas(ListaSondas *Frotadesondas){
     else{
         printf("Nao e necessario redistribuir, nenhuma sonda ultrapaca a media\n");
     }
-    printf("===========================================================================\n");
 }
 void RetornaBase(ListaSondas *Frotadesondas){// Faz todas as sonda retornar para coordenadas 0,0
     CelulaSonda *AuxCont;

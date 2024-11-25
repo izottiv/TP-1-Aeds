@@ -25,7 +25,6 @@ void EntradaDeArquivo(char* Link){
 
     //Recebe a quantidade de SONDAS da primeira linha
     fgets(Linha, sizeof(Linha), ArquivoDeEntrada);
-    printf("%s", Linha);
     N_Sondas = atoi(Linha);  
     ListaSondas *_ListaSondas;
     _ListaSondas = malloc(N_Sondas*sizeof(CelulaSonda));
@@ -42,13 +41,11 @@ void EntradaDeArquivo(char* Link){
         float Combustivel = atof(strtok(NULL, " "));
         
         Sonda _Sonda;
-        InicializarSonda( &_Sonda);
+        InicializarSonda(&_Sonda);
         MoverSonda(&_Sonda, Latitude, Longitude);
         EditarValores(&_Sonda, Capacidade, Velocidade, Combustivel);
         InserirListaSondas(_ListaSondas, &_Sonda);
     }
-
-    printf("\n");
 
     fgets(Linha, sizeof(Linha), ArquivoDeEntrada);      //Recebe as M operações
     Operacoes = atoi(Linha);
@@ -58,12 +55,10 @@ void EntradaDeArquivo(char* Link){
     {
         fgets(Linha, sizeof(Linha), ArquivoDeEntrada);  //Recebe primeira operacao
         Linha[strcspn(Linha, "\n")] = '\0';             /*Sempre que eu tento manipular uma linha com o \n ele da erro, então com esta função eu sou capaz de trocar a sua ocorrencia por um nulo, eliminando as quebras de linha daquela linha salva */
-        printf("OPERACAO: %s\n", Linha);
 
         //Condicionais para fazer as OPERAÇÕES
         if(!strcmp(Linha, "R")){
             fgets(Linha, sizeof(Linha), ArquivoDeEntrada);  //Recebe a linha
-            printf("%s", Linha);
 
             float latitude = atof(strtok(Linha, " "));
             float longitude = atof(strtok(NULL, " "));
@@ -114,8 +109,6 @@ void EntradaDeArquivo(char* Link){
             RochaMineral Rocha;
             InicializaRochaMineral(&Rocha, peso, _listamineral, _localizacao);
             ClassificaCategoria(&Rocha, BH);
-            
-            TransformarCategoria(&Rocha);
 
             int ID = ProcurasIDSondaMaisproxima(_ListaSondas, &Rocha);
 
