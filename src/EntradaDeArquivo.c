@@ -9,7 +9,7 @@
 #include "ListaSonda/SondaEspacial/Compartimento/Rocha_Mineral/TAD_RochaMineral.h"
 #include "ListaSonda/SondaEspacial/Compartimento/Rocha_Mineral/Lista_Minerais/TAD_ListaMineral.h"
 #include "ListaSonda/SondaEspacial/Compartimento/Rocha_Mineral/Lista_Minerais/Mineral/TAD_Mineral.h"
-
+#include "EntradaDeArquivo.h"
 
 #define TamanhoMax 100
 
@@ -52,18 +52,16 @@ void EntradaDeArquivo(char* Link){
 
     fgets(Linha, sizeof(Linha), ArquivoDeEntrada);      //Recebe as M operações
     Operacoes = atoi(Linha);
-    
+    printf("%d\n",Operacoes);
 
     for (int i = 0; i < Operacoes; i++)
     {
         fgets(Linha, sizeof(Linha), ArquivoDeEntrada);  //Recebe primeira operacao
         Linha[strcspn(Linha, "\n")] = '\0';             /*Sempre que eu tento manipular uma linha com o \n ele da erro, então com esta função eu sou capaz de trocar a sua ocorrencia por um nulo, eliminando as quebras de linha daquela linha salva */
-        printf("OPERACAO: %s\n", Linha);
 
         //Condicionais para fazer as OPERAÇÕES
         if(!strcmp(Linha, "R")){
             fgets(Linha, sizeof(Linha), ArquivoDeEntrada);  //Recebe a linha
-            printf("%s", Linha);
 
             float latitude = atof(strtok(Linha, " "));
             float longitude = atof(strtok(NULL, " "));
@@ -115,20 +113,19 @@ void EntradaDeArquivo(char* Link){
             InicializaRochaMineral(&Rocha, peso, _listamineral, _localizacao);
             ClassificaCategoria(&Rocha, BH);
             
-            TransformarCategoria(&Rocha);
 
             int ID = ProcurasIDSondaMaisproxima(_ListaSondas, &Rocha);
 
             if(ID > 0){// Insere a rocha na sonda de acordo com o identificador recebido
-            CelulaSonda *ContSonda;
-            ContSonda = _ListaSondas->Primeiro->prox;
-            while (ContSonda != NULL){
-                if (ContSonda->sonda.IdentificadorSonda == ID){
-                    MoverSonda(&ContSonda->sonda,Rocha._Localizacao.Latitude,Rocha._Localizacao.Longitude);
-                    InserirRocha(&ContSonda->sonda.CompartimentoSonda,&Rocha,ContSonda->sonda.CapacidadeMaximaSonda);
+                CelulaSonda *ContSonda;
+                ContSonda = _ListaSondas->Primeiro->prox;
+                while (ContSonda != NULL){
+                    if (ContSonda->sonda.IdentificadorSonda == ID){
+                        MoverSonda(&ContSonda->sonda,Rocha._Localizacao.Latitude,Rocha._Localizacao.Longitude);
+                        InserirRocha(&ContSonda->sonda.CompartimentoSonda,&Rocha,ContSonda->sonda.CapacidadeMaximaSonda);
+                    }
+                    ContSonda = ContSonda->prox;
                 }
-                ContSonda = ContSonda->prox;
-            }
             }
             else{
                 printf("Nenhum sonda disponivel para receber a rocha\n");
